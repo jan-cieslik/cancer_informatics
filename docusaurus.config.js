@@ -124,7 +124,7 @@ const config = {
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} Built with Docusaurus.`,
+        copyright: `Under <a href="https://github.com/jan-cieslik/cancer_informatics/tree/main/LICENSE" target="_blank">MIT License</a>. Built with Docusaurus.`,
       },
       prism: {
         theme: lightCodeTheme,
