@@ -59,7 +59,7 @@ const config = {
       navbar: {
         title: 'Cancer Informatics',
         logo: {
-          alt: 'My Site Logo',
+          alt: 'Cancer Informatics Logo',
           src: 'img/logo.svg',
         },
         items: [
@@ -80,7 +80,7 @@ const config = {
       footer: {
         style: 'dark',
         links: [
-          {
+          /*{
             title: 'Docs',
             items: [
               {
@@ -88,7 +88,7 @@ const config = {
                 to: '/docs/intro',
               },
             ],
-          },
+          },*/
           /*{
             title: 'Community',
             items: [
@@ -116,6 +116,10 @@ const config = {
               {
                 label: 'GitHub',
                 href: 'https://github.com/jan-cieslik/cancer_informatics',
+              },
+              {
+                label: 'Impressum',
+                href: '/impressum',
               },
             ],
           },
