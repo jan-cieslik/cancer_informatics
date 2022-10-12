@@ -24,7 +24,12 @@ const config = {
   // to replace "en" with "zh-Hans".
   i18n: {
     defaultLocale: 'en',
-    locales: ['en'],
+    locales: ['en', 'de'],
+    localeConfigs: {
+      en: {
+        htmlLang: 'en-GB',
+      }
+    }
   },
 
   presets: [
@@ -63,18 +68,22 @@ const config = {
           src: 'img/logo.svg',
         },
         items: [
-          /*{
+          {
             type: 'doc',
-            docId: 'intro',
+            docId: 'Theory/intro',
             position: 'left',
-            label: 'Tutorial',
-          },*/
+            label: 'Theory',
+          },
           {to: '/blog', label: 'Blog', position: 'left'},
           {
             href: 'https://github.com/jan-cieslik/cancer_informatics',
             label: 'GitHub',
             position: 'right',
           },
+          {
+            type: 'localeDropdown',
+            position: 'right',
+          }
         ],
       },
       footer: {

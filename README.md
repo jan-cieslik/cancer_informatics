@@ -16,6 +16,11 @@ Run development server:
 ```
 npm run start
 ```
+Run development server with localisation:
+```
+npm run start -- --locale de
+```
+
 ## License
 
 This repository is under MIT license.
