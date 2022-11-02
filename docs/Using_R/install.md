@@ -16,7 +16,7 @@ Downloading R is an entirely free process. It requires little time and is ready-
 
 ![Installing R](./Images/InstallinR2.png)
 
-4. 	Follow the steps on the installation manager.
+4. Follow the steps on the installation manager.
 
 5. After the installation the R program should be found in the program's folder:
 
