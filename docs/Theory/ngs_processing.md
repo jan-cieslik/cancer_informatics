@@ -7,9 +7,13 @@ In this chapter we aim to explain the journey from raw FASTQ data to clinically 
 Our example data is purely for illustration purposes and mimics Illumina short read sequencing data from the MiSeq platform.
 
 ## File Formats
+
+We describe the file formats you will encounter in detail, as many beginners have never encountered them and some more experienced users have never opened a raw file.
+You don't need to understand the specifications in full, you just need to get a general understanding which information is stored.
+
 ### FASTQ: Raw Sequencing Reads
 FASTQ files encode (nucleotide) sequences coupled with quality values.
-This is typically the starting point of in silico analysis in NGS (although some sequencers create files in a proprietary data format which must be converted into FASTQ beforehand).
+This is typically the starting point of an in silico analysis in NGS (although some sequencers create files in a proprietary data format which must be converted into FASTQ beforehand).
 Each sequenced DNA molecule (also called a "read") is written separately into the file and spreads over four lines.
 1. Line: Encodes the sequence identifier, which stores information about the type of machine used, the ID of the run and information about the location of the read (inside the flow cell).
 2. Line: The raw (nucleotide) sequence
@@ -89,6 +93,20 @@ Each line contains information about a single variant.
 ```
 chr6	152011739	.	C	A	0.0	.	AS_SB_TABLE=34,31|19,35;DP=120;ECNT=9;MBQ=38,39;MFRL=205,205;MMQ=60,60;MPOS=64;POPAF=7.30;TLOD=199.26;ANN=A|structural_interaction_variant|HIGH|ESR1|ENSG00000091831|interaction|2B23:B_353-B_394:ENST00000206249|protein_coding|5/8|c.1180C>A||||||	GT:AD:AF:DP:F1R2:F2R1:SB	0/1:65,54:0.456:119:65,54:0,0:34,31,19,35
 ```
+
+## Processing Steps
+
+![NGS Overview](./Images/NGS_Overview.png)
+
+Our analysis journey begins with raw NGS reads in the FASTQ file format.
+At first, we need to align the reads with a reference genome (e.g., hg38) to understand where the raw reads may be positioned inside the human genome.
+After mapping we receive a SAM or BAM file, which stores our original reads together with a position information.
+Next, pre-processing steps are usually performed such as read deduplication and base quality score recalibration.
+These steps increase the reliability of the data and reduce biases.
+The resulting file is an analysis-ready BAM file.
+
+These analysis-ready BAM files then undergo variant calling, which yields a VCF file which lists all deviations from the reference genome.
+Afterwards the raw variants are filtered and annotated to produce a list of candidate variants which are then analysed by a clinician or geneticist.
 
 ##  Sources & Further Reading
 - Kappelmann-Fenzl, M. (Ed.). (2021). Next Generation Sequencing and Data Analysis. Springer International Publishing. https://doi.org/10.1007/978-3-030-62490-3

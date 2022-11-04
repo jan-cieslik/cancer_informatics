@@ -4,12 +4,12 @@ sidebar_position: 1
 # What is Cancer Informatics?
 
 _Cancer Informatics_ is a hybrid field which bridges the gap between translational cancer research and bioinformatics.
-A _Cancer Informatics_ researcher is able to leverage a multitude of technologies such as next generation sequencing, multiomics and radio imagery.
+A _Cancer Informatics_ researcher is able to leverage a multitude of technologies such as next generation sequencing, multiomics analysis and radio imagery.
 
 ## Cancer Informatics in Molecular Tumour Boards.
 
 Throughout the years next generation sequencing (NGS) has become cheaper and its availability is currently at an all-time high.
-NGS is an enabling technology for personalized medicine as clinicians and researchers can get a better understanding of the individual tumour biology.
+NGS is an enabling technology for personalized medicine as clinicians and researchers can get a better understanding of tumour biology on an individual level.
 Simultaneously the literature is flooded with new biomarkers promising better predictive and prognostic predictions.
 To get a better understanding, both on a macroscopic and an individual level, one requires a specialized researcher, who is able to master genomics, data science and clinical care.
 Typical clinical examples for the need for cancer informatics are molecular tumour boards, which try to channel the knowledge of multiple domains into one structured process.

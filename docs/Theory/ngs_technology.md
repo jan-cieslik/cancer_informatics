@@ -29,8 +29,7 @@ After sequencing the samples can then be virtually separated by the previously a
 ### Sequencing by Synthesis (SBS)
 
 One popular approach for NGS is Sequencing by Synthesis (SBS), which was initially developed by Illumina and is still in use today.
-After library preparation the (pooled) sample is loaded onto a flow cell,
-which is a glass slide with attached DNA probes to catch to capture a single DNA strand each.
+After library preparation the (pooled) sample is loaded onto a flow cell, which is a glass slide with attached DNA probes which each capture a single DNA strand.
 After capturing a DNA strand, the DNA is replicated inside a monoclonal cluster.
 Fluorescent nucleotides are utilized to decode the DNA base sequence of the cluster.
 The fluorescent values are measured and saved as raw data (together with per base quality metrics).
