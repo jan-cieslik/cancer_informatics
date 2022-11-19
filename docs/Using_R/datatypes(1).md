@@ -37,9 +37,9 @@ In this line of code, we assigned the value ` 5780` to the variable `number_cand
 **To change the value of a variable, you need to reassign the new value using `<-`. The new value will replace the previous value**
 
 ```R
-#Some candidates decided to not participate in the study, you have now around 5754 candidates. Assign a new value to the variable:
+#Some candidates decided to not participate in the study, you have now around 5770 candidates. Assign a new value to the variable:
 
-number_candidates <- 5780
+number_candidates <- 5770
 ```
 This change is also reflected in the workspace in RStudio:
 
