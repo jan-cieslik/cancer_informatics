@@ -1,3 +1,6 @@
+---
+sidebar_position: 5
+---
 # Operators
 
 An operator in computer science is usually a symbol or a set of symbols that represent an action. It tells the programme to perform a specific set of instructions or calculations. 
