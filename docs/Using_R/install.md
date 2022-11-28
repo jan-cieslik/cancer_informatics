@@ -26,18 +26,24 @@ Downloading R is an entirely free process. It requires little time and is ready-
 
 *R Studio is a piece of software that allows working with R a lot easier, by providing a graphical user interface. The interface allows to navigate and manage the information in R more efficiently.*
 
-1. Go to [R Studio](https://www.rstudio.com) and select RStudio on the top-right drop-down-menu:
+1. Go to [Posit.co](https://posit.co) and select Products on the top-left and then click on "RStudio IDE" drop-down-menu:
 
-![Installing R Studio](./Images/InstallinRstudio1.png)
+![Installing R Studio](./Images/InstallingRStudio1.png)
 
-2. Scroll down and choose the desktop version of RStudio:
 
-![Installing R Studio](./Images/InstallinRstudio2.png)
+> Note: As of November 2022, the company that manages RStudio has redesigned its name and website. However, the product, RStudio, remains unaltered and is still free to use.
 
+
+2. Scroll down and choose the free desktop version of RStudio:
+
+![Installing R Studio](./Images/InstallingRStudio2.png)
 
 3. You will be redirected to a latter part of the page, click on “download RStudio Desktop”
 
 ![Installing R Studio](./Images/InstallinRstudio3.png)
+
+------ 
+Ab hier neue Screenshots!!
 
 4.	Next, you will get to another page which asks you to choose the free or the paid version. Choose the free open source version and click on download:
 
