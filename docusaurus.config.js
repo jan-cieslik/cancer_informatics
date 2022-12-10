@@ -24,7 +24,12 @@ const config = {
   // to replace "en" with "zh-Hans".
   i18n: {
     defaultLocale: 'en',
-    locales: ['en'],
+    locales: ['en', 'de'],
+    localeConfigs: {
+      en: {
+        htmlLang: 'en-GB',
+      }
+    }
   },
 
   presets: [
@@ -63,18 +68,28 @@ const config = {
           src: 'img/logo.svg',
         },
         items: [
-          /*{
+          {
             type: 'doc',
-            docId: 'intro',
+            docId: 'theory/introduction',
             position: 'left',
-            label: 'Tutorial',
-          },*/
+            label: 'Theory',
+          },
+          {
+            type: 'doc',
+            docId: 'learning_R/introduction',
+            position: 'left',
+            label: 'Learning & Using R',
+          },
           {to: '/blog', label: 'Blog', position: 'left'},
           {
             href: 'https://github.com/jan-cieslik/cancer_informatics',
             label: 'GitHub',
             position: 'right',
           },
+          {
+            type: 'localeDropdown',
+            position: 'right',
+          }
         ],
       },
       footer: {
@@ -124,11 +139,12 @@ const config = {
             ],
           },
         ],
-        copyright: `Under <a href="https://github.com/jan-cieslik/cancer_informatics/tree/main/LICENSE" target="_blank">MIT License</a>. Built with Docusaurus.`,
+        copyright: `Under <a href="https://github.com/jan-cieslik/cancer_informatics/tree/main/LICENSE" target="_blank">MIT License</a> (exceptions for media elements may apply). Built with Docusaurus.`,
       },
       prism: {
         theme: lightCodeTheme,
         darkTheme: darkCodeTheme,
+        additionalLanguages: ['r']
       },
     }),
 };
