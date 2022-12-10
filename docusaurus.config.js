@@ -70,9 +70,15 @@ const config = {
         items: [
           {
             type: 'doc',
-            docId: 'Theory/introduction',
+            docId: 'theory/introduction',
             position: 'left',
             label: 'Theory',
+          },
+          {
+            type: 'doc',
+            docId: 'learning_R/introduction',
+            position: 'left',
+            label: 'Learning & Using R',
           },
           {to: '/blog', label: 'Blog', position: 'left'},
           {
