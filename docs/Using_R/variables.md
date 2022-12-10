@@ -47,7 +47,8 @@ This change is also reflected in the workspace in RStudio:
 
 ## Printing variables
 
-If you would like to see the contents of a variable, you can simply type out the name of the variable in the console. This is different to other programming languages, such as Python, where you usually use a function such as `print()` to display the content of the variable. You can also use this function in R to print variables.
+If you would like to see the contents of a variable, you can simply type out the name of the variable in the console.
+You can also use the `print()` function to print the value of variables.
 
 ```r
 colour_favourite <- "blue"
@@ -61,7 +62,7 @@ print(colour_favourite)
 Output: [1] "blue"
 ```
 
-You can also use the `cat()` or the `paste()` function to print out the variables. They are used to combining multiple values into a continuous print output:
+You can also use the `cat()` or the `paste()` function to print out the variables. They are used to combine multiple values into a continuous output:
 
 ```r
 #using the cat() function:
@@ -74,12 +75,11 @@ Output: [1] "My favourite colour is blue"
 
 ```
 
-You can also assign the same value to multiple of variables:
+You can also assign the same value to multiple variables:
 
 ```r
 
 breakfast_1 <- lunch_1 <- dinner_1 <- "Tuna sandwich"
-
 paste(breakfast_1, lunch_1, dinner_1)
-
+Output: [1] "Tuna sandwich Tuna sandwich Tuna sandwich"
 ```

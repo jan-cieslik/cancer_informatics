@@ -32,7 +32,7 @@ Categorical factors can be further divided into **nominal** and **ordinal** cate
 
 By default, R will set any factor into a nominal categorical variable, meaning that the data cannot be ordered. However, if you want to create an ordered factor (containing ordinal categorical variables), you require two additional arguments: `order` and `levels`:
 - The `order` parameter is a logical clue. By default, R will not order the values factor.  However, by setting the `order = TRUE`, the values will be sorted.
-- The `levels` argument is vector which contains the values in the correct order.
+- The `levels` argument is a vector which contains the values in the correct order.
 
 ```r
 # create a vector that contains all the data that belong to a limited number of categories
@@ -52,7 +52,7 @@ Levels: no pain < little pain < strong pain < very strong pain
 
 ### The `levels()` function
 
-The `levels()` function can also be used as a standalone to print out the categories of a factor.
+The `levels()` function can also be used standalone to print out the categories of a factor.
 
 ```r
 levels(factor_pain_vector)
@@ -62,8 +62,9 @@ R will only output the categories and not the entire data set:
 [1] "no pain"          "little pain"      "strong pain"      "very strong pain"
 ```
 
-In addition, the `levels()` function is used to change the names of the categories. This done for a better clarity of the data. Here is an example:
+In addition, the `levels()` function is used to change the names of the categories to increase the clarity of the data.
 
+:::note Example
 You are conducting an experiment to find out the lethal dose of a new pharmaceutical drug. As part of your observation, you note down whether the experimental mice died from the given dose. To save time, you abbreviate your findings with "D" (Dead) or "ND" (Not dead) and save them into a vector in R:
 
 ```r
@@ -84,10 +85,11 @@ The output will now show a factor with the data being converted from `"D"` and `
 [13] not dead not dead dead    
 Levels: dead not dead
 ```
+:::
 
 :::tip
 
-The order in which you assign the new factor levels is important, as R may otherwise not correctly map the data correctly!
+The order in which you assign the new factor levels is important, as R may otherwise not correctly map the data!
 
 :::
 
@@ -100,7 +102,7 @@ factor_pain_vector[2] <  factor_pain_vector[5]
 [1] FALSE
 ```
 
-To change a value of a specific item in a factor, use the index number and assign the new value using ←.
+To change a value of a specific item in a factor, use the index number and assign the new value using `<-`.
 ```r
 factor_pain_vector[5] <- "little pain"
 ```
@@ -112,7 +114,7 @@ Levels: no pain < little pain < strong pain < very strong pain
 ```
 
 :::caution
-💡 You cannot change the value of a specific item, if it is not already specified in the factor.
+💡 You cannot change the value of a factor to an undefined level.
 
 ```r
 factor_pain_vector[5] <- "excruciating pain"
@@ -128,12 +130,12 @@ In `[<-.factor`(`*tmp*`, 5, value = "excruciating pain") :
 
 ## `Summary()` function
 
-The `Summary()` function is a very convenient tool in R to get a quick overview of the content. You can use to function on a vector:
+The `Summary()` function is a very convenient tool in R to get a quick overview of the content. You can use the function on a vector:
 ```r
 # Summary for a vector
 summary(lethal_dose_vector)
 ```
-R will print out the following for a vector:
+R will print out the following output:
 ```r
    Length     Class      Mode 
        15 character character 

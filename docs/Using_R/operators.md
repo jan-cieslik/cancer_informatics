@@ -18,7 +18,7 @@ Arithmetic operators are used to perform maths operations:
 | * | Multiplication |       
 |    /  |  Division |          
 | %%      | Modulus: returns the remainder of the division of the number to the left by the number on its right | 
-|   %/%   | Gives result of division of first vector with second (quotient) | 
+|   %/%   | Quotient: returns result of division of the first vector with the second | 
 |   ^   | Index | 
 
 

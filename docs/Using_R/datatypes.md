@@ -10,7 +10,6 @@ There are six different data types in R:
 
 - **Integer** - whole numbers, such as 4. They can also be negative. This data type can also count as numeric.
 - **Logical** - data that takes only two values: `FALSE` or `TRUE`. 
-    - `NA` is a special type of logical and is used to represent missing values.
 - **Character** - symbols, letters, words or phrases. The data is denoted using quotation marks: ` "This is text."` 
 - **Complex** - data that contains complex number, such as `9 + 3i`.
 - **Raw** - holds raw bytes. This is a rather unusual data type and only mentioned for the sake of completeness.
