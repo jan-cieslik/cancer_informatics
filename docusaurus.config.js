@@ -70,9 +70,15 @@ const config = {
         items: [
           {
             type: 'doc',
-            docId: 'Theory/introduction',
+            docId: 'theory/introduction',
             position: 'left',
             label: 'Theory',
+          },
+          {
+            type: 'doc',
+            docId: 'learning_R/introduction',
+            position: 'left',
+            label: 'Learning & Using R',
           },
           {to: '/blog', label: 'Blog', position: 'left'},
           {
@@ -133,7 +139,7 @@ const config = {
             ],
           },
         ],
-        copyright: `Under <a href="https://github.com/jan-cieslik/cancer_informatics/tree/main/LICENSE" target="_blank">MIT License</a>. Built with Docusaurus.`,
+        copyright: `Under <a href="https://github.com/jan-cieslik/cancer_informatics/tree/main/LICENSE" target="_blank">MIT License</a> (exceptions for media elements may apply). Built with Docusaurus.`,
       },
       prism: {
         theme: lightCodeTheme,

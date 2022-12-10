@@ -12,18 +12,18 @@ In addition to downloading R, R Studio is a great complement, as it gives you an
 1. Go to [The Comprehensive R Archive Network (CRAN)](https://cran.r-project.org).
 2. Choose your operating system and click on the corresponding download link:
 
-![InstallingR](./Images/InstallinR1.png)
+![InstallingR](./Images/InstallingR1.png)
 
 3. Download the latest version of R and click on the filename to begin the installation.
 The latest Version (R-4.2.1.pkg as of 31.10.2022) can be found at the top of the page:
 
-![Installing R](./Images/InstallinR2.png)
+![Installing R](./Images/InstallingR2.png)
 
 4. Follow the steps on the installation manager.
 
 5. After the installation the R program should be found in the program's folder:
 
-![Installing R](./Images/InstallinR3.png)
+![Installing R](./Images/InstallingR3.png)
 
 ## Installing R Studio
 
@@ -43,7 +43,7 @@ The latest Version (R-4.2.1.pkg as of 31.10.2022) can be found at the top of the
 
 3. You will be redirected to a latter part of the page, click on “download RStudio Desktop”
 
-![Installing R Studio](./Images/InstallinRstudio3.png)
+![Installing R Studio](./Images/InstallingRstudio3.png)
 
 ------ 
 Ab hier neue Screenshots!!
@@ -51,14 +51,14 @@ Ab hier neue Screenshots!!
 4.	Next, you will get to another page which asks you to choose the free or the paid version.
 Choose the free open source version and click on download:
 
-![Installing R Studio](./Images/InstallinRstudio4.png)
+![Installing R Studio](./Images/InstallingRstudio4.png)
 
 5.	You are going to get redirected to a site with a list of installers for supported platforms, however, the website usually recommends an installer based on your operating system. Click on “Download RStudio for ….”
 
-![Installing R Studio](./Images/InstallinRstudio5.png)
+![Installing R Studio](./Images/InstallingRstudio5.png)
 
 6.	Go through the installation process. Afterwards, RStudio should be found in your Programs Folder:
 
-![Installing R Studio](./Images/InstalllinRstudio6.png)
+![Installing R Studio](./Images/InstallingRstudio6.png)
 
 7.	Congratulations, you have successfully downloaded R and R Studio! 🥳
