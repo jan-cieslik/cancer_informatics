@@ -3,7 +3,9 @@ sidebar_position: 2
 ---
 # Installing R and R Studio
 
-Downloading R is an entirely free process. It requires little time and is ready-to-use directly after the installation process. In addition to downloading R, R Studio is a great complement, as it gives you an integrated user interface that works alongside the conventional R interpreter and allows for smooth and hasslefree coding!
+Downloading R is an entirely cost-free process.
+It requires little time and is ready-to-use directly after the installation process.
+In addition to downloading R, R Studio is a great complement, as it gives you an integrated user interface that works alongside the conventional R interpreter and allows for smooth and hassle free coding!
 
 ## Installing R
 
@@ -12,7 +14,8 @@ Downloading R is an entirely free process. It requires little time and is ready-
 
 ![InstallingR](./Images/InstallinR1.png)
 
-3. Download the latest version of R and click on the filename to begin the installation. The latest Version (R-4.2.1.pkg as of 31.10.2022) can be found at the top of the page:
+3. Download the latest version of R and click on the filename to begin the installation.
+The latest Version (R-4.2.1.pkg as of 31.10.2022) can be found at the top of the page:
 
 ![Installing R](./Images/InstallinR2.png)
 
@@ -45,7 +48,8 @@ Downloading R is an entirely free process. It requires little time and is ready-
 ------ 
 Ab hier neue Screenshots!!
 
-4.	Next, you will get to another page which asks you to choose the free or the paid version. Choose the free open source version and click on download:
+4.	Next, you will get to another page which asks you to choose the free or the paid version.
+Choose the free open source version and click on download:
 
 ![Installing R Studio](./Images/InstallinRstudio4.png)
 
@@ -58,8 +62,3 @@ Ab hier neue Screenshots!!
 ![Installing R Studio](./Images/InstalllinRstudio6.png)
 
 7.	Congratulations, you have successfully downloaded R and R Studio! 🥳
-
-
-
-
-

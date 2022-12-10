@@ -1,7 +1,7 @@
 # Vectors and Lists
 
-A vector is defined as a place to hold a sequence of elements of the same data type. It is one of the data structures used in R programming. 
-
+A vector is defined as a place to hold a sequence of elements of the same data type.
+It is one of the data structures used in R programming. 
 There are two fundamental one dimensional data structures holding multiple elements: 
 
 - Atomic vectors
@@ -10,8 +10,8 @@ There are two fundamental one dimensional data structures holding multiple eleme
 :::note
 
 
-The elements inside an atomic vector **must** be of the same data type and separated by a comma! If you create a vector with different data types, all non-character values will be coerced into a character type element, if one of them is character.
-
+The elements inside an atomic vector **must** be of the same data type and separated by a comma!
+If you create a vector with different data types, all non-character values will be coerced into a character type element, if one of them is character.
 
 Lists, on the other hand, can contain elements of different data types. 
 
@@ -21,7 +21,6 @@ To create an atomic vector, use the `c()` function:
 
 ```r
 # In the following vector the names of 10 students in a classroom are stored
-
 names_class <- c("Pia", "Mia", "Tia", "Kevin", "Rock", "Sam", "Richard", "Sara", "Tim")
 ```
 Just like variables, you can simply type out the name of the vector, to display its contents. For the above example, the output would be:
@@ -33,11 +32,9 @@ Just like variables, you can simply type out the name of the vector, to display 
 [9] "Tim"   
 ```
 
-
-
 ## Selecting elements from vectors
 
-### Method 1
+### Method 1: Specify an Index
 You can choose specific elements from a vector through vector indexing. To do this, use square brackets (e.g. vector[1]) after the vector name and type in the index number that represents the position of the element inside the vector.
 
 :::info Index in R
@@ -128,11 +125,10 @@ R will omit the element at index 2 in its output:
 
 :::
 
-### Method 2
+### Method 2: Specify row/column names
 
- Rather than using indices, you can also select elements by their names. For this, you need to name each individual element inside a vector using the `names()` function:
-
-
+ Rather than using indices, you can also select elements by their names.
+ For this, you need to name each individual element inside a vector using the `names()` function:
 
  ```r
 # Creating a vector that stores the pulse rate of a patient that was measured consecutively every day for a week
@@ -154,7 +150,7 @@ Friday  Saturday    Sunday
    64        61        57 
 ```
 
-Now, to  select an element from the `pulse_rate` vector, use the designated name:
+Now, to select an element from the `pulse_rate` vector, use the designated name:
 
 ```r
 # Select the pulse rate that was measured on Thursday
@@ -168,9 +164,7 @@ Thursday
     59 
 ```
 
-
 Similar to the first method, you can also select multiple elements using their names:
-
 
 ```r
 # Select the pulse rate that was measured on Monday, Tuesday and Friday
@@ -192,7 +186,7 @@ When using names to select elements from a vector, you cannot use the colon oper
 :::
 
 
-### Method 3
+### Method 3: Specify a Logical Vector
 This method requires the use of a logical operator which was introduced before. 
 
 At first, you need to define a logical argument:
@@ -225,7 +219,8 @@ R will automatically only show the elements that correspond to `TRUE` in `logica
 
 :::tip
 
-To make the data even clearer, you can name the elements inside `pulse_rate` as seen in Method 2. That way you will also see on which day the pulse rate was above 65 bpm:
+To make the data even clearer, you can name the elements inside `pulse_rate` as seen in Method 2.
+That way you will also see on which day the pulse rate was above 65 bpm:
 
 ```r
 pulse_rate <- c(78, 68, 74, 59, 64, 61, 57)
@@ -270,7 +265,8 @@ The output of `temperature_overall` is:
 
 ### Arithmetic operations
 
-You can perform any arithmetic operation on vectors by using the arithmetic operators that were introduced a few chapters earlier. Note that R works element-wise, e.g. when adding two vectors, the first element in each vector is added together, then the second element in each vector is added together and so on:
+You can perform any arithmetic operation on vectors by using the arithmetic operators that were introduced a few chapters earlier.
+Note that R works element-wise, e.g. when adding two vectors, the first element in each vector is added together, then the second element in each vector is added together and so on:
 
 ```r
 vector_1 <- c(3, 3, 3)
@@ -284,7 +280,6 @@ subtract_vector <- vector_1  - vector_2
 
 # divide vector_1 with vector_2
 divide_vector <- vector_1  / vector_2
-
 ```
 This will give the following output:
 
@@ -399,13 +394,8 @@ The output will show the following:
 [9] "Tim" 
 ```
 
-
 :::tip
 
 To sort the elements in reverse order, use the additional parameter `decreasing = TRUE`. This can be used for both numerical and character vectors!
 
 :::
-
-
-
-

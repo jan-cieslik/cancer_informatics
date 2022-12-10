@@ -7,7 +7,6 @@ In R it is important to understand that there are different types of data, as ma
 
 There are six different data types in R:
 - **Numeric** - decimal numbers, such as 3.14. They can be negative.
-
 - **Integer** - whole numbers, such as 4. They can also be negative. This data type can also count as numeric.
 - **Logical** - data that takes only two values: `FALSE` or `TRUE`. 
 - **Character** - symbols, letters, words or phrases. The data is denoted using quotation marks: ` "This is text."` 
@@ -49,7 +48,8 @@ Output: [1] "FALSE"
 ```
 
 ## Coercing Data:
-You can also change the type of data in a variable by using the `as.[classOfData]()` function. This will convert whatever data type you have stored in a variable to a different, specified data type. 
+You can also change the type of data in a variable by using the `as.[classOfData]()` function.
+This will convert whatever data type you have stored in a variable to a different, specified data type. 
 
 ```r
 #Create a variable and assign a numeric. 
@@ -65,7 +65,8 @@ Output: [1] "87.9"
 class(test_scores)
 Output: [1] "character"
 ```
-You need to be careful with this function, as you cannot convert all data types into one another. For instance, you will receive an error message, when you try to convert a character string into a numeric:
+You need to be careful with this function, as you cannot convert all data types into one another.
+For instance, you will receive an error message, when you try to convert a character string into a numeric:
 
 ```r
 #Create a variable and assign a character. 
@@ -89,4 +90,3 @@ The `is.[classOfData]()` and the `as.[classOfData]()` function look slightly dif
 | Logical | `is.logical()` |        `as.logical()` |
 | Complex     |  `is.complex()` |          `as.complex()` |
 | Integers      | `is.integer()` | `as.integer()`
-

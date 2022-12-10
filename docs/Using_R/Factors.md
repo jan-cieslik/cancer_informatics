@@ -65,7 +65,8 @@ R will only output the categories and not the entire data set:
 In addition, the `levels()` function is used to change the names of the categories to increase the clarity of the data.
 
 :::note Example
-You are conducting an experiment to find out the lethal dose of a new pharmaceutical drug. As part of your observation, you note down whether the experimental mice died from the given dose. To save time, you abbreviate your findings with "D" (Dead) or "ND" (Not dead) and save them into a vector in R:
+You are conducting an experiment to find out the lethal dose of a new pharmaceutical drug. As part of your observation, you note down whether the experimental mice died from the given dose.
+To save time, you abbreviate your findings with "D" (Dead) or "ND" (Not dead) and save them into a vector in R:
 
 ```r
 lethal_dose_vector <- c("D", "ND", "ND", "ND","D", "ND", "D", "D", "D", "D", "D", "D", "ND", "ND", "D")
@@ -95,7 +96,8 @@ The order in which you assign the new factor levels is important, as R may other
 
 ## Selecting factors
 
-You can select elements from the factor using the square brackets. If the factor is ordered, you can compare different values, using the operators:
+You can select elements from the factor using the square brackets.
+If the factor is ordered, you can compare different values, using the operators:
 
 ```r
 factor_pain_vector[2] <  factor_pain_vector[5]
@@ -130,7 +132,9 @@ In `[<-.factor`(`*tmp*`, 5, value = "excruciating pain") :
 
 ## `Summary()` function
 
-The `Summary()` function is a very convenient tool in R to get a quick overview of the content. You can use the function on a vector:
+The `Summary()` function is a very convenient tool in R to get a quick overview of the content.
+You can use the function on a vector:
+
 ```r
 # Summary for a vector
 summary(lethal_dose_vector)

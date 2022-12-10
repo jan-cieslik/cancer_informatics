@@ -10,8 +10,8 @@ A matrix can be created with the `matrix()` function.
 In addition to this, we also need to include a few **parameters** and  **functions** to specify the layout of the matrix:
 
 ### The `data` parameter
-This is usually the first argument in the `matrix()` function and includes all the elements, that will be arranged into a matrix. The data can be supplied via a vector:
-
+This is usually the first argument in the `matrix()` function and includes all the elements, that will be arranged into a matrix.
+The data can be supplied via a vector:
 
 ```r
 # Define a vector on the spot using c()
@@ -47,7 +47,8 @@ Both examples will result in the same output:
 
 ### The `nrow` and `ncol` parameter
 
-R will create a matrix of one column and as many rows as the length of the vector by default. However, you can also specify how many columns and rows should be used.
+R will create a matrix of one column and as many rows as the length of the vector by default.
+However, you can also specify how many columns and rows should be used.
 
 
 The `nrow` parameter indicates how many rows (left to right) the matrix should have, while the `ncol` parameter indicates how many columns (top to bottom) a matrix should have:
@@ -98,7 +99,8 @@ R will also leave a warning along the lines of: *Data length is not a divisor or
 
 ### The `byrow` parameter
 
-The `byrow` parameter is a logical clue. By default, R will order the values column-wise (column by column). However, by setting the `byrow = TRUE`, the values will be sorted by rows.
+The `byrow` parameter is a logical clue. By default, R will order the values column-wise (column by column).
+However, by setting the `byrow = TRUE`, the values will be sorted by rows.
 
 ```r
 data_matrix <- 1:6
@@ -127,23 +129,18 @@ The following code snippet illustrates how to display the information in a matri
 
 ```r
 # create a vector that contains the temperatures measured 3 times a day in New Delhi, Berlin and Riod de Janeiro
-
 temperature_vector <- c(12, 23, 24, 5, 5, 3, 23, 26, 25)
 
 # create a matrix to show the above information in a more organised manner
-
 temperature_matrix <- matrix(temperature_vector, nrow = 3, ncol = 3)
 
 # create a vector for the names of the columns of the matrix. The names are the 3 different locations at which the temperature was measured
-
 place_vector <- c("New Delhi", "Berlin", "Rio de Janeiro")
 
 # create a vector for the names of the rows of the matrix. The names are the times of the day at which the temperature was measured
-
 time_vector <- c("morning", "noon", "evening")
 
 # assign the vectors containing the names to the temperature_matrix using the appropriate functions
-
 rownames(temperature_matrix) <- time_vector
 colnames(temperature_matrix) <- place_vector
 ```
@@ -281,7 +278,6 @@ The output will be a matrix with selected elements:
 [4,]   13   14   15   16
 
 # the following is a matrix containing only the selected elements
-
 > another_matrix[2:4, c(1,4)]
 
      [,1] [,2]
