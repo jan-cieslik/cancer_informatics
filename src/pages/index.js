@@ -16,8 +16,7 @@ function HomepageHeader() {
         <p className="hero__subtitle">{siteConfig.tagline}</p>
         
         <p className="hero__subtitle">
-          This is a new project envisioned to start in October 2022.
-          Visit us at a later date to learn more.
+          This is a work in progress project. If you have any suggestions open a <a style={{color:"white"}} href="https://github.com/jan-cieslik/cancer_informatics/issues/new">GitHub Issue</a>.
         </p>
 
       </div>
