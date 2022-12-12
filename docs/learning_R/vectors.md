@@ -1,4 +1,4 @@
-# Vectors and Lists
+# Vectors
 
 A vector is defined as a place to hold a sequence of elements of the same data type.
 It is one of the data structures used in R programming. 
@@ -125,7 +125,7 @@ R will omit the element at index 2 in its output:
 
 :::
 
-### Method 2: Specify row/column names
+### Method 2: Specify the names
 
  Rather than using indices, you can also select elements by their names.
  For this, you need to name each individual element inside a vector using the `names()` function:
