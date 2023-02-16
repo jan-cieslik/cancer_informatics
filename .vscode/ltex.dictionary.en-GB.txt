@@ -6,3 +6,4 @@ FASTQ
 ACMG
 ACMG-AMP
 ggplot
+RStudio

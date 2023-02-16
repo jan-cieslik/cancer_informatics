@@ -1,7 +1,13 @@
 ---
 sidebar_position: 2.5
 ---
-# Creating a Project in R
+# Setting up the Environment
+
+## Working Directory
+
+## Absolute and Relative Paths
+
+## RStudio Projects
 By creating a project in R, you choose a folder as your working space and directory. 
 This means that R will call files from this folder (for example when using .csv files for your data) and save plots and data in it.
 ![workspace_1](./Images/workspace_1.png)
