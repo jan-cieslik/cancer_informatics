@@ -1,4 +1,7 @@
-# Creating a project in R
+---
+sidebar_position: 2.5
+---
+# Creating a Project in R
 By creating a project in R, you choose a folder as your working space and directory. 
 This means that R will call files from this folder (for example when using .csv files for your data) and save plots and data in it.
 ![workspace_1](./Images/workspace_1.png)
@@ -11,7 +14,7 @@ In the bottom right part of R Studio you can now see your working directory. "Vi
 ![workspace_3](./Images/workspace_3.png)
 
 You can now create scripts and save data in this folder.
-When using a file from this folder, you don't give R the whole directory but simply start within the working directory. 
-For example, instead of using "documents/r/data.csv", you can use "data.csv" if "r" is your working directory.
+When using a file from this folder, you don't give R the whole directory but simply start within the working directory (relative path). 
+For example, instead of using an absolute path like `C:/.../documents/r_project/data.csv`, you can use `data.csv` if `r_project` is your working directory.
 
-It is possible to create several R-projects for several different topics, so you can easily keep an overview over you scripts and data.
+It is possible to create several R-projects, so you can easily keep an overview over you scripts and data.

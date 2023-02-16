@@ -17,7 +17,7 @@ A variable is created when you assign a value to it. There are three symbols use
 
 :::note Example
 You have a study that has 5780 candidates. You would like to store that number in a variable:
-```R
+```r
 number_candidates <- 5780
 ```
 In this line of code, we assigned the value ` 5780` to the variable `number_candidates`. R will store the variable and its value assigned in the current workspace. You can view all variables in the workspace in RStudio in the ‘Environment’ tab in the top right corner.
@@ -30,7 +30,7 @@ In this line of code, we assigned the value ` 5780` to the variable `number_cand
 
 :::note Example
 Some candidates decided to not participate in the study, you have now around 5770 candidates. Assign a new value to the variable:
-```R
+```r
 number_candidates <- 5770
 ```
 This change is also reflected in the workspace in RStudio:
