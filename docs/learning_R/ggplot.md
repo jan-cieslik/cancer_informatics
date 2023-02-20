@@ -17,7 +17,7 @@ library(ggplot2)
 Let's assume your data is stored as a .csv file.
 There are two basic ways of reading csv files: `read.table()` and `read.csv()`.
 The default settings of both functions differ slightly.
-If you created a RStudio project beforehand (see ["Creating a project in R"](project.md)), then your working directory will be automatically setup for you and you can refer to your .csv file relative to your working directory.
+If you created a RStudio project beforehand (see ["Setting up the environment"](environment.md)), then your working directory will be automatically setup for you and you can refer to your .csv file relative to your working directory.
 Otherwise you may need to use an absolute path to your file.
 The whole function could look like this, assuming your file contains a header row and the values are separated by a semicolon:
 ```r
