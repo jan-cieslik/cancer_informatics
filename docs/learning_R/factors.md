@@ -155,3 +155,8 @@ The output for a factor will be a little different:
    dead not dead 
        9        6 
 ```
+
+:::info
+the `summary` function is a generic function which can be used across various data structures!
+
+:::
