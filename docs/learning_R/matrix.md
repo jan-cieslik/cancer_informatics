@@ -1,3 +1,7 @@
+---
+sidebar_position: 9
+---
+
 # Matrix
 
 - A matrix is a two-dimensional tool to store a collection of data of the same type (numeric, character, or logical).

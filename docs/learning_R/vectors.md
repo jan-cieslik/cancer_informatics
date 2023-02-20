@@ -1,3 +1,7 @@
+---
+sidebar_position: 7
+---
+
 # Vectors
 
 A vector is defined as a place to hold a sequence of elements of the same data type.
