@@ -1,6 +1,9 @@
+---
+sidebar_position: 8
+---
 # Lists
 
-Lists were already mentioned in the vectors chapter; as being  very versatile data structures: they allow objects of various types to gather under one name (the name of the list). The objects can be all the data structures we have seen so far, such as vectors, factors, data frames, matrices, arrays and other lists.
+Lists were already described in the vectors chapter as being  versatile data structures: they allow objects of various types to gather under one name (the name of the list). The objects can be all the data structures we have seen so far, such as vectors, factors, data frames, matrices, arrays and other lists.
 
 ## Creating a list
 To create a list, use the ` list()` function. The arguments inside the function can be any other data structure. They are also known as the list components:

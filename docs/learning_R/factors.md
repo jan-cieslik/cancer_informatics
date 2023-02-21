@@ -1,3 +1,6 @@
+---
+sidebar_position: 6
+---
 # Factors
 
 A factor is a data type used to store categorical variables. **Categorical** variables only have a limited number of categories, such as eye colour. In contrast, a **continuous** variable can have an infinite number of values, such as heights of different people. It is important to differentiate between these because statistical models treat them differently. The categories that data sets can take are referred to as **factor levels** in R.
@@ -155,3 +158,8 @@ The output for a factor will be a little different:
    dead not dead 
        9        6 
 ```
+
+:::info
+the `summary` function is a generic function which can be used across various data structures!
+
+:::
