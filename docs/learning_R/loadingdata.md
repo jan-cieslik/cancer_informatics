@@ -1,33 +1,40 @@
 ---
-sidebar_position: 9
+sidebar_position: 11
 ---
 
 # Loading Data into R
 
 One way to use R is by typing your data directly into R.
-But what if you already have data local on your computer or maybe online?
-**Let's learn how do load existing data into R!**
+But what if you already had data local on your computer or online?
+**Let's learn how to load pre-existing data into R!**
 
 ## Data types
 
-First, we will learn how to import CSV, TXT, Excel, JSON, Database, and XML/HTML data files into R.
+First, we will learn how to import CSV, TXT, Excel, JSON, and XML data files into R.
 These are commonly used data types.  
-Afterwards, we will have a look at uncommon data types, such as SAS, SPSS, Stata, Matlab, and Binary.
 
 ## Importing a CSV file
 
 **CSV** (**C**omma-**S**eperated **V**alues) is a plain-text file that contains data.
-As the name reveals, CSV files use a comma to seperate values.
+As the name reveals, CSV files use a comma to separate values.
 
-In the following example, we will use `patient_data.csv`.
+:::note example dataset `patient_data.csv`
+```
+Name, Sex, Age, Blood.type
+Joe J., m, 34, A+
+Laura M., f, 56, AB+
+Isobel P., f, 23, 0+
+Nina W., f, 18, B-
+```
+:::
 The first row of the file contains the column names.
 
 > :bulb: **Tip:** With `dir()` you can list existing files in your working directory.
 
 ### `utils` & `read.csv()`
 
-To import a CSV file, you need the `read.csv()` function.
-It comes with the `utils` package, which is loaded by default when you start R, so you don't need to install anything.
+To import a CSV file, you can use the `read.csv()` function.
+It is included with the `utils` package, which is loaded by default when you start R, so you don't need to install anything.
 
 ```r
 # Import patient_data.csv: patients
@@ -44,41 +51,18 @@ output:
  $ Blood.type: chr  "A+" "AB+" "0+" "B-"
 ```
 
-### `stringsAsFactors`
-
-`stringsAsFactors` can be used to tell R whether it should convert strings in the CSV file to factors.
-
-By default, the functions in the `utils` package set the argument as `TRUE`, so you import strings as factors.
-But this only makes sense if you want to import categorial variables.   
-By setting `stringsAsFactors` to `FALSE`, the data frame columns corresponding to strings in your CSV file will be imported as characters, not as factors.
-
-```r
-# Import patient_data.csv correctly: patients
-pools <- read.csv("patient_data.csv", stringsAsFactors = FALSE)
-
-# Check the structure of patients
-str(patients)
-
-output:
-'data.frame':	4 obs. of  4 variables:
- $ Name      : chr  "Joe J." "Laura M." "Isobel P." "Nina W."
- $ Sex       : chr  "m" "f" "f" "f"
- $ Age       : int  34 56 23 18
- $ Blood.type: chr  "A+" "AB+" "0+" "B-"
-```
-
 ## Importing a TXT file
 
-**TXT** files are plain text documents with little to no formatting.
+**TXT** files are plain text documents with no predetermined formatting.
 They can be used to store notes, instructions, manuscripts, or other text-based information. 
 
-### `read.delim`
+### `read.delim()`
 
 To import TXT files, use the `read.delim()` function.
-By default, the `sep` argument is set to `"\t"`(fields are seperated by tabs) and the `header` argument to `TRUE` (the first row contains the field names).
+By default, the `sep` argument is set to `"\t"`(fields are separated by tabs) and the `header` argument to `TRUE` (the first row contains the field names).
 
 In the following example, we will import `medication.txt`, which contains 3 variables, but the variable names are *not* headed in the first line.
-That means, we will have to set the argument `header` to `FALSE`. The file also uses tabs as field seperators.
+That means, we will have to set the argument `header` to `FALSE`. The file also uses tabs as field separators.
 
 ```r
 # Import pain_medication.txt.: medication
@@ -124,8 +108,9 @@ Tilidine/Naloxone p.o.        50/4   mg
 
 **Excel** is a software program that uses spreadsheets to organize numbers and data with formulas and functions. 
 
-To import data from Excel, you have to install the [readxl package](https://readxl.tidyverse.org/) first.
-You can simply do this by typing `install.packages("readxl")` into R.
+There is a multitude of packages for xlsx import, here we will choose one at random.
+To import data from Excel, you can use the [readxl package](https://readxl.tidyverse.org/) first.
+You can simply do this by entering `install.packages("readxl")` into the R console.
 Then you can load the `readxl` package by using `library(readxl)`:
 
 ```r
