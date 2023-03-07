@@ -46,6 +46,10 @@ my_sd
 output:
 [1] 2.5
 ```
+
+**NOTE**   
+R passes arguments by value, not by reference.
+It basically implies that a variable that you pass into a R function cannot be changed.
 :::
 
 ## Built-in Functions
@@ -129,9 +133,170 @@ function_name <- function(arguments) {
 - **Function name**: It should be short yet clear and meaningful, so that the person who sees our code understands exactly what this function performs.
 - **Function arguments**: We have already covered what arguments are.
 But it is possible for a function to have no arguments, although this is rarely practical.
+You can have as many arguments as you like, and you may assign dafault values to them or not.
 - **Function body**: The function body is a collection of commands enclosed by curly braces that are executed in a preset sequence each time the function is called.
 In other words, we put what we need the function to accomplish in the function body.
 
 :::note example
+We want to create a function that squares the given integer.
+```r
+# Build the function square()
+square <- function(x) {
+    x^2
+}
 
+# Calculate 4 squared
+square(4)
+
+output:
+[1] 16
+```
 :::
+
+### Return values
+
+By default, R returns the value of the function's final statement.
+However, you may use the `return()` function to directly tell R what to return.
+
+:::note example
+You must assign `x` to a new variable and return it in the function body to do this.
+```r
+# Return the value y by assigning y to x squared
+square <- function(x) {
+    y = x^2
+    return(y)
+}
+
+# Calculate 4 squared
+square(4)
+
+output:
+[1] 16
+```
+:::
+
+Using return at the conclusion of the function body is not usually beneficial, although it might be useful in some instances.
+
+## Function scoping
+
+Function scoping means that variables specified within a function are inaccessible outside of that function.
+
+Consider our global R environment (our whole program) to be a room that contains all of the objects, variables, functions, etc. that we have utilized.
+When we call a variable x, R will search around the room to get the value of x.
+
+:::tip
+We may use `ls()` to see what's in our environment.
+:::
+
+As we define a new function, R sets up a fresh temporary environment for it.
+Imagine setting up a new room within our global R environment.
+The new room contains all of the objects we have created, modified, and used within the function.
+But, as soon as the function is finished performing, the room disappears.
+
+:::note example
+The next example will show you that the variable `txt` does not exist outside of the function, only inside it.
+```r
+# Create a function with a local variable
+R <- function() {
+  txt <- "cool"
+  paste("R is", txt)
+}
+
+# Print out R()
+R()
+
+output:
+[1] "R is cool"
+
+# Call the variable txt
+txt
+
+output:
+Error: object 'txt' not found
+```
+:::
+
+:::tip
+You may use the global assignment operator `<<-` to define a global variable inside of a function.
+
+```r
+# Create a function with a global variable
+R <- function() {
+  txt <<- "cool"
+  paste("R is", txt)
+}
+
+# Print out R()
+R()
+
+output:
+[1] "R is cool"
+
+# Call the variable txt
+txt
+
+output:
+[1] "cool"
+```
+The variable `txt` is now accessible outside of the function.
+:::
+
+## R Packages
+
+R packages are accessible collections of data, code, and documentation and are essentially additions or extensions to the R software.
+
+R already offers built-in packages, such as the `base` package, which includes functions such as `mean()`, `list()`, and `sample()` among others.
+However, for more in-depth data analysis, you might want to use more than that.
+
+### Install and load Packages
+
+You can use R's built-in `install.packages()` function to install packages on your computer's hard drive.
+This function navigates to CRAN (Comprehensive R Archive Network), a repository containing thousands of packages, and downloads them.
+
+Afterwards, you have to load the package into memory by using `library()`.
+This enables usage of a package's functionality throughout the current R session.
+Therefore, before beginning a new R session, you must always load all the packages you intend to use.
+Alternatively, you could call the `require()` function, which works similarly. 
+
+:::note example
+```r
+# Install the ggplot2 package
+install.packages("ggplot2")
+
+# Load the ggplot2 package
+library(ggplot2)
+```
+:::
+
+### Identify loaded Packages
+
+If we want to see which packages we loaded, we may go to the packages tab in the console's bottom right window. We may search for packages and load them by ticking the box next to them.
+
+![](./Images/RPackages.png "Loaded R Packages")
+
+You could also enter `(.packages())` or `search()` into the console.
+They will display all of the packages that are currently loaded into memory.
+
+```r
+(.packages())
+
+output:
+[1] "ggplot2"   "stats"     "graphics"  "grDevices" "utils"     "datasets"  "methods"   "base"
+```
+```r
+search()
+
+output:
+ [1] ".GlobalEnv"        "package:ggplot2"   "tools:rstudio"     "package:stats"     "package:graphics" 
+ [6] "package:grDevices" "package:utils"     "package:datasets"  "package:methods"   "Autoloads"        
+[11] "package:base" 
+```
+
+### Package information
+
+By clicking the package name in the packages tab, we may get additional information about the selected package in the help tab.
+If we click the `ggplot2` package, we get the following:
+
+![](./Images/RPackages_Help.png "R Packages Help tab")
+
+Alternatively, we may type `help(package = "ggplot2")` into the R console. This will also lead you to the help tab.
