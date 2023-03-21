@@ -5,47 +5,44 @@ sidebar_position: 15
 # Survival Analysis
 
 The goal of **Survival Analysis** is to identify the time until the event of interest occurs.
-This event can be take several forms.
-Most of the time, it represents death.
-That is why it is referred to as *Survival Analysis*.
+This event can anything but most of the time, it represents death.
 
-Survial Analysis may be used to explore large datasets, for example the time from surgery to death or from start of treatment to progression.
+Survival Analysis may be used to explore large datasets, for example the time from surgery to death or from start of treatment to progression.
 
-## Getting started
+## Getting Started
 
-In order to do a survival analysis, you need to install and load the `survival` package:
+In the following example we will use the `survival` package which you can install and load like this:
 
 ```r
 install.packages("survival")
 library(survival)
 ```
 
-For better visualizations, we will also be using the `survminer` package:
+For better visualization, we will also be using the `survminer` package:
 
 ```r
 install.packages("survminer")
 library(survminer)
 ```
 
-Next on, you can load the dataset that you wish to analyze.
-In this course, we will be using the [Acute Myelogenous Leukemia survival data](https://www.rdocumentation.org/packages/survival/versions/3.5-5/topics/aml).
+Next, you can load the dataset that you wish to analyse.
+In this course, we will be using [Acute Myelogenous Leukaemia survival data](https://www.rdocumentation.org/packages/survival/versions/3.5-5/topics/aml).
 It is included in the `survival` package and may be loaded using the `data()` function:
 
 ```r
 data(cancer, package = "survival")
-aml
 ```
 
 :::note example dataset AML
-"*Survival in patients with Acute Myelogenous Leukemia.*
-*The question at the time was whether the standard course of chemotherapy should be extended ('maintainance') for additional cycles.*"
+"*Survival in patients with Acute Myelogenous Leukaemia.*
+*The question at the time was whether the standard course of chemotherapy should be extended ('maintenance') for additional cycles.*"
 - time: survival or censoring time
 - status: censoring status
 - x: maintenance chemotherapy given? (factor)
 :::
 
 :::tip
-Use R's `help()` function to discover out more about a dataset:
+Use R's `help()` function to discover more about a dataset:
 
 ```r
 help(cancer, package = "survival")
@@ -58,10 +55,10 @@ Data that is incomplete is referred to as *censoring*.
 Although there are other forms of censoring, *right-censoring* is the most typical in survival statistics.
 Reasons for censoring can be: The patient was either forgotten for follow-up, dropped out of the study, or the "event" did not occur until the research was over.
 
-To summarize, the `cens` variable holds data indicating whether or not a person in the program died.
+To summarize, the `cens` variable holds data indicating whether a person in the program died.
 You can count both censored and uncensored people with the `table()` function.
 
-In our example dataset, the variable *status* indicates whether or not a person was censored.
+In our example dataset, the variable *status* indicates whether a person was censored.
 
 ```r
 # Count censored and uncensored data
@@ -73,7 +70,7 @@ output:
  5 18 
 ```
 
-The result shows that 5 people were censored (= `0`), whereas 18 were uncensored, i.e. died (= `1`).
+The result shows that 5 people were censored (`=0`), whereas 18 were uncensored, i.e. died (`=1`).
 
 ```r
 # Create barplot of censored and uncensored data
@@ -84,16 +81,16 @@ The outcome of our calculation will then be visually shown:
 
 ![](./Images/aml_status.png "aml status")
 
-## Kaplan-Meier estimate
+## Kaplan-Meier Estimate
 
 The **Kaplan-Meier estimate** is a non-parametric statistic used to calculate the survival function from lifetime data.
 This statistic indicates the probability that a certain patient will live through a given time `t`.
 The Kaplan-Meier estimator is `1` at `t = 0` and decreases to `0` as `t` approaches infinity.
 
-### Creating a survival object
+### Creating a Survival Object
 
 `Surv` objects are created using the `Surv()` function.
-The main arguments of this function are `time` (= follow up time) and `event` (status indicator, normally 0 = alive/censored, 1 = dead) in that order.
+The main arguments of this function are `time` (follow-up time) and `event` (status indicator, normally 0 = alive/censored, 1 = dead).
 Each subject will have one entry that is the survival time, followed by a `+` if the subject was censored.
 
 ```r
@@ -129,7 +126,7 @@ output:
  - attr(*, "type")= chr "right"
 ```
 
-### Creating a Kaplan-Meier curve
+### Creating a Kaplan-Meier Plot
 
 The `survfit()` function can generate survival curves based on the *Kaplan-Meier estimate*.
 It requires the previously created *survival object*.
@@ -166,7 +163,7 @@ List of 16
  - attr(*, "class")= chr "survfit"
 ```
 
-### Visualizing a Kaplan-Meier curve
+### Visualizing a Kaplan-Meier Plot
 
 The `ggsurvplot()` function in the `survminer` package that we loaded before allows us to plot survival curves.
 
@@ -184,7 +181,7 @@ This will give you the following output:
 `ggsurvplot()` provides several options for customizing your curve.
 Further information may be found [here](https://www.rdocumentation.org/packages/survminer/versions/0.4.9/topics/ggsurvplot) or by using the `help()` function in your R console.
 
-### Number at risk
+### Number at Risk
 
 A risk table displaying the total number of patients under surveillance can also be included to the plot.
 This can be achieved with the `risk.table()` argument.
@@ -196,20 +193,20 @@ ggsurvplot(km, risk.table = TRUE, surv.median.line = "hv")
 
 ![](./Images/aml_ggsurvplot2.png "Kaplan-Meier curve 2")
 
-## The Weibull model
+## The Weibull Model
 
 The **Weibull model** is similar to the *Kaplan-Meier estimate*.
 While the Kaplan-Meier estimate is useful for looking at data, the Weibull model is helpful for more advanced analysis such as adjusting covariables and forming inferences.
 Another difference is that within the Kaplan-Meier curve you see the little "steps," whereas the Weibull model can smoothen the curve.
 
-The Weibull distribution can match severeal different distribution shapes.
+The Weibull distribution can match several different distribution shapes.
 It defines the probability connected with continuous data, much like the normal distribution does.
-Nonetheless, it can also model skewed data, unlike the normal distribution.
+Nonetheless, it can also model skewed data, which does not follow a normal distribution.
 
 ### Creating a Weibull model
 
 To create a Weibull model in R, you need the `survreg()` function instead of `survfit()`.
-However, it contains the same arguments.
+However, it requires the same arguments.
 
 ```r
 # Compute a Weibull model
@@ -218,10 +215,10 @@ wb <- survreg(Surv(time, status) ~ 1, data = aml)
 
 ### Calculating measures 
 
-The `predict()` function allows us to calculate the time point which for example 90 % of patients survive.
+The `predict()` function allows us to calculate the point in time at which n % of patients would still live.
 
 ```r
-# Calculate the time point which 90 % survive 
+# Calculate the time point at which 90 % survive 
 predict(wb, type = "quantile", p = 1 - 0.9, newdate = data.frame(1))
 
 output:
@@ -235,14 +232,14 @@ This means that 90 % of patients survive more than 4 days.
 Unfortunately, using `ggsurvplot()` for creating a Weibull curve will not work, because it is not a step function.
 Instead, we have to follow these steps:
 1. Create a suitable grid.
-2. Get time for each probability using `predict()` with a vector of quantiles instead of a single value.
+2. Calculate the time point for each probability using `predict()` with a vector of quantiles instead of a single value.
 3. Generate a data frame.
 
 ```r
 # Create a grid from .99 to .01 in steps of .01
 surv <- seq(.99, .01, by = -.01)
 
-# Get time for each probability
+# Calculate time points for each probability
 t <- predict(wb, type = "quantile", p = 1 - surv, newdata = data.frame(1))
 
 # Create a data frame
@@ -278,5 +275,5 @@ Now that we have completed graphing our data, we have obtained a smooth curve:
 
 ![](./Images/aml_ggsurvplot_df.png "Weibull model curve")
 
-### Weibull model with covarietes
+### Weibull Model with Covariates
 
