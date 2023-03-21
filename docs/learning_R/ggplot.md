@@ -70,7 +70,7 @@ The key components for a plot in ggplot2 are the data, aesthetics and the geomet
 Below is a code template that includes all seven elements. The individual parts of the code will be addressed in the upcoming chapters:
 
 ```r
-ggplot(<DATA>, aes(<MAPPINGS>), <STAT>) + 
+ggplot(<DATA>, aes(<MAPPINGS>), stat = <STAT>, position =<POSITION>) + 
     <GEOM_FUNCTION> +
     <COORDINATE_FUNCTION> +
     <THEME_FUNCTION> +
@@ -80,25 +80,3 @@ ggplot(<DATA>, aes(<MAPPINGS>), <STAT>) +
 It is useful to look up the [ggplot cheat sheet](https://www.maths.usyd.edu.au/u/UG/SM/STAT3022/r/current/Misc/data-visualization-2.1.pdf), which has all important information summarized together!
 
 
-## ~~ggplot aesthetics~~
-~~ggplot needs "aesthetics" to know which data to show on which axis. We can define them with the "ggplot" call~~: 
-```r
-p <- ggplot(data, aes(x=gene, y=expression))~~
-```
-
-## ~~Defining the representation of data points~~
-~~ggplot offers several kinds of representation for your data that are all explained in separate documents.
-You can also look them up on the [ggplot cheat sheet](https://www.maths.usyd.edu.au/u/UG/SM/STAT3022/r/current/Misc/data-visualization-2.1.pdf).
-The plot types can be called by functions such as `geom_line()` (for a line plot), `geom_point()` (for a dot plot), `geom_boxplot()` (for a box plot) or `geom_col()` (for a bar chart).
-Your code could look like this:~~
-```r
-p <- ggplot(data, aes(x=gene, y=expression)) + geom_point() + geom_line()
-```
-~~Our plot is now a dot plot with a line connecting the dots.~~
-
-## ~~Colours~~
-~~When defining the aesthetics of our plot, we can also define colours.
-This works with "fill" and "colour", with colour defining the outlines of a visualization whereas fill usually defines the colour inside a box or bar.
-Please note that some visuals such as geom_point() do not have a "fill" aesthetic.
-To define colours, we tell R the variable that defines it: `fill=expression`.
-R will set default colours, but we can change them with "scale_colour_manual".~~
