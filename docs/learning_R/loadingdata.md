@@ -8,14 +8,14 @@ One way to use R is by typing your data directly into R.
 But what if you already had data local on your computer or online?
 **Let's learn how to load pre-existing data into R!**
 
-## Data types
+## Data Types
 
 First, we will learn how to import CSV, TXT, Excel, JSON, and XML data files into R.
 These are commonly used data types.  
 
-## Importing a CSV file
+## Importing a CSV File
 
-**CSV** (**C**omma-**S**eperated **V**alues) is a plain-text file that contains data.
+**CSV** (**C**omma-**S**eparated **V**alues) is a plain-text file that contains data.
 As the name reveals, CSV files use a comma to separate values.
 
 :::note example dataset `patient_data.csv`
@@ -53,7 +53,7 @@ output:
  $ Blood.type: chr  "A+" "AB+" "0+" "B-"
 ```
 
-## Importing a TXT file
+## Importing a TXT File
 
 **TXT** files are plain text documents with no predetermined formatting.
 They can be used to store notes, instructions, manuscripts, or other text-based information. 
@@ -119,12 +119,12 @@ output:
 5 Tilidine/Naloxone        p.o. 50/4mg
 ```
 
-## Importing data from Excel
+## Importing Data from Excel
 
 **Excel** is a software program that uses spreadsheets to organize numbers and data with formulas and functions. 
 
 There is a multitude of packages for xlsx import, here we will choose one at random.
-To import data from Excel, you can use the [readxl package](https://readxl.tidyverse.org/) first.
+To import data from Excel, you can use the [`readxl` package](https://readxl.tidyverse.org/) first.
 You can simply do this by entering `install.packages("readxl")` into the R console.
 Then you can load the `readxl` package by using `library(readxl)`:
 
@@ -170,12 +170,12 @@ tibble [4 × 4] (S3: tbl_df/tbl/data.frame)
  $ Blood type: chr [1:4] "B+" "B+" "AB+" "0-"
 ```
 
-## Importing data from a JSON file
+## Importing Data from a JSON File
 
 **JSON** is short for **J**ava**S**cript **O**bject **N**otation.
 It is a free, universally accepted file format and method of exchanging data.
 
-Before importing data from a JSON file, you need to load the **`rjson`** or the **`jsonlite` package** first.
+Before importing data from a JSON file, you need to load the `rjson` or the `jsonlite` package first.
 Both methods will be explored in the next sections.
 
 ### `rjson`
@@ -187,7 +187,7 @@ install.packages("rjson")
 library(rjson)
 ```
 
-To convert a JSON object into R, you can use the **`fromJSON()` function**:
+To convert a JSON object into R, you can use the `fromJSON()` function:
 
 ```r
 # Import the databases.json file: patient_data
@@ -231,7 +231,7 @@ install.packages("jsonlite")
 library(jsonlite)
 ```
 
-The **`fromJSON()` function** is also available in `jsonlite`:
+The `fromJSON()` function is also available in `jsonlite`:
 
 ```r
 # Import the databases.json file: patient_data
@@ -254,17 +254,17 @@ As you can see, `jsonlite` appears to be more user-friendly than `rjson`.
 Instead of a filename, you can also import URLs with `fromJSON()`.
 :::
 
-## Importing data from XML
+## Importing Data from XML
 
 The E**x**tensible **M**arkup **L**anguage (short **XML**) is an extended markup language similar to HTML.
 XML specifies the rules for document creation.
 It provides context for information in a document, but it doesn't define how to provide this.
 
-To begin, install and load the **`xml`** as well as the **`xml2` package** by typing the following commands into the R console:
+To begin, install and load the `XML` as well as the `xml2` package by typing the following commands into the R console:
 
 ```r
-install.packages("xml")
-library(xml)
+install.packages("XML")
+library(XML)
 
 install.packages("xml2")
 library(xml2)
@@ -295,7 +295,7 @@ To make the data accessible, you can either parse the entire page or read elemen
 ### `xmlParse()`
 
 Let's start by investigating the parsing option.
-Call `xmlParse()` and pass *patient_data* as an argument.
+Call `xmlParse()` and pass `patient_data` as an argument.
 
 ```r
 # Parse patient_data: patient_xml
@@ -324,7 +324,7 @@ output:
 
 Now, the contents resemble our source file.
 
-### Read elements seperately
+### Read Elements Separately
 
 If you want to read elements separately, you have the following options:
 
@@ -350,3 +350,12 @@ In our case, the first option makes the most sense.
   ouput:
   [1] "Joey P."   "Max C."    "Selena M."
   ```
+
+## Sources & Further Reading
+
+- [`jsonlite` package](https://www.rdocumentation.org/packages/jsonlite/versions/1.8.4)
+- [`readxl` package](https://readxl.tidyverse.org/)
+- [`rjson` package](https://www.rdocumentation.org/packages/rjson/versions/0.2.21)
+- [`utils` package](https://www.rdocumentation.org/packages/utils/versions/3.6.2)
+- [`XML` package](https://www.rdocumentation.org/packages/XML/versions/3.99-0.14)
+- [`xml2` package](https://www.rdocumentation.org/packages/xml2/versions/1.3.3)
