@@ -14,9 +14,9 @@ R includes a vast variety of built-in functions, and users can write their own.
 
 You've already learnt how to call functions unintentionally in previous chapters.
 In the following, we will use the `sd()` function to demonstrate how to call a function.
-It is utilized to calculated the standard deviation.
+It is utilized to calculate the standard deviation.
 
-Type the name of the function followed by parantheses, such as `sd()`, and the arguments between the parantheses (arguments are seperated by a comma):
+Type the name of the function followed by parentheses, such as `sd()`, and the arguments between the parentheses (arguments are separated by a comma):
 
 ```r
 # Calculate the standard deviation of 2, 4, 5 and 8
@@ -49,7 +49,7 @@ output:
 
 **NOTE**   
 R passes arguments by value, not by reference.
-It basically implies that a variable that you pass into a R function cannot be changed.
+It basically implies that a variable that you pass into an R function cannot be changed.
 :::
 
 ## Built-in Functions
@@ -57,7 +57,7 @@ It basically implies that a variable that you pass into a R function cannot be c
 Basic examples of built-in functions are seq(), mean(), max(), sum(), and paste(), among others.
 They are directly accessed by user-written applications.
 
-### Function information
+### Function Information
 
 With `help()` or `?`, you can achieve information about a function:
 
@@ -80,7 +80,7 @@ NULL
 ```
 :::
 
-### Argument matching
+### Argument Matching
 
 The description for `sd()` shows that the function actually takes two arguments: `sd(x, na.rm = FALSE)`.
 
@@ -89,36 +89,36 @@ That is because of the arguments' positioning (`values` comes first, such as `x`
 
 Another way to match the arguments is by using the equal sign: `sd(x = values)`.
 
-### Default values
+### Default Values
 
 The second argument to the `sd()` function indicates that by default `na.rm` is set to `FALSE` (even if you do not specify this argument yourself).
 This means that missing values will not be eliminated.
 However, default values can be overwritten, e.g. `na.rm = TRUE`.
 
 In contrast, `x` is not specified by default.
-If you do not specify the value of an argument without default values, an error will ocur.
+If you do not specify the value of an argument without default values, an error will occur.
 
 ## Nested Functions
 
 R allows you to use functions within functions.
 
 :::note example
-To get the absolute differences in patient ages in gynecology and dermatology, use `abs()` on `gynecology - dermatology`. To determine the mean absolute deviation, call `abs()` within `mean()`.
+To get the absolute differences in patient ages in gynaecology and dermatology, use `abs()` on `gynaecology - dermatology`. To determine the mean absolute deviation, call `abs()` within `mean()`.
 
 ```r
-# The gynecology and dermatology vectors have already been created for you
-gynecology <- c(16, 49, 25, 20, 33, 56)
+# The gynaecology and dermatology vectors have already been created for you
+gynaecology <- c(16, 49, 25, 20, 33, 56)
 dermatology <- c(77, 56, 16, 28, 43, 64)
 
 # Calculate the mean absolute deviation
-mean(abs(gynecology - dermatology))
+mean(abs(gynaecology - dermatology))
 
 output:
 [1] 17.16667
 ```
 :::
 
-## User-defined Functions
+## User-Defined Functions
 
 ### Create a Function
 
@@ -133,7 +133,7 @@ function_name <- function(arguments) {
 - **Function name**: It should be short yet clear and meaningful, so that the person who sees our code understands exactly what this function performs.
 - **Function arguments**: We have already covered what arguments are.
 But it is possible for a function to have no arguments, although this is rarely practical.
-You can have as many arguments as you like, and you may assign dafault values to them or not.
+You can have as many arguments as you like, and you may assign default values to them or not.
 - **Function body**: The function body is a collection of commands enclosed by curly braces that are executed in a preset sequence each time the function is called.
 In other words, we put what we need the function to accomplish in the function body.
 
@@ -153,7 +153,7 @@ output:
 ```
 :::
 
-### Return values
+### Return Values
 
 By default, R returns the value of the function's final statement.
 However, you may use the `return()` function to directly tell R what to return.
@@ -175,13 +175,13 @@ output:
 ```
 :::
 
-Using return at the conclusion of the function body is not usually beneficial, although it might be useful in some instances.
+Using `return()` at the conclusion of the function body is not usually beneficial, although it might be useful in some instances.
 
-## Function scoping
+## Function Scoping
 
-Function scoping means that variables specified within a function are inaccessible outside of that function.
+Function scoping means that variables specified within a function are inaccessible outside that function.
 
-Consider our global R environment (our whole program) to be a room that contains all of the objects, variables, functions, etc. that we have utilized.
+Consider our global R environment (our whole program) to be a room that contains all the objects, variables, functions, etc. that we have utilized.
 When we call a variable x, R will search around the room to get the value of x.
 
 :::tip
@@ -190,11 +190,12 @@ We may use `ls()` to see what's in our environment.
 
 As we define a new function, R sets up a fresh temporary environment for it.
 Imagine setting up a new room within our global R environment.
-The new room contains all of the objects we have created, modified, and used within the function.
+The new room contains all the objects we have created, modified, and used within the function.
 But, as soon as the function is finished performing, the room disappears.
 
 :::note example
-The next example will show you that the variable `txt` does not exist outside of the function, only inside it.
+The next example will show you that the variable `txt` does not exist outside the function, only inside it.
+
 ```r
 # Create a function with a local variable
 R <- function() {
@@ -217,7 +218,7 @@ Error: object 'txt' not found
 :::
 
 :::tip
-You may use the global assignment operator `<<-` to define a global variable inside of a function.
+You may use the global assignment operator `<<-` to define a global variable inside a function.
 
 ```r
 # Create a function with a global variable
@@ -238,7 +239,7 @@ txt
 output:
 [1] "cool"
 ```
-The variable `txt` is now accessible outside of the function.
+The variable `txt` is now accessible outside the function.
 :::
 
 ## R Packages
@@ -248,7 +249,7 @@ R packages are accessible collections of data, code, and documentation and are e
 R already offers built-in packages, such as the `base` package, which includes functions such as `mean()`, `list()`, and `sample()` among others.
 However, for more in-depth data analysis, you might want to use more than that.
 
-### Install and load Packages
+### Install and Load Packages
 
 You can use R's built-in `install.packages()` function to install packages on your computer's hard drive.
 This function navigates to CRAN (Comprehensive R Archive Network), a repository containing thousands of packages, and downloads them.
@@ -268,14 +269,14 @@ library(ggplot2)
 ```
 :::
 
-### Identify loaded Packages
+### Identify Loaded Packages
 
 If we want to see which packages we loaded, we may go to the packages tab in the console's bottom right window. We may search for packages and load them by ticking the box next to them.
 
 ![](./Images/RPackages.png "Loaded R Packages")
 
 You could also enter `(.packages())` or `search()` into the console.
-They will display all of the packages that are currently loaded into memory.
+They will display all the packages that are currently loaded into memory.
 
 ```r
 (.packages())
@@ -292,7 +293,7 @@ output:
 [11] "package:base" 
 ```
 
-### Package information
+### Package Information
 
 By clicking the package name in the packages tab, we may get additional information about the selected package in the help tab.
 If we click the `ggplot2` package, we get the following:
