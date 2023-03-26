@@ -17,13 +17,20 @@ For example, R can be used to analyse large-scale genomic data to identify genet
 
 Here are a few examples of how R can be used specifically for cancer informatics:
 
-**1. Genomic data analysis**: R provides numerous packages for analysing genomic data, such as the Bioconductor package for gene expression analysis.
+**1. Genomic data analysis**: R provides numerous packages for analysing genomic data, such as the Bioconductor package for gene expression analysis (for example the [**limma package**](https://bioconductor.org/packages/release/bioc/html/limma.html)).
 These packages allow researchers to preprocess and normalize raw genomic data, perform differential expression analysis to identify genes that are differentially expressed between cancer and normal tissue, and identify gene pathways that are altered in cancer.
 R can also be used to perform downstream analysis, such as gene set enrichment analysis and pathway analysis.
 
 **2. Clinical data analysis**: In addition to genomic data, clinical data such as patient demographics, treatment history, and disease outcomes are also important for cancer informatics.
 R can be used to analyse and visualize clinical data, such as through the use of survival analysis to model patient outcomes, or logistic regression to identify predictors of treatment response.
 
-**3. Imaging data analysis**: R can be used to analyse and visualize medical images, such as through the use of image processing packages like the medical imaging package (medimaging). This package can be used to perform image segmentation, feature extraction, and image registration, which are important steps in analysing medical images for cancer diagnosis and treatment.
+**3. Imaging data analysis**: R can be used to analyse and visualize medical images, such as through the use of image processing packages like the medical imaging package [**medimaging**](https://cran.r-project.org/web/views/MedicalImaging.html). 
+This package can be used to perform image segmentation, feature extraction, and image registration, which are important steps in analysing medical images for cancer diagnosis and treatment.
 
 Overall, R is a powerful tool for medical researchers and practitioners, providing sophisticated statistical modelling and visualization capabilities that can help improve patient outcomes and advance medical knowledge.
+
+## Sources & Further Reading
+
+- Warner JL, Klemm JD. Informatics Tools for Cancer Research and Care: Bridging the Gap Between Innovation and Implementation. JCO Clin Cancer Inform. 2020;4:784-786. doi:10.1200/CCI.20.00086
+
+- Kerlavage AR, Kirchhoff AC, Guidry Auvil JM, et al. Cancer Informatics for Cancer Centers: Scientific Drivers for Informatics, Data Science, and Care in Pediatric, Adolescent, and Young Adult Cancer. JCO Clin Cancer Inform. 2021;5:881-896. doi:10.1200/CCI.21.00040
