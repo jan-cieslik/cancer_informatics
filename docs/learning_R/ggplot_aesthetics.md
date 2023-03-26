@@ -37,7 +37,7 @@ ggplot(Fert_Contra, aes(x = tfr, y = contraceptors)) + geom_point()
 ```
 This example of code contains the three essential parts that are always needed to create a graph in ggplot2:
 
-- `ggplot()`: the coordinate system that you add layers to. The `Fert_Contra` argument is the data set that you want to visualize.
+- `ggplot()`: the coordinate system that you add layers to. The `Fert_Contra` argument is the data set that you want to visualize. It is always expected that the first parameter in this function is the data set, so you do not need to use a syntax such as `data =` here.
 - `aes(x = tfr, y = contraceptors)`: The aesthetics argument, that maps the variables to the x and y axes of the plot.
 - `+ geom_point()`:  adds a geometry layer to your plot. This particular geometry function adds a layer of points so that a scatterplot is created. There are different geometry functions that create different plots (which will be explained in the next chapter).
 
