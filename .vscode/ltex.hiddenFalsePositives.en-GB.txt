@@ -1,0 +1,1 @@
+{"rule":"ENGLISH_WORD_REPEAT_BEGINNING_RULE","sentence":"^\\QIf you enter only one column name in \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q, a vector is returned.\\E$"}
