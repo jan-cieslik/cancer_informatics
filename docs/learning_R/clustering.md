@@ -202,6 +202,88 @@ Note that in practice, you may want to choose a linkage method that is appropria
 Additionally, you may want to consider normalizing or scaling your data before performing hierarchical clustering, depending on the specific characteristics of your dataset.
 :::
 
+### `densitybased()` clustering
+
+Density-based clustering is a clustering technique that identifies clusters based on areas of high data density. 
+The algorithm starts by identifying regions of the data space with high density, and then expands these regions until the points with lower densities are separated into distinct clusters. 
+The most popular density-based clustering algorithm is [**DBSCAN**](https://en.wikipedia.org/wiki/DBSCAN) (Density-Based Spatial Clustering of Applications with Noise), which requires two user-specified parameters: a minimum number of points required to form a dense region (called the minPts parameter) and a distance threshold (called the eps parameter) that defines the neighbourhood of each point. 
+
+The syntax of the `dbscan()` function is as follows:
+
+```r
+dbscan(x, eps, minPts,)
+```
+
+:::note
+
+- `x` is the input data matrix or data frame.
+- `eps` is the radius of the neighbourhood around each point that is used to determine whether it belongs to a cluster or not. 
+This is a required parameter and its value is usually chosen by analysing the distance distribution of the data.
+- `minPts` is the minimum number of points required within the eps-neighbourhood of a point for that point to be considered a core point. 
+This is a required parameter and its value is usually chosen based on the size and density of the clusters 
+
+:::
+
+In R, the DBSCAN algorithm is implemented in the [**dbscan package**](https://cran.r-project.org/web/packages/dbscan/index.html). 
+So before we start we need to download and install the dbscan package using the following code:
+
+```r
+install.packages("dbscan")
+library(dbscan)
+``` 
+
+In this example, we generate a 2-dimensional dataset with 500 points, which represent fictitious clinical characteristics of patients.
+The code `data <- matrix(rnorm(1000, mean = 0, sd = 1), ncol = 2)` generates a 2-dimensional dataset `(ncol = 2)` with 1000 observations. 
+Each observation is a randomly generated point drawn from a normal distribution with mean 0 and standard deviation 1 `(rnorm(1000, mean = 0, sd = 1))`.
+
+The resulting dataset is a matrix with two columns `(ncol = 2)`, where the first column represents the x-coordinates of the points and the second column represents the y-coordinates.
+
+```r
+# Generate clinical characteristics of patients
+data <- matrix(rnorm(500, mean = c(0, 2), sd = c(0.3, 0.5)), ncol = 2)
+``` 
+
+ Then apply density clustering using the DBSCAN algorithm, setting the eps parameter to 0.5 and the minPts parameter to 5. 
+ These values control the density threshold for determining cluster membership.
+
+ ```r
+ # Perform density clustering using DBSCAN
+dbscan_res <- dbscan(data, eps = 0.5, minPts = 5)
+``` 
+
+ Finally, plot the results, with each cluster assigned a different colour, and print the number of clusters found. 
+ The output will provide insight into the number and characteristics of subgroups within the patient population.
+
+ ```r
+ # Plot the results
+plot(data, col = dbscan_res$cluster, pch = 20, main = "Density Clustering")
+legend("topright", legend = unique(dbscan_res$cluster), col = unique(dbscan_res$cluster), pch = 20)
+
+# Print the number of clusters found
+cat("Number of clusters:", length(unique(dbscan_res$cluster)))
+``` 
+
+This should result in the following graphic:
+
+![](./Images/Density_clustering.png "density_clustering")
+
+The `dbscan()` function returns an object of class dbscan that contains the following elements:
+
+- **eps**: The value of the eps parameter used for clustering.
+- **minPts**: The value of the minPts parameter used for clustering.
+- **border**: A logical vector indicating which points are on the border of a cluster.
+- **cluster**: A vector of integers indicating the cluster assignment of each point. 
+Noise points are assigned a value of 0.
+- **k**: The number of clusters found.
+- **reachability**: A vector of reachability distances used for clustering. 
+This is a measure of the distance from each point to its closest core point.
+- **ordering**: A vector indicating the order in which the points were processed by the algorithm.
+
+:::note
+Note that the cluster element is the most important output of the `dbscan()` function, as it provides the cluster assignment for each point in the input data. 
+The `plot()` function can be used to visualize the clustering result by colouring the points based on their cluster assignment.
+:::
+
 ## Sources & Further Reading
 
 - Pina A, Macedo MP, Henriques R. Clustering Clinical Data in R. Methods Mol Biol. 2020;2051:309-343. doi:10.1007/978-1-4939-9744-2_14
