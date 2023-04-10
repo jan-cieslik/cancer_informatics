@@ -579,9 +579,288 @@ install.packages("dplyr")
 library(dplyr)
 ```
 
+In this chapter, we will be using the [Malignant Glioma Pilot Study](https://search.r-project.org/CRAN/refmans/exactRankTests/html/glioma.html).
+It is included in the `exactRankTests` package and may be loaded using the `data()` function:
+
+```r
+data(glioma, package = "exactRankTests")
+```
+
+:::note example data set glioma
+"*A non-randomized pilot study on malignant glioma patients with pretargeted adjuvant radioimmunotherapy using Yttrium-90-biotin.*
+*A data frame with 37 observations on the following 7 variables.*"
+
+- No.: patient number
+- Age: patients ages in years
+- Sex: a factor with levels F(emale) and M(ale)
+- Histology: a factor with levels GBM (grade IV) and Grade3 (grade III)
+- Survival: survival times in month
+- Cens: censoring indicator: 0 censored and 1 dead
+- Group: a factor with levels Control and RIT
+:::
+
+### Exploring & Transforming Data
+
+This chapter will teach you how to use `dplyr` functions to examine and transform a data set.
+
+#### `select()`
+
+- This function allows you to select variables of interest.
+- Enter the name of the data set followed by the pipe operator (`%>%`).
+Call `select()` and pass the variables separated by a comma.
+- You can specify columns that you do not need by using the negative symbol (`-`) as a prefix in front of the variable.
+- For advanced selecting you can use [selection helpers](https://dplyr.tidyverse.org/reference/select.html#overview-of-selection-features), but we will not discuss them here.
+- You can save this new table with the assignment operator (`<-`).
+From now on you can work with the new table.
+
+```r
+# Select "No.", "Age" & "Sex"
+glioma_patients <- glioma %>% select(No., Age, Sex)
+
+# Look at the structure
+str(glioma_patients)
+
+output:
+'data.frame':	37 obs. of  3 variables:
+ $ No.: int  1 2 3 4 5 6 7 8 9 10 ...
+ $ Age: int  41 45 48 54 40 31 53 49 36 52 ...
+ $ Sex: Factor w/ 2 levels "F","M": 1 1 2 2 1 2 2 2 2 2 ...
+```
+
+#### `filter()`
+
+- It is used to filter a data frame and keep only the rows that meet your conditions.
+- Enter the name of the data set followed by the pipe operator (`%>%`).
+Call `filter()` and specify the variable to filter by.
+- Some possible filtering operators are: `==`, `>`, `<`.
+- You can also mix several conditions in one filter.
+
+```r
+# Filter all female patients
+glioma_patients %>% filter(Sex == "F")
+```
+
+#### `arrange()`
+
+- This function sorts the rows of a data frame based on the values of selected columns.
+- Enter the name of the data set followed by the pipe operator (`%>%`).
+Call `arrange()` and pass the variable to be sorted by.
+- By default, the variables are arranged in ascending order.
+To sort in descending order, include the variable to sort by in `desc()`.
+
+```r
+# Sort in ascending order by "Age"
+glioma_patients %>% arrange(Age)
+
+# Sort in descending order by "Age"
+glioma_patients %>% arrange(desc(Age))
+```
+
+:::caution
+`arrange()`, unlike other `dplyr` functions, ignores *grouping*.
+To group by variables, you must name them extra (or use `.by_group = TRUE`).
+We will discover what *grouping* means [below](#group_by).
+:::
+
+#### `mutate()`
+
+- This function creates new columns, changes them or deletes them.
+- *Create a new column*: Enter the name of the data set followed by the pipe operator (`%>%`).
+Call `mutate()`, enter the new column name followed by an equal sign (`=`) and the contents.
+- *Modify a column*: Enter the name of the existing column to the left of the equal sign.
+- *Delete a column*: Set the value to `NULL` (behind the equal sign).
+
+```r
+# Add the column "Cens2"
+glioma_cens <- glioma %>% mutate(Cens2 = ifelse(Cens == 1, "dead", "uncensored"))
+
+# Delete the column "Cens"
+glioma_cens <- glioma_cens %>% mutate(Cens = NULL)
+```
+
+#### `transmute()`
+
+- This function generates a new data frame containing only the specified computations.
+It is like a combination of `select()` and `mutate()`.
+- Enter the name of the data set followed by the pipe operator (`%>%`).
+Call `transmute()` and pass the variables you want to keep and/or modify a variable with the equal sign (`=`).
+
+```r
+# Keep "No.", "Age", "Sex" & "Cens"
+# Modify "Cens" (1 = dead, 0 = uncensored)
+glioma_cens2 <- glioma %>% transmute(No., Age, Sex, Cens = ifelse(Cens == 1, "dead", "uncensored"))
+```
+
+#### `rename()`
+
+- With this function, you can change individual variable names.
+- Enter the name of the data set followed by the pipe operator (`%>%`).
+Call `rename()`, enter the new column name followed by an equal sign (`=`) and the old column name.
+
+```r
+# Rename "Cens2" to "Cens"
+glioma_cens <- glioma_cens %>% rename(Cens = Cens2)
+```
+
+:::tip
+To explore your data, you can also combine multiple functions with another pipe operator (`%>%`).
+
+```r
+# Filter all female patients & sort in ascending order by "Age"
+glioma_patients %>% filter(Sex == "F") %>% arrange(Age)
+```
+:::
+
+### Aggregating Data
+
+In this chapter you will learn how to aggregate data, i.e. combine several observations into one.
+
+#### `count()`
+
+- This function quickly counts the different values of one or more variables.
+- Enter the name of the data set followed by the pipe operator (`%>%`).
+- Call `count()` to get the total number of observations.
+
+```r
+# Count glioma observations
+glioma %>% count()
+
+output:
+   n
+1 37
+```
+
+- Call `count()` and pass the variable to be counted enclosed in the function to get a specific observation.
+
+```r
+# Count the number of each sex
+glioma %>% count(Sex)
+
+output:
+  Sex  n
+1   F 16
+2   M 21
+```
+
+- Sorted count with `sort`: If set to `TRUE`, the largest groups will be displayed at the top.
+
+```r
+# Count the number of each sex & sort it
+glioma %>% count(Sex, sort = TRUE)
+
+output:
+  Sex  n
+1   M 21
+2   F 16
+```
+
+- Weighted count with `wt`: If it is set to a variable, `count()` computes `sum(wt)` for each group instead of counting the number of rows in each group.
+
+```r
+# Add up the months of survival of each sex
+glioma %>% count(Sex, wt = Survival, sort = TRUE)
+
+output:
+  Sex   n
+1   M 679
+2   F 462
+```
+
+#### `summarize()`
+
+- This function combines many observations into a single observation.
+- In a `summarize()` call, you can specify several variables and summarize them in different ways.
+- There are many summary functions that can be used in `summarize()`: `sum()`, `mean()`, `median()`, `min()`, `may()`, `n()`.
+These functions can also be combined.
+- Enter the name of the data set followed by the pipe operator (`%>%`).
+Call `summarize()`, enter a new variable name followed by an equal sign and the summary function containing the variable to be summarized.
+
+```r
+# Compute the mean age of patients
+glioma %>% summarize(average_age = mean(Age))
+
+output:
+  average_age
+1    48.48649
+```
+
+#### `group_by()`
+
+- This function turns an existing table into a grouped table where operations are performed *by group*.
+- Grouping does not affect how the data looks.
+It only changes the interaction with the other `dplyr` functions.
+- You may also group by two columns.
+This creates one row for each combination of both columns.
+- Enter the name of the data set followed by the pipe operator (`%>%`).
+Call `group_by()` and pass the variable to grouped by.
+
+```r
+# Group by "Histology" and compute the mean age
+glioma_histology %>% group_by(Histology) %>% summarize(average_age = mean(Age))
+
+output:
+# A tibble: 2 × 2
+  Histology average_age
+  <fct>           <dbl>
+1 GBM              53.9
+2 Grade3           42.1
+```
+
+#### `ungroup()`
+
+- This function is useful for removing grouping.
+- Enter the name of the data set followed by the pipe operator (`%>%`) and call `ungroup()`.
+
+```r
+# Ungroup glioma
+glioma %>% ungroup()
+```
+
+#### `slice_max()`
+
+- It returns the largest observation from each group, i.e. it works with a grouped table.
+- Enter the name of the data set followed by the pipe operator (`%>%`).
+Call `slice_max()`, pass the column on which you want the ordering to be based, and the number of observations to extract from each group (`n`).
+- By default, `n` is set to `1`.
+For example, with `n = 3`, the 3 largest observations are returned.
+
+```r
+# Group by "Histology"
+# Return the highest survival time
+glioma %>% group_by(Histology) %>% slice_max(Survival)
+
+output:
+# A tibble: 2 × 7
+# Groups:   Histology [2]
+    No.   Age Sex   Histology Survival  Cens Group
+  <int> <int> <fct> <fct>        <int> <int> <fct>
+1    16    47 F     GBM             59     0 RIT  
+2     3    48 M     Grade3          69     0 RIT 
+```
+
+#### `slice_min()`
+
+- It returns the smallest observation in each group and is used like `slice_max()`.
+
+```r
+# Group by "Histology"
+# Return the lowest survival time
+glioma %>% group_by(Histology) %>% slice_min(Survival)
+
+output:
+# A tibble: 2 × 7
+# Groups:   Histology [2]
+    No.   Age Sex   Histology Survival  Cens Group  
+  <int> <int> <fct> <fct>        <int> <int> <fct>  
+1    12    83 F     GBM              5     1 Control
+2     3    53 F     Grade3           9     1 Control
+```
+
 ## Sources & Further Reading
 
 - [`data.table`](https://www.rdocumentation.org/packages/data.table/versions/1.14.8)
 - [`dplyr`](https://dplyr.tidyverse.org/)
 - [`fread()`](https://www.rdocumentation.org/packages/data.table/versions/1.14.8/topics/fread)
+- [Malignant Glioma Pilot Study](https://search.r-project.org/CRAN/refmans/exactRankTests/html/glioma.html)
+- [Selection helpers](https://dplyr.tidyverse.org/reference/select.html#overview-of-selection-features) for `select()`
 - [Tidyverse](https://www.tidyverse.org/index.html) (collection of R packages for data science)
