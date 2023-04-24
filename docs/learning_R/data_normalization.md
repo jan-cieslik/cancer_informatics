@@ -124,6 +124,110 @@ The resulting plot shows how Z-score normalization scales the data based on the 
 This can be useful in cases where we want to compare medicines based on their relative distance from the mean, or to identify outliers in the data.
 :::
 
+## Decimal scaling normalization
+
+Decimal scaling normalization is a data normalization technique that involves scaling the values of a variable by dividing each value by a power of 10 based on the maximum absolute value in the data. 
+In R, you can perform decimal scaling normalization using a simple for loop and the `log10()` function to determine the appropriate scaling factor for each variable. Here's an example:
+```r
+# Decimal scaling normalization
+scaled_data <- x / 10^(ceiling(log10(max(abs(x)))))
+```
+:::note
+- **x** is the original variable to be normalized
+
+- **max(abs(x))**is the maximum absolute value of x
+
+- **ceiling(log10(max(abs(x))))** calculates the number of decimal places needed to normalize the variable, which is the smallest integer greater than or equal to the base 10 logarithm of the maximum absolute value of x
+:::
+
+Here's an example of using decimal scaling normalization in an easy medicine-related context:
+
+```r
+# Example data: Original blood pressure measurements
+bp <- c(120, 130, 125, 135, 140, 128, 132, 129, 138, 142)
+```
+The `max` function is used to find the maximum absolute value in the bp vector, and this value is used to divide each value in the vector to normalize the data. 
+The `abs` function is used to ensure that the maximum value used for normalization is the maximum absolute value, regardless of whether the values in the vector are positive or negative. 
+The `round` function is used to round the normalized values to one decimal place.
+
+```r
+# Decimal scaling normalization
+bp_normalized <- round(bp / max(abs(bp)), 1)
+```
+Finally, the code creates a plot to compare the original and normalized blood pressure values. 
+The par function is used to set up a multi-plot layout with one row and two columns:
+
+```r
+# Create a plot to compare the original and normalized values
+par(mfrow = c(1,2)) # set up a multi-plot layout with 1 row and 2 columns
+```
+The first plot shows the original blood pressure measurements for each patient, using the plot function with the type argument set to "o" to create a line plot with points:
+```r
+# Plot original blood pressure values
+plot(bp, type = "o", main = "Original BP",
+     xlab = "Patient", ylab = "BP")
+```
+The second plot shows the normalized blood pressure values, again using the plot function with the type argument set to "o":
+```R
+# Plot normalized blood pressure values
+plot(bp_normalized, type = "o", main = "Normalized BP",
+     xlab = "Patient", ylab = "BP Normalized")
+```
+
+![](./Images/decimal_scaling.png "decimal_scaling")
+
+As you can see, the second plot shows the same trend as the first plot, but with values that are scaled between -1 and 1 using decimal scaling normalization. 
+This makes it easier to compare the relative magnitudes of the blood pressure measurements for each patient.
+:::info 
+This can be useful in cases where we want to simplify the data by removing large differences in magnitude between different variables, without losing the relative relationships between the data points.
+:::
+
+## Log transformation
+
+In R, log transformation can be performed using the `log()` function. This function takes one argument, the vector or matrix to be transformed, and returns the natural logarithm of each element in the input. 
+The natural logarithm is a mathematical function that maps a positive number to its logarithm in base e (approximately 2.71828).
+
+```r
+# Log transformation
+x_log <- log(x)
+```
+In this example, we first define the same medicine dataset as before. 
+
+```r
+# Example data
+medicine <- data.frame(
+  medicine_name = c("Medicine A", "Medicine B", "Medicine C"),
+  price = c(20, 50, 80),
+  effectiveness = c(0.3, 0.6, 0.8)
+```
+
+We then perform log transformation on the price and effectiveness columns using the `log()` function. 
+This transformation helps to reduce the impact of extreme values and compresses the range of values, making the data more normally distributed. 
+
+```r
+# Log transformation
+medicine_log <- medicine
+medicine_log[, 2:3] <- log(medicine[, 2:3])
+```
+
+We then plot the original data and the log-transformed data using the `plot()` function, with medicine names displayed next to each data point using the `text()` function.
+
+```r
+# Plot the original and transformed data
+par(mfrow = c(1, 2))
+plot(medicine$price, medicine$effectiveness, xlim = c(0, 180), ylim = c(0, 1), main = "Original Data", xlab = "Price", ylab = "Effectiveness")
+text(medicine$price, medicine$effectiveness, labels = medicine$medicine_name, pos = 4, cex = 0.8)
+plot(medicine_log$price, medicine_log$effectiveness, xlim = c(2, 9), ylim = c(-2, 0), main = "Log-Transformed Data", xlab = "Log Price", ylab = "Log Effectiveness")
+text(medicine_log$price, medicine_log$effectiveness, labels = medicine_log$medicine_name, pos = 4, cex = 0.8)
+``` 
+
+![](./Images/Log-transformation.png "Log-transformation")
+
+The resulting plot shows how log transformation compresses the range of values, with values closer to zero showing a greater degree of compression. 
+:::info
+This transformation can be useful in cases where we want to reduce the impact of outliers or extreme values, while still preserving the underlying relationships between the data points.
+:::
+
 ## Sources & Further Reading
 
 - Pickett B, Altieri G. Normalization: what does it really mean?. Med Dosim. 1992;17(1):15-27. doi:10.1016/0958-3947(92)90004-y
