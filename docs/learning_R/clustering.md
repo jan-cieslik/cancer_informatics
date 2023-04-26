@@ -3,7 +3,7 @@ sidebar_position: 12
 ---
 # Clusters
 
-### Introduction
+## Introduction
 
 Clustering is a type of unsupervised learning technique used in data analysis to group together similar objects or data points based on their characteristics or attributes. 
 Clustering is an exploratory technique that helps to identify patterns and structures in the data without any prior knowledge or labels.
@@ -12,7 +12,7 @@ The goal of clustering is to group together data points that are similar to each
 The similarity between data points is usually measured using a distance metric, such as Euclidean distance or cosine similarity. 
 The choice of distance metric depends on the type of data and the clustering algorithm being used.
 
-There are several different types of clustering algorithms, including:
+There are several types of clustering algorithms, including:
 
 - **K-means clustering:** This algorithm partitions data points into K clusters based on their distances to K randomly chosen cluster centres. The algorithm iteratively updates the cluster centres until convergence.
 
@@ -20,7 +20,7 @@ There are several different types of clustering algorithms, including:
 
 - **Density-based clustering:** This algorithm groups together data points that are located in dense regions of the feature space, separated by sparse areas.
 
-### `kmeans()` clustering
+## `kmeans()` clustering
 
 K-means clustering is a popular clustering algorithm that partitions a dataset into K clusters, where K is a user-specified parameter. 
 The algorithm starts by randomly assigning K cluster centres to the data points and then iteratively reassigns the points to the nearest cluster centre and updates the centre until convergence. 
@@ -28,7 +28,7 @@ The goal of K-means clustering is to minimize the sum of squared distances betwe
 The function takes the following arguments:
 
 ```r
-kmeans(x, centers, iter.max = 10, nstart = 1,)
+kmeans(x, centers, iter.max = 10, nstart = 1)
 ```
 :::note
 
@@ -41,15 +41,15 @@ kmeans(x, centers, iter.max = 10, nstart = 1,)
 
 :::tip
 
-Usually it is sufficient to fill in only the parameters x and centres. The function would accordingly be `kmeans(x, centers,)`
+Usually it is sufficient to fill in only the parameters x and centres. The function would accordingly be `kmeans(x, centers)`
 
 :::
 
-In the following example, only two clusters are formed for easy understanding. 
+For simplicity in the following example, only two clusters are generated. 
 
 As a first step, we need a data set from which we want to form two groups, each of which approximates most closely to converge in its values. 
 
-We have a dataset of eight patients with the following weight data, which we want to divide into two groups (low weight and high weight)
+We have a dataset of eight patients with the following weight data, which we want to divide into two groups (low weight and high weight).
 
 ```r 
 # In the following vector the weight of 8 students is stored
@@ -85,16 +85,6 @@ The `kmeans()` function returns an object of class "kmeans", which contains the 
 - **size**: A vector containing the number of data points in each cluster.
 - **iter**: The number of iterations performed.
 
-```r
-# Exemplarily two of the above mentioned components are shown
-kmeans_result <- kmeans(weight, centers = 2)
-
-# View the cluster assignments
-kmeans_result$cluster
-
-# View the cluster centers
-kmeans_result$centers
-```
 To divide more complex data sets into clusters and visualize them, we use the following example:
 
 ```r
@@ -114,11 +104,11 @@ kmeans_result$cluster
 kmeans_result$centers
 ```
 :::caution
-The dataset should only contain **numeric variables** for K-means clustering to work
+The dataset should only contain **numeric variables** for K-means clustering to work.
 :::
 
 :::note
-If you are not familiar with the visualization of datasets, please visit the **ggplot section**.
+If you are not familiar with the visualization of datasets, please visit the **[ggplot section](ggplot.md)**.
 :::
 
 ```r
@@ -131,7 +121,7 @@ This should give the following result:
 
 ![](./Images/kmeans_clustering.png "kmeans clustering")
 
-### `hclust()` clustering
+## `hclust()` clustering
 
 Hierarchical clustering is another clustering technique that builds a hierarchy of nested clusters by iteratively merging, or splitting clusters based on a similarity measure. 
 There are two main types of hierarchical clustering: agglomerative and divisive. 
@@ -202,7 +192,7 @@ Note that in practice, you may want to choose a linkage method that is appropria
 Additionally, you may want to consider normalizing or scaling your data before performing hierarchical clustering, depending on the specific characteristics of your dataset.
 :::
 
-### `densitybased()` clustering
+## `densitybased()` clustering
 
 Density-based clustering is a clustering technique that identifies clusters based on areas of high data density. 
 The algorithm starts by identifying regions of the data space with high density, and then expands these regions until the points with lower densities are separated into distinct clusters. 
@@ -211,7 +201,7 @@ The most popular density-based clustering algorithm is [**DBSCAN**](https://en.w
 The syntax of the `dbscan()` function is as follows:
 
 ```r
-dbscan(x, eps, minPts,)
+dbscan(x, eps, minPts)
 ```
 
 :::note
@@ -243,19 +233,19 @@ The resulting dataset is a matrix with two columns `(ncol = 2)`, where the first
 data <- matrix(rnorm(500, mean = c(0, 2), sd = c(0.3, 0.5)), ncol = 2)
 ``` 
 
- Then apply density clustering using the DBSCAN algorithm, setting the eps parameter to 0.5 and the minPts parameter to 5. 
- These values control the density threshold for determining cluster membership.
+Then apply density clustering using the DBSCAN algorithm, setting the eps parameter to 0.5 and the minPts parameter to 5. 
+These values control the density threshold for determining cluster membership.
 
- ```r
- # Perform density clustering using DBSCAN
+```r
+# Perform density clustering using DBSCAN
 dbscan_res <- dbscan(data, eps = 0.5, minPts = 5)
 ``` 
 
- Finally, plot the results, with each cluster assigned a different colour, and print the number of clusters found. 
- The output will provide insight into the number and characteristics of subgroups within the patient population.
+Finally, plot the results, with each cluster assigned a different colour, and print the number of clusters found. 
+The output will provide insight into the number and characteristics of subgroups within the patient population.
 
- ```r
- # Plot the results
+```r
+# Plot the results
 plot(data, col = dbscan_res$cluster, pch = 20, main = "Density Clustering")
 legend("topright", legend = unique(dbscan_res$cluster), col = unique(dbscan_res$cluster), pch = 20)
 
