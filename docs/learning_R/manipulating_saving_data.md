@@ -6,12 +6,10 @@ sidebar_position: 12
 
 ## Manipulating Data with `data.table`
 
-The [`data.table`](https://www.rdocumentation.org/packages/data.table/versions/1.14.8) package offers a powerful version of R's `data.table` package with syntax and feature improvements for greater convenience, programming efficiency, and ease of use.
+The [`data.table`](https://www.rdocumentation.org/packages/data.table/versions/1.14.8) package offers a powerful version of R's `data.frame` with syntax and feature improvements for greater convenience, programming efficiency, and ease of use.
 
-A data table is basically an extended version of a data frame.
-Data tables use a columnar data structure, which means that each column must have the same length but can be of different types.
-They have a two-dimensional structure with rows and columns. 
-However, the general form of a data table is `DT[i, j, by]`.
+Data tables use a columnar data structure, which means that each column must have the same number of rows but can be of different types.
+The general syntax of a data table is `DT[i, j, by]`.
 It provides three arguments in that order: `rows`, `columns`, and `groups`.
 
 To get started, install and load the `data.table` package:
@@ -69,7 +67,6 @@ output:
 :::
 
 A data table does not immediately convert characters into factors, thus avoiding unexpected behaviour.
-Also, row names are never created or used in a data table.
 When you print a data table, a colon (`:`) is inserted after the row number to visually distinguish it from the first column.
 
 :::tip
@@ -462,7 +459,7 @@ By default, it includes all columns except the grouping column itself.
 It is used in the argument `j`.
 
 `.SD[1]` returns the first row for each group and `.SD[.N]` the last row.
-However, all columns are returned.
+In both cases all columns are returned.
 
 ```r
 # Return the first row for each "id"
@@ -587,7 +584,7 @@ data(glioma, package = "exactRankTests")
 ```
 
 :::note example data set glioma
-"*A non-randomized pilot study on malignant glioma patients with pretargeted adjuvant radioimmunotherapy using Yttrium-90-biotin.*
+"*A non-randomized pilot study on malignant glioma patients with pretreated adjuvant radioimmunotherapy using Yttrium-90-biotin.*
 *A data frame with 37 observations on the following 7 variables.*"
 
 - No.: patient number
