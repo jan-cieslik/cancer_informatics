@@ -228,6 +228,55 @@ The resulting plot shows how log transformation compresses the range of values, 
 This transformation can be useful in cases where we want to reduce the impact of outliers or extreme values, while still preserving the underlying relationships between the data points.
 :::
 
+## Box-Cox transformation
+
+The Box-Cox transformation is a method used to transform non-normal data into a normal distribution. 
+The transformation involves raising the data to a power (lambda) and then taking the natural logarithm of the result. 
+The Box-Cox transformation is often used in regression analysis, where it can help to improve the fit of a linear model by reducing heteroscedasticity and improving normality.
+
+In R, the boxcox function from the [**MASS library**](https://cran.r-project.org/web/packages/MASS/index.html) can be used to perform the Box-Cox transformation. 
+This function calculates the log-likelihood function for a range of lambda values, and returns the lambda value that maximizes the log-likelihood function.
+
+```r
+# Install the MASS package
+install.packages("MASS")
+library(MASS)
+```
+```r
+# In R, the formula for the Box-Cox transformation is:
+y_transformed = (y^lambda - 1) / lambda
+```
+:::note
+- **y** is the original variable or dataset
+
+- **lambda** is the parameter that controls the transformation
+
+- **y_transformed** is the transformed variable or dataset
+:::
+
+Just a visualized example of the application of the Box Cox transformation to a group of 10 patients and their blood pressure:
+
+![](./Images/boxcox.png "boxcox")
+
+The histogram on the left shows the distribution of the original blood pressure data. 
+We can see that the data is slightly skewed to the right, with most of the readings between 120 and 200 mmHg.
+
+The histogram on the right shows the distribution of the transformed blood pressure data, after applying the Box-Cox transformation with the optimal lambda value. 
+We can see that the data is now more symmetric and approximately normally distributed, with most of the readings between -1 and 1.
+
+:::tip5 Tips for Data Normalization
+
+**1. Understand the data:** It is important to understand the characteristics of the data before selecting a normalization technique. The distribution, range, and presence of outliers should be taken into consideration.
+
+**2. Choose the appropriate technique:** There are many normalization techniques available, and the appropriate technique should be selected based on the specific characteristics of the data and the requirements of the analysis.
+
+**3. Check for errors:** Data normalization can introduce errors, such as loss of information or the introduction of bias. It is important to check for these errors and address them before proceeding with analysis.
+
+**4. Validate the results:** It is important to validate the results of the normalization technique and ensure that it has achieved the desired outcome, such as improved normality or comparability of the data.
+
+**5. Document the process:** It is important to document the normalization process, including the technique used, the parameters selected, and any issues encountered. This documentation can help ensure reproducibility and aid in the interpretation of results.
+:::
+
 ## Sources & Further Reading
 
 - Pickett B, Altieri G. Normalization: what does it really mean?. Med Dosim. 1992;17(1):15-27. doi:10.1016/0958-3947(92)90004-y
