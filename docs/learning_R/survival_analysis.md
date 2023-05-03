@@ -5,7 +5,7 @@ sidebar_position: 15
 # Survival Analysis
 
 The goal of **Survival Analysis** is to identify the time until the event of interest occurs.
-This event can anything but most of the time, it represents death.
+This event can be anything but most of the time, it represents death.
 
 Survival Analysis may be used to explore large data sets, for example the time from surgery to death or from start of treatment to progression.
 
