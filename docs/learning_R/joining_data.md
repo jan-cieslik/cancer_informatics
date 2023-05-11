@@ -457,7 +457,7 @@ output:
 |Join Type |Join Functions               |Pipe Operator Way               |
 |----------|-----------------------------|--------------------------------|
 |Inner Join|`inner_join(x, y, by = "xy")`|`x %>% inner_join(y, by = "xy")`|
-|Full Join |`full_join(x, x, by = "xy")` |`x %>% full_join(y, by = "xy")` |
+|Full Join |`full_join(x, y, by = "xy")` |`x %>% full_join(y, by = "xy")` |
 |Left Join |`left_join(x, y, by = "xy")` |`x %>% left_join(y, by = "xy")` |
 |Right Join|`right_join(x, y, by = "xy")`|`x %>% right_join(y, by = "xy")`|
 |Anti-Join |`anti_join(x, y, by = "xy")` |`x %>% anti_join(y, by = "xy")` |
