@@ -5,7 +5,7 @@ sidebar_position: 13
 # Regression Analysis
 
 **Regression analysis** is a statistical method of analysis.
-Regression can be used to test how effectively you can predict the values of one variable (= *dependent variable*) based on the values of one or more other variables (*independent variables*).
+Regression can be used to test how effectively you can predict the values of one variable (= *dependent variable*) based on the values of one or more other variables (= *independent variables*).
 To do this, you examine the correlation of the variables and develop a prediction function on this basis.
 The higher the correlation between the variables, the better one variable can be predicted by the other.
 
@@ -130,20 +130,20 @@ If these assumptions do not apply to our model, the results of may be misleading
 
 To ensure that these assumptions are met, we can create the residual diagrams shown below.
 
-##### 4.1. Residual vs. Fitted Values Plot
+##### 4.1. Residual vs Fitted Values Plot
 
 ```r
 # Define the residuals
 hwd_res <- resid(hwd_model)
 
-# Create a residual vs. fitted plot
+# Create a residual vs fitted plot
 plot(fitted(hwd_model), hwd_res)
 
 # Add a horizontal line
 abline(0,0)
 ```
 
-![](./Images/hwd_residuals.png "hwd Residual vs. Fitted Values Plot")
+![](./Images/hwd_residuals.png "hwd Residual vs Fitted Values Plot")
 
 We can assume that homoscedasticity is not broken as long as the residuals appear to be randomly and uniformly scattered across the graph around the number zero.
 
@@ -184,8 +184,156 @@ hwd_graph
 
 ### Multiple Linear Regression
 
+Multiple linear regression can explain dependent variables through *multiple* independent variables.
 
+In this chapter, we will work with the [`Happiness Index 2018-2019`](https://www.kaggle.com/datasets/sougatapramanick/happiness-index-2018-2019) data set.
+"*This study analyses the association between the Happiness Index Score in 2018 and 2019, and a set of independent variables [...].*"
+We will analyse the relationship between `Score` (dependent variable) and `Social.support` and `Healthy.life.expectancy` (independent variables).
+
+#### 1. Load the Data Set
+
+First, you have to load your data set.
+
+```r
+# Import the data set
+happiness <- read.csv("2018.csv")
+
+# Create a new data set with the relevant variables
+happiness <- happiness[, "Score", "Country.or.region", "Social.support", "Healthy.life.expectancy"]
+
+# Call heads
+head(happiness)
+
+  Score Country.or.region Social.support Healthy.life.expectancy
+1 7.632           Finland          1.592                   0.874
+2 7.594            Norway          1.582                   0.861
+3 7.555           Denmark          1.590                   0.868
+4 7.495           Iceland          1.644                   0.914
+5 7.487       Switzerland          1.549                   0.927
+6 7.441       Netherlands          1.488                   0.878
+```
+
+#### 2. Visualize the Data Set
+
+Before calculating the multiple linear regression analysis, you should first check whether this regression model could be a good model for the data.
+
+For this, we want to check our variables for linearity (`Score` vs `Social.support` and `Score` vs `Healthy.life.expectancy`).
+We can do this with R's built-in function `plot()`.
+
+```r
+# Attach the data set
+attach(happiness)
+
+# Plot Score vs Social.support
+plot(Score ~ Social.support)
+```
+
+![](./Images/happiness_socialsupportplot.png "Score vs Social.support")
+
+```r
+# Plot Score vs Healthy.life.expectancy
+plot(Score ~ Healthy.life.expectancy)
+```
+
+![](./Images/happiness_healthylifeplot.png "Score vs Healthy.life.expectancy")
+
+As you can see, both independent variables, `Social.support` and `Healthy.life.expectancy`, seem to have a linear correlation with the dependent variable `Score`, so we can continue with the regression analysis.
+ 
+#### 3. Multiple Linear Regression Analysis
+
+A multiple linear regression model can be created with the `lm()` function that we have already used for the simple linear regression analysis.
+However, since we are working with two or more independent variables now, we have to use the following syntax instead: `lm(dependent_var ~ independent_var1 + independent_var2 + ...)`.
+
+```r
+# Compute a multiple linear regression model
+happiness_model <- lm(Score ~ Social.support + Healthy.life.expectancy)
+
+# Look at the summary
+summary(happiness_model)
+
+Call:
+lm(formula = Score ~ Social.support + Healthy.life.expectancy)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-1.6034 -0.4125 -0.1027  0.4461  1.8989 
+
+Coefficients:
+                        Estimate Std. Error t value Pr(>|t|)    
+(Intercept)               2.1746     0.2072  10.496  < 2e-16 ***
+Social.support            1.5222     0.2217   6.866 1.55e-10 ***
+Healthy.life.expectancy   2.2675     0.2708   8.374 3.30e-14 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.6216 on 153 degrees of freedom
+Multiple R-squared:  0.6957,	Adjusted R-squared:  0.6917 
+F-statistic: 174.9 on 2 and 153 DF,  p-value: < 2.2e-16
+```
+
+Again, there are many values that you can read from the multiple linear regression result.
+They are similar to the simple linear regression analysis (click [here](#3-simple-linear-regression-analysis) for further explanation).
+- **F-statistic & p-value**: These results show that our overall model is statistically significant.
+- **`Social.support` & `Healthy.life.expectancy`**: The Pr(>|t|) values indicate that our independent variables are statistically significant.
+
+#### 4. Checking Assumptions of the Model
+
+The multiple linear regression model is based on the same assumptions as the simple linear regression model: Normal distribution and homoscedasticity.
+
+##### 4.1. Testing for Normal Distribution
+
+We can test for normal distribution by creating a simple residual histogram.
+
+```r
+# Create a residual histogram
+hist(residuals(happiness_model), col = "steelblue")
+```
+
+![](./Images/happiness_residualshist.png "Histogram of Residuals")
+
+The histogram shows that the distribution of our model appears to be normal.
+
+##### 4.2. Testing for Homoscedasticity
+
+To test for homoscedasticity, we can compute a graph comparing the fitted value with the residual.
+
+```r
+# Create a fitted value vs residual graph
+plot(fitted(happiness_model), residuals(happiness_model))
+
+# Add a horizontal line
+abline(h = 0, lty = 2)
+```
+
+![](./Images/happiness_fittedvsresiduals.png "Fitted Value vs Residual Plot")
+
+Our model is homoscedastic because the residuals are evenly distributed at each fitted value.
+In summary, we have confirmed that the model assumptions are reasonably met.
+
+#### 5. Visualize the Results
+
+In the following, I will show you a simple and quick way to visualize a multiple linear regression model with the `car` package.
+
+```r
+# Install & load the car package
+install.packages("car")
+library(car)
+
+# Plot the model
+avPlots(happiness_model)
+```
+
+![](./Images/happiness_graph.png "happiness Graph")
+
+- The x-axis represents a single independent variable and the y-axis represents the dependent variable.
+- The blue line shows the relationship between those two variables.
+The other independent variables (that are not plotted in the particular graph) are kept at a constant value.
+
+:::note
+Since we have multiple independent variables, we cannot plot a single fitted regression line on a two-dimensional graph.
+:::
 
 ## Sources & Further Reading
 
 - [Heights and weights](https://www.kaggle.com/datasets/tmcketterick/heights-and-weights)
+- [`Happiness Index 2018-2019`](https://www.kaggle.com/datasets/sougatapramanick/happiness-index-2018-2019)
