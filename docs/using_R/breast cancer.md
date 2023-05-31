@@ -33,6 +33,72 @@ These packages can be used to create plots of gene expression data, survival cur
 In the following, individual methods mentioned above are explained using breast cancer as an example.
 Afterwards, you should be able to perform individual analyses using R and apply them to a medical problem.
 
+## Data preprocessing
+
+Here's an example of how to preprocess the Breast Cancer dataset **gbsg: Breast cancer data sets used in Royston and Altman**, which is included in the survival package in R:
+To generate the dataset you can use the following code. 
+Further information regarding abbreviations can be found in the legend at the following link [**gbsg: Breast cancer data sets used in Royston and Altman**](https://www.rdocumentation.org/packages/survival/versions/3.5-5/topics/gbsg).
+
+```r
+data(cancer, package="survival")
+gbsg
+```
+Next, we need to preprocess the data to make it suitable for survival analysis. In particular, we need to:
+
+- Remove any missing or incomplete data.
+- Convert the factor variables to numeric variables.
+- Create a Surv object that specifies the survival time and censoring status.
+
+The `na.omit` R function removes all incomplete cases of a data object (typically of a data frame, matrix or vector)
+
+```r
+# remove any missing or incomplete data
+gbsg <- na.omit(gbsg)
+
+# convert factor variables to numeric variables
+gbsg$nodes <- ifelse(gbsg$nodes == 1, 1, 0)
+gbsg$er <- ifelse(gbsg$er == 1 , 1, 0)
+```
+
+As a result, the dataset now only lists those patients in the data rows node and er who had exactly one positive lymph node involvement or whose estrogen receptors (fmol/l) level was exactly 1 fmol/l. 
+This helps, for example, to classify only subgroups.
+
+:::tip
+`ifelse` is particularly useful when you want to transform a categorical variable into a numerical one. 
+For example, if you have a factor variable called gender with levels "male" and "female", you can use ifelse to create a new variable called gender_num that takes the value 1 for "male" and 0 for "female":
+:::
+
+Next, we can subset the data to include only the variables of interest. 
+For example, we might want to include only the age, tumour size, and nodal status variables:
+
+```r
+# subset the data
+gbsg.subset <- gbsg[, c("age", "size", "nodes")]
+```
+
+Now the dataset **gbsg.subset** only contains the following three columns and should look like this:
+
+![](./Images/gbsg_subset.png "gbsg subset")
+
+Finally, we might want to normalize the data to remove any systematic biases or differences in scale between the variables. 
+One common way to do this is to perform z-score normalization:
+
+:::info
+Z-score normalization (also known as standardization) is a data preprocessing technique that rescales the values in a numerical variable so that they have a mean of zero and a standard deviation of one. 
+The rescaled values are known as z-scores.
+:::
+
+```r
+# z-score normalization
+gbsg.norm <- scale(gbsg.subset)
+```
+The bc.norm object now contains the normalized variables, which can be used for further analysis.
+
+:::note
+Note that these preprocessing steps are just a few examples of the many ways to preprocess data for survival analysis. 
+The specific steps will depend on the nature of the data and the research question.
+:::
+
 ## Sources & Further Reading
 - Elsheakh DN, Mohamed RA, Fahmy OM, Ezzat K, Eldamak AR. Complete Breast Cancer Detection and Monitoring System by Using Microwave Textile Based Antenna Sensors. Biosensors (Basel). 2023;13(1):87. Published 2023 Jan 4. doi:10.3390/bios13010087
 
@@ -43,3 +109,7 @@ Afterwards, you should be able to perform individual analyses using R and apply 
 - West M, Blanchette C, Dressman H, et al. Predicting the clinical status of human breast cancer by using gene expression profiles. Proc Natl Acad Sci U S A. 2001;98(20):11462-11467. doi:10.1073/pnas.201162998
 
 - Finak G, Mayer B, Fulp W, et al. DataPackageR: Reproducible data preprocessing, standardization and sharing using R/Bioconductor for collaborative data analysis. Gates Open Res. 2018;2:31. Published 2018 Jul 10. doi:10.12688/gatesopenres.12832.2
+
+- Bose M, Benada J, Thatte JV, et al. A catalog of curated breast cancer genes. Breast Cancer Res Treat. 2022;191(2):431-441. doi:10.1007/s10549-021-06441-y
+
+- Nagel A, Szade J, Iliszko M, et al. Clinical and Biological Significance of ESR1 Gene Alteration and Estrogen Receptors Isoforms Expression in Breast Cancer Patients. Int J Mol Sci. 2019;20(8):1881. Published 2019 Apr 16. doi:10.3390/ijms20081881
