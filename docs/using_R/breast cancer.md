@@ -99,6 +99,110 @@ Note that these preprocessing steps are just a few examples of the many ways to 
 The specific steps will depend on the nature of the data and the research question.
 :::
 
+## Survival Analysis
+
+In order to do a survival analysis, you need to install and load the `survival` + `tidyverse` package:
+
+```r
+install.packages("survival")
+library(survival)
+install.packages("tidyverse")
+library(tidyverse)
+```
+
+Next on, you can load the dataset that you wish to analyse.
+In this course, we will be using the [**rotterdam: Breast cancer data set used in Royston and Altman**](https://www.rdocumentation.org/packages/survival/versions/3.5-5/topics/rotterdam).
+It is included in the `survival` package and may be loaded using the `data()` function:
+
+```r
+data(cancer, package="survival")
+rotterdam
+```
+
+First we create a survival object using the Surv function from the survival package.
+The first argument should be the time-to-event variable (in this case, days to death or last follow-up) and the second argument should be the event variable (in this case, whether the patient died or not).
+
+In the data we used this should be the following two columns:
+- dtime: days to death or last follow-up
+- death: 0= alive, 1= dead
+
+```r
+# This will incloud our two variables: dtime and the event that the patient died (1)
+surv_object <- with(rotterdam, Surv(dtime, death == "1"))
+```
+
+Next we create a Kaplan-Meier survival curve using the `survfit` function from the survival package and visualize it using the `plot` function
+
+```r
+# Create one survival analysis using surv_object ~ 1
+surv_prob <- survfit(surv_object ~ 1, data = rotterdam)
+plot(surv_prob, xlab = "Time (Days)", ylab = "Survival Probability", main = "Kaplan-Meier Curve for Breast Cancer")
+```
+This should generate the following graphic:
+
+![](./Images/survival_breastcancer.png "breast_cancer")
+
+As expected, the probability of survival decreases as the period of disease increases
+
+In the following we use the Cox proportional hazards model to investigate the relationship between predictor variables and time-to-event outcomes. 
+In this case we use the survival object created above and add the predictor variables of interest. 
+For example **age, meno, size and nodes**. 
+Getting more detailed information on the abbreviations and all the information contained in the dataset, it is advisable to consult the above-mentioned website, including the legend.
+For the sake of simplicity, only the four variables are briefly explained below.
+
+:::info
+- age: age at surgery
+
+- meno: menopausal status (0= premenopausal, 1= postmenopausal)
+
+- size: tumour size, a factor with levels <=20 20-50 >50
+
+- nodes: number of positive lymph nodes
+:::
+
+```r
+# Create a Cox proportional hazards model using the coxph function from the survival package.
+cox_model <- coxph(surv_object ~ age + meno + size + nodes, data = rotterdam)
+
+Output:
+
+              coef exp(coef) se(coef)      z Pr(>|z|)    
+age       0.010972  1.011032 0.003744  2.931  0.00338 ** 
+meno      0.115715  1.122676 0.097337  1.189  0.23452    
+size20-50 0.477329  1.611764 0.065093  7.333 2.25e-13 ***
+size>50   0.882872  2.417834 0.090818  9.721  < 2e-16 ***
+nodes     0.074264  1.077091 0.004760 15.603  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+```
+:::info
+- **Hazard ratio:** It represents the relative hazard of the outcome in one group (e.g., treatment group) compared to another group (e.g., control group) with a different level of the predictor variable, while holding all other variables constant. 
+For example, a hazard ratio of 1.5 for a treatment group compared to a control group would indicate that the hazard of the outcome is 50% higher in the treatment group compared to the control group, while holding all other variables constant. 
+Hazard ratios are important for identifying which predictor variables are most strongly associated with the outcome and can help guide clinical decision-making and treatment strategies.
+:::
+
+The amount of data may initially overwhelm you. The five lines are briefly explained below:
+
+- **First table "Coefficients":** provides the coefficients for each predictor variable in the model. 
+These coefficients represent the estimated change in the hazard ratio for each unit increase in the predictor variable, holding all other variables constant.
+
+- **Second table "exp(coef)":** provides the exponentiated coefficients (i.e., the hazard ratios) for each predictor variable. 
+These hazard ratios represent the estimated change in the hazard of the outcome (in this case, death) for a one-unit increase in the predictor variable, holding all other variables constant.
+
+- **Third table "se(coef)":** provides the standard errors of the coefficients.
+
+- **Fourth table, "z":** provides the z-statistics and associated p-values for each predictor variable. 
+The z-statistic is the coefficient divided by its standard error, and the p-value represents the probability of observing a z-statistic as extreme as the one observed in the data, assuming the null hypothesis (i.e., no effect of the predictor variable on the outcome).
+
+- **Fifth table, "Pr(>|z|)":** provides the p-values for each predictor variable. 
+These p-values are equivalent to the ones in the fourth table, but are presented in a more conventional format.
+
+:::info Data interpretation
+In conclusion, the hazard ratios mentioned above show that the size of the primary tumour has a decisive influence on the probability of survival. 
+The presence of a tumour with size 20-50 is associated with a 1.6-fold increased probability of reduced survival and size larger than 50 even with a 2.4-fold increased probability of reduced survival. 
+Also of interest: lymph node involvement has little effect on survival probability compared to the size of the primary tumour.
+:::
+
 ## Sources & Further Reading
 - Elsheakh DN, Mohamed RA, Fahmy OM, Ezzat K, Eldamak AR. Complete Breast Cancer Detection and Monitoring System by Using Microwave Textile Based Antenna Sensors. Biosensors (Basel). 2023;13(1):87. Published 2023 Jan 4. doi:10.3390/bios13010087
 
