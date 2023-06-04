@@ -20,7 +20,7 @@ You have a study that has 5780 candidates. You would like to store that number i
 ```r
 number_candidates <- 5780
 ```
-In this line of code, we assigned the value ` 5780` to the variable `number_candidates`. R will store the variable and its value assigned in the current workspace. You can view all variables in the workspace in RStudio in the ‘Environment’ tab in the top right corner.
+In this line of code, we assigned the value `5780` to the variable `number_candidates`. R will store the variable and its value assigned in the current workspace. You can view all variables in the workspace in RStudio in the ‘Environment’ tab in the top right corner.
 
 ![Variables_1](./Images/Variables_1.png)
 :::
@@ -39,13 +39,13 @@ This change is also reflected in the workspace in RStudio:
 :::
 
 
-## Rules for naming variables
+## Rules for Naming Variables
 - A variable name can contain letters, numbers, dots and underscores.
 - A variable cannot start with a number, dot or an underscore.
-- R is case-sensitive (NUMBER, Number and number are all different variables.)
+- R is case-sensitive (`NUMBER`, `Number` and `number` are all different variables.)
 - The variable should not have the same name as functions.
 
-## Printing variables
+## Printing Variables
 
 If you would like to see the contents of a variable, you can simply type out the name of the variable in the console.
 You can also use the `print()` function to print the value of variables.
@@ -62,7 +62,7 @@ print(colour_favourite)
 Output: [1] "blue"
 ```
 
-You can also use the `cat()` or the `paste()` function to print out the variables. They are used to combine multiple values into a continuous output:
+You can use the `cat()` or the `paste()` function to combine variables.
 
 ```r
 #using the cat() function:
@@ -75,7 +75,7 @@ Output: [1] "My favourite colour is blue"
 
 ```
 
-You can also assign the same value to multiple variables:
+It is also possible to assign one value to multiple variables at once:
 
 ```r
 

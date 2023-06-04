@@ -3,17 +3,22 @@ sidebar_position: 8
 ---
 # Lists
 
-Lists were already described in the vectors chapter as being  versatile data structures: they allow objects of various types to gather under one name (the name of the list). The objects can be all the data structures we have seen so far, such as vectors, factors, data frames, matrices, arrays and other lists.
+In the programming language R, a list is a versatile and powerful data structure that allows you to store and organize different types of data elements.
+Unlike vectors that hold elements of the same type, lists can contain elements of different types.
 
 ## Creating a list
-To create a list, use the ` list()` function. The arguments inside the function can be any other data structure. They are also known as the list components:
+To create a list, use the `list()` function.
+The arguments inside the function can be any other data structure.
+
 ```r
 # create a list with diffenent data structures:
 example_list <- list(vector_component, matrix_component, factor_component)
 ```
-## Naming lists
+## Naming Lists
 
-For a better workflow, the components of the list should be named. This can be done in two ways. The first way involves assigning the name to the components inside the `lists()` function:
+The components of the list can be named.
+This can be done in two ways.
+The first way involves assigning the name to the components inside the `lists()` function:
 
 ```r
 # create a list with names components
@@ -29,13 +34,13 @@ names(my_list) <- c("first", "second")
 
 :::note
 
-The order in which you assign the names need to align with the the components of the list, e.g. the first name of the `names() `function will be assigned to the first component of the list, the second name will be assigned to the second component of the list, and so on!
+The order in which you assign the names need to align with the components of the list, e.g. the first name of the `names()` function will be assigned to the first component of the list, the second name will be assigned to the second component of the list, and so on.
 
 :::
 
-## Selecting from a list
+## Selecting from a List
 
-Since a list is made of a number of components, which each have elements of their own, selecting them may get tricky.
+Since a list is made of a number of components, which each may have elements of their own, selecting them may get tricky.
 
 One way to select a component is to use the index of the component. However, rather than inserting the index in single square brackets `[]`, you will need double square brackets `[[ ]]`:
 
@@ -44,9 +49,10 @@ One way to select a component is to use the index of the component. However, rat
 selecting_list[[1]]
 ```
 
-You can also refer to the names of the components, with `[[ ]]` or with the `$` sign. Both will select the data frame representing the reviews:
+You can also refer to the names of the components, with `[[ ]]` or with the `$` sign.
+Both will select the component representing the reviews:
 ```r
-# both lines of code will select the component names "example"
+# both lines of code will select the component "example"
 selecting_list[["example"]]
 selecting_list$example
 ```
@@ -66,9 +72,9 @@ If you want to select an element from a component that is two-dimensional (such 
 selecting_list[[2]][4,3]
 ```
 
-## Deleting components from a list
+## Deleting Components from a List
 
-To delete some component from a list, you need to select the component using its index and then assign the value NULL to it.
+To delete a component from a list, you need to select the component using its index and then assign the value NULL to it.
 ```r
 # delete the fifth component of the list
 deleting_list[[5]] <- NULL
@@ -76,15 +82,16 @@ deleting_list[[5]] <- NULL
 
 :::info
 
-Alternatively, you can indicate the deletion inside the brackets by putting a minus sign in front of the index:
+Alternatively, you can use a negative index inside the brackets:
 ```r
 deleting_list[[-5]]
 ```
 :::
 
-## Adding components to a list
+## Adding Components to a List
 
-You can only add elements at the end of a list, to do this you need to add the component to the next index available in a list. So if a list has 3 components and you want to add another component, it will be added to the 4 index of the list:
+You can only add elements at the end of a list, to do this you need to add the component to the next index available in a list.
+So if a list has 3 components, and you want to add another component, it will be added to the fourth index of the list:
 
 ```r
 # add a new vector to an existing list at the fourth position
@@ -93,21 +100,21 @@ adding_list[[4]] <- new_vector
 ```
 
 :::tip
-### Advanced:
 
 ```r
 adding_list[[length(adding_list)+1]] <- new_vector
 ```
 
-The above notation is convenient, when you do not know how many components your list has. Inside the double square brackets, you have another function, that will determine the length of the lists and will automatically add another index to the list for the new component to occupy.
+The above notation is convenient, when you do not know how many components are stored inside the list.
+With `length()` we determine the number of components inside the list and add "1" to it.
 
 :::
 
-## Converting a list to a vector
+## Converting a List to a Vector
 
 Sometimes a list needs to be converted to a vector to allow for further analysis, such as arithmetic calculations. To convert, we use the `unlist()` function:
 ```r
-#this will convert the entire components of the list into a vector
+#this will convert all components of the list into one vector
 unlist(new_list)
 ```
 
