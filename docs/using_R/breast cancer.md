@@ -4,16 +4,15 @@ sidebar_position: 2
 # Using R: Breast Cancer
 
 ## Introduction
+Breast cancer is a malignant condition originating from the proliferation of abnormal breast cells.
+It ranks as the second most prevalent cancer among women on a global scale, and it can also affect men. 
+In recent times, there has been a notable surge in the utilization of computational methodologies and tools within the field of cancer research.
+Among these, the programming language R has gained substantial prominence due to its robust capacities for statistical computing and graphical representation.
+Below are several applications highlighting the utility of R in the realm of breast cancer informatics:
 
-Breast cancer is a cancer entity that develops in breast cells.
-It is the second most common cancer in women worldwide, and it is also possible in men.
-In recent years, the use of computational methods and tools for cancer informatics has increased significantly.
-R, a programming language for statistical computing and graphics, is a popular choice for cancer informatics due to its powerful data manipulation and visualization capabilities.
-Here are some ways R can be used in breast cancer informatics:
-
-**1. Data Preprocessing:** R can be used for data preprocessing, which is an essential step in cancer informatics.
-This step involves cleaning, transforming, and organizing data before analysis.
-In R, packages like [**tidyverse**](https://cran.r-project.org/web/packages/tidyverse/index.html) can be used for data cleaning and transformation, while [**dplyr**](https://cran.r-project.org/web/packages/dplyr/index.html) can be used for data manipulation.
+**1. Data Preprocessing:** R serves as a valuable tool for conducting data preprocessing, a fundamental phase within the realm of cancer informatics.
+This critical step encompasses the cleansing, transformation, and organization of data prior to analysis.
+In R, packages from the [**tidyverse**](https://cran.r-project.org/web/packages/tidyverse/index.html) can be used for data cleaning, transformation and manipulation.
 
 **2. Survival Analysis:** Survival analysis is a statistical method used to analyse the time it takes for an event to occur, such as death or disease progression.
 R has several packages that can be used for survival analysis in breast cancer, including [**survival**](https://cran.r-project.org/web/packages/survival/index.html) or [**survminer**](https://cran.r-project.org/web/packages/survminer/index.html).
@@ -56,15 +55,15 @@ The `na.omit` R function removes all incomplete cases of a data object (typicall
 gbsg <- na.omit(gbsg)
 
 # convert factor variables to numeric variables
-gbsg$nodes <- ifelse(gbsg$nodes == 1, 1, 0)
-gbsg$er <- ifelse(gbsg$er == 1 , 1, 0)
+gbsg$nodes <- ifelse(gbsg$nodes >= 1, 1, 0)
+gbsg$er <- ifelse(gbsg$er >= 1 , 1, 0)
 ```
 
-As a result, the dataset now only lists those patients in the data rows node and er who had exactly one positive lymph node involvement or whose estrogen receptors (fmol/l) level was exactly 1 fmol/l. 
-This helps, for example, to classify only subgroups.
+Our example converts the "nodes" column into either 1 or 0 values depending on if the patient has one or more positive lymph nodes.
+Similarly, we convert the estrogen receptor (ER) status into 1 or 0 depending on if the ER status is above zero.
 
 :::tip
-`ifelse` is particularly useful when you want to transform a categorical variable into a numerical one. 
+`ifelse` is particularly useful when you want to transform a categorical variable. 
 For example, if you have a factor variable called gender with levels "male" and "female", you can use ifelse to create a new variable called gender_num that takes the value 1 for "male" and 0 for "female":
 :::
 
@@ -76,7 +75,7 @@ For example, we might want to include only the age, tumour size, and nodal statu
 gbsg.subset <- gbsg[, c("age", "size", "nodes")]
 ```
 
-Now the dataset **gbsg.subset** only contains the following three columns and should look like this:
+Now the dataset **gbsg.subset** only contains the following three columns and could look like this:
 
 ![](./Images/gbsg_subset.png "gbsg subset")
 
@@ -92,7 +91,7 @@ The rescaled values are known as z-scores.
 # z-score normalization
 gbsg.norm <- scale(gbsg.subset)
 ```
-The bc.norm object now contains the normalized variables, which can be used for further analysis.
+The gbsg.norm object now contains the normalized variables, which can be used for further analysis.
 
 :::note
 Note that these preprocessing steps are just a few examples of the many ways to preprocess data for survival analysis. 
@@ -101,7 +100,7 @@ The specific steps will depend on the nature of the data and the research questi
 
 ## Survival Analysis
 
-In order to do a survival analysis, you need to install and load the `survival` + `tidyverse` package:
+In our example we will utilize the `survival` and `tidyverse` package:
 
 ```r
 install.packages("survival")
@@ -128,7 +127,7 @@ In the data we used this should be the following two columns:
 
 ```r
 # This will incloud our two variables: dtime and the event that the patient died (1)
-surv_object <- with(rotterdam, Surv(dtime, death == "1"))
+surv_object <- with(rotterdam, Surv(dtime, death))
 ```
 
 Next we create a Kaplan-Meier survival curve using the `survfit` function from the survival package and visualize it using the `plot` function
@@ -148,7 +147,7 @@ In the following we use the Cox proportional hazards model to investigate the re
 In this case we use the survival object created above and add the predictor variables of interest. 
 For example **age, meno, size and nodes**. 
 Getting more detailed information on the abbreviations and all the information contained in the dataset, it is advisable to consult the above-mentioned website, including the legend.
-For the sake of simplicity, only the four variables are briefly explained below.
+For the sake of simplicity, only four variables are briefly explained below.
 
 :::info
 - age: age at surgery
@@ -183,19 +182,19 @@ Hazard ratios are important for identifying which predictor variables are most s
 
 The amount of data may initially overwhelm you. The five lines are briefly explained below:
 
-- **First table "Coefficients":** provides the coefficients for each predictor variable in the model. 
+- **First column "Coefficients":** provides the coefficients for each predictor variable in the model. 
 These coefficients represent the estimated change in the hazard ratio for each unit increase in the predictor variable, holding all other variables constant.
 
-- **Second table "exp(coef)":** provides the exponentiated coefficients (i.e., the hazard ratios) for each predictor variable. 
+- **Second column "exp(coef)":** provides the exponentiated coefficients (i.e., the hazard ratios) for each predictor variable. 
 These hazard ratios represent the estimated change in the hazard of the outcome (in this case, death) for a one-unit increase in the predictor variable, holding all other variables constant.
 
-- **Third table "se(coef)":** provides the standard errors of the coefficients.
+- **Third column "se(coef)":** provides the standard errors of the coefficients.
 
-- **Fourth table, "z":** provides the z-statistics and associated p-values for each predictor variable. 
+- **Fourth column "z":** provides the z-statistics and associated p-values for each predictor variable. 
 The z-statistic is the coefficient divided by its standard error, and the p-value represents the probability of observing a z-statistic as extreme as the one observed in the data, assuming the null hypothesis (i.e., no effect of the predictor variable on the outcome).
 
-- **Fifth table, "Pr(>|z|)":** provides the p-values for each predictor variable. 
-These p-values are equivalent to the ones in the fourth table, but are presented in a more conventional format.
+- **Fifth column "Pr(>|z|)":** provides the p-values for each predictor variable. 
+These p-values are equivalent to the ones in the fourth column, but are presented in a more conventional format.
 
 :::info Data interpretation
 In conclusion, the hazard ratios mentioned above show that the size of the primary tumour has a decisive influence on the probability of survival. 
