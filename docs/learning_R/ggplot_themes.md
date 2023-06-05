@@ -1,17 +1,20 @@
+---
+sidebar_position: 13
+---
 # ggplot: Themes
 
-## Overview of ggplot2 themes
+## Overview of ggplot2 Themes
 
 ### Introduction
 A ggplot2 theme is a collection of predefined visual elements that can be used to modify the appearance of your ggplot2 plots.
 Themes control various aspects of the plot such as the background colour, axis labels, grid lines, text size, legend appearance, and more.
 Themes ensure that there is consistency in the appearance of multiple plots and can be used to customize plots to match the preferences of the user or the requirements of a particular project.
 
-:::caution
-Themes only modify the appearance of the plot, but do not alter the actual data!
+:::note
+Themes only modify the appearance of the plot, but do not alter the actual data.
 :::
 
-### Popular ggplot2 themes 
+### Popular ggplot2 Themes 
 ***theme_grey()***: The default theme in ggplot2. It has a light grey background with white grid lines and black axis lines.
 It is useful when you want to create a simple and clean plot that emphasizes the data rather than the design.
 Below is an example:
@@ -35,7 +38,7 @@ Below is an example:
 
 ![theme_minimal](./Images/ggplot_themes4.png)
 
-## Customizing theme elements: 
+## Customizing Theme Elements: 
 In addition to using predefined themes, ggplot2 also provides the ability to customize individual visual elements, such as the plot background, axis labels, legend, and plot title.
 
 The visual elements of the theme layer can be classified into 3 different types: ***text***, ***rectangle*** and ***line***.
@@ -89,12 +92,11 @@ To change the colour, font size, and font family of the legend text, you can use
 Here's an example:
 
 ```r
-ggplot(NHANES, aes(x = Height, y = Weight, color = Gender)) +
+ggplot(NHANES, aes(x = Height, y = Weight, colour = Gender)) +
   geom_point() +
-  theme(legend.text = element_text(color = "green", size = 12, family = "Arial"))
-
+  theme(legend.text = element_text(colour = "green", size = 12, family = "Arial"))
 ```
-In this example, the last lines of code will set the colour of the legend text to green, the font size to 12, and the font family to "Arial". This leads to the following plot:
+In this example, the last line of code will set the colour of the legend text to green, the font size to 12, and the font family to "Arial". This leads to the following plot:
 
 ![legend.text](./Images/ggplot_themes5.png)
 
@@ -103,10 +105,10 @@ In this example, the last lines of code will set the colour of the legend text t
 The plot title in ggplot2 can be customized using the `labs()` function.
 To change the colour, font size, and font family of the plot title, you can use the `title` argument:
 ```r
-ggplot(NHANES, aes(x = Height, y = Weight, color = Gender)) +
+ggplot(NHANES, aes(x = Height, y = Weight, colour = Gender)) +
   geom_point() +
   labs(title = "Weight vs Height by Gender") +
-  theme(plot.title = element_text(color = "purple", size = 20, family = "Helvetica", hjust = 0.5))
+  theme(plot.title = element_text(colour = "purple", size = 20, family = "Helvetica", hjust = 0.5))
 ```
 
 In this example, we've set the colour of the plot title to purple, the font size to 20, the font family to "Helvetica", and the horizontal justification (hjust) to 0.5, which centres the plot title horizontally:
@@ -121,7 +123,7 @@ The `labs()` function can be used to add labels to title, subtitle, y-axis and x
 To change the axis labels in ggplot2, the labs() function takes arguments for the x-axis label (x), the y-axis label (y), and the plot title (title):
 
 ```r
-ggplot(NHANES, aes(x = Height, y = Weight, color = Gender)) +
+ggplot(NHANES, aes(x = Height, y = Weight, colour = Gender)) +
   geom_point() +
   labs(x = "Height (cm)", y = "Weight (kg)", title = "Weight vs Height by Gender")
 ```
@@ -129,7 +131,7 @@ This will set the x-axis to "Height (cm)", the y-axis to "Weight (kg)", and the 
 
 ![labs() function](./Images/ggplot_themes13.png)
 
-You can also use the `subtitle` argument to add a subtitle or the `caption` argument to add a caption!
+You can also use the `subtitle` argument to add a subtitle or the `caption` argument to add a caption.
 :::
 
 #### **Changing the Font Size and Colour of Axis Labels**
@@ -137,10 +139,10 @@ You can also use the `subtitle` argument to add a subtitle or the `caption` argu
 The font size and colour of axis labels can also be customized using the `element_text()` function within the `theme()` function:
 
 ```r
-ggplot(NHANES, aes(x = Height, y = Weight, color = Gender)) +
+ggplot(NHANES, aes(x = Height, y = Weight, colour = Gender)) +
   geom_point() +
   labs(x = "Height (cm)", y = "Weight (kg)", title = "Weight vs Height by Gender") +
-  theme(axis.title = element_text(size = 14, color = "red"))
+  theme(axis.title = element_text(size = 14, colour = "red"))
 
 ```
 In this example, we've set the font size of both the x-axis and y-axis labels to 14, and the colour to red:
@@ -152,7 +154,7 @@ In this example, we've set the font size of both the x-axis and y-axis labels to
 To change the font family of all text elements in the plot, including the axis labels, legend, and plot title, you can use the `theme()` function with the text argument:
 
 ```r
-ggplot(NHANES, aes(x = Height, y = Weight, color = Gender)) +
+ggplot(NHANES, aes(x = Height, y = Weight, colour = Gender)) +
   geom_point() +
   labs(x = "Height (cm)", y = "Weight (kg)", title = "Weight vs Height by Gender") +
   theme(text = element_text(family = "Comic Sans MS"))
@@ -201,13 +203,12 @@ Notice the hierarchy within the different elements; changing one element may aff
 It is used to modify the appearance of the grid lines that separate the major tick marks on the axes:
 
 ```r
-
-ggplot(NHANES, aes(x = Height, y = Weight, color = Gender)) +
+ggplot(NHANES, aes(x = Height, y = Weight, colour = Gender)) +
   geom_point() +
-  theme(panel.grid.major = element_line(color = "red", size = 0.5, linetype = "dotted"))
+  theme(panel.grid.major = element_line(colour = "red", size = 0.5, linetype = "dotted"))
 ```
 
-In this example, we've set the `panel.grid.major` argument to `element_line(color = "red", size = 0.5, linetype = "dotted")`, which would set the major grid lines to be red, with a size of 0.5, and a dotted linetype:
+In this example, we've set the `panel.grid.major` argument to `element_line(colour = "red", size = 0.5, linetype = "dotted")`, which would set the major grid lines to be red, with a size of 0.5, and a dotted linetype:
 
 ![panel.grid.major](./Images/ggplot_themes9.png)
 
@@ -217,12 +218,12 @@ In this example, we've set the `panel.grid.major` argument to `element_line(colo
 By adjusting its properties, you can control the colour, size, and line type of these minor grid lines to suit your needs:
 
 ```r
-ggplot(NHANES, aes(x = Height, y = Weight, color = Gender)) +
+ggplot(NHANES, aes(x = Height, y = Weight, colour = Gender)) +
   geom_point() +
-  theme(panel.grid.minor.y = element_line(color = "blue", size = 1, linetype = "dashed"))
+  theme(panel.grid.minor.y = element_line(colour = "blue", size = 1, linetype = "dashed"))
 ```
 
-In this example, we've set the `panel.grid.minor.y` argument to `element_line(color = "blue", size = 1, linetype = "dashed")`, which would set the major grid lines to be blue, with a size of 1, and a dashed linetype:
+In this example, we've set the `panel.grid.minor.y` argument to `element_line(colour = "blue", size = 1, linetype = "dashed")`, which would set the major grid lines to be blue, with a size of 1, and a dashed linetype:
 
 ![panel.grid.minor.y](./Images/ggplot_themes10.png)
 
@@ -232,12 +233,12 @@ In this example, we've set the `panel.grid.minor.y` argument to `element_line(co
 By adjusting its properties, you can change the length, colour, and thickness of the tick marks, as well as the distance between the tick marks and the axis labels:
 
 ```r
-ggplot(NHANES, aes(x = Height, y = Weight, color = Gender)) +
+ggplot(NHANES, aes(x = Height, y = Weight, colour = Gender)) +
   geom_point() +
-  theme(axis.ticks = element_line(color = "dark green", size = 3 ))
+  theme(axis.ticks = element_line(colour = "dark green", size = 3 ))
 ```
 
-In this example, we've set the `axis.ticks` argument to `element_line(color = "dark green", size = 3`, which changes the line colour to dark green and the size to 3.
+In this example, we've set the `axis.ticks` argument to `element_line(colour = "dark green", size = 3`, which changes the line colour to dark green and the size to 3.
 
 ![axis.ticks](./Images/ggplot_themes11.png)
 
@@ -264,7 +265,7 @@ The background of a ggplot2 plot can be customized using the `theme()` function.
 To change the background colour of the plot, you can use the panel.background argument. Here's an example:
 
 ```r
-ggplot(NHANES, aes(x = Height, y = Weight, color = Gender)) +
+ggplot(NHANES, aes(x = Height, y = Weight, colour = Gender)) +
   geom_point() +
   theme(panel.background = element_rect(fill = "lightblue"))
 ```
@@ -279,7 +280,7 @@ The `element_blank()` function is used in a plot to remove an item.
 It creates a completely blank element, with no visible content:
 
 ```r
-ggplot(NHANES, aes(x = Height, y = Weight, color = Gender)) +
+ggplot(NHANES, aes(x = Height, y = Weight, colour = Gender)) +
   geom_point() +
   theme(
       line = element_blank(),
@@ -305,8 +306,8 @@ The example below shows a custom theme function that is assigned to a named vari
 NHANES_theme <- theme(text = element_text(family= "Courier New", size = 14),
                       rect = element_blank(),
                       panel.grid = element_blank(),
-                      title = element_text(color = "orange"),
-                      axis.line = element_line(color = "green"))
+                      title = element_text(colour = "orange"),
+                      axis.line = element_line(colour = "green"))
 ```
 In this example, we've defined our custom theme as a function called `NHANES_theme`.
 Within this function, we've used the `theme()` function to change the font family and size of all text elements in the plot to Courier New and 14, respectively.
@@ -314,10 +315,10 @@ The `rect` argument removes all rectangular elements from the plot.
 The `panel.grid` argument removes all horizontal and vertical grid line.
 The colour of the plot title is changed to orange and the colour of the x- and y-axis lines is set to green. 
 
-Once we've defined our custom theme function, we can apply it to a plot using variable we have assigned it to:
+Once we've defined our custom theme function, we can apply it to a plot using the variable we have assigned it to:
 
 ```r
-ggplot(NHANES, aes(x = Height, y = Weight, color = Gender)) +
+ggplot(NHANES, aes(x = Height, y = Weight, colour = Gender)) +
   geom_point() +
   labs(x = "Height (cm)", y = "Weight (kg)", title = "Weight vs Height by Gender") +
   NHANES_theme
@@ -336,13 +337,12 @@ my_theme_bw <- theme_bw() +
     theme(
         axis.title = element_text(family = "Arial", size = 30)
         )
-
 ```
 In this example, we've created a custom theme function called `my_theme_bw()` that first applies the `theme_bw()` theme and then modifies the font family of the axis labels to Arial and changes the size to 30 using the `element_text()` function. We can then apply this custom theme to a plot in the same way as before:
 
 
 ```r
-ggplot(NHANES, aes(x = Height, y = Weight, color = Gender)) +
+ggplot(NHANES, aes(x = Height, y = Weight, colour = Gender)) +
   geom_point() +
   labs(x = "Height (cm)", y = "Weight (kg)", title = "Weight vs Height by Gender") +
   my_theme_bw
@@ -362,8 +362,8 @@ theme_set(theme_bw())
 ```
 This will make all new plots have a black and white theme.
 
-::: info
-The `theme_set()` allows us to set a new default theme that will be used for all subsequent plots in the current R session. 
+:::info
+The `theme_set()` function allows us to set a new default theme that will be used for all subsequent plots in the current R session. 
 :::
 
 ## Updating Themes with `theme_update()`
@@ -438,7 +438,7 @@ hrbrthemes provides several themes, including:
 For example, if we wanted to create a histogram of the age distribution using the fivethirtyeight theme, we could use the following code:
 ```r
 ggplot(NHANES, aes(x=AgeMonths)) +
-  geom_histogram(fill="#008FD5", color="black") +
+  geom_histogram(fill="#008FD5", colour="black") +
   labs(x="Age", y="Count") +
   theme_fivethirtyeight()
 ```

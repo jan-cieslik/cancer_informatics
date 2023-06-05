@@ -5,7 +5,7 @@ sidebar_position: 10
 # Functions & Libraries
 
 A function is a collection of statements that work together to complete a certain task.
-A function can accept information in the form of parameters (= input).
+A function can accept information in the form of arguments/parameters (= input).
 As a result, it can return data (= output).
 
 R includes a vast variety of built-in functions, and users can write their own.
@@ -47,19 +47,15 @@ output:
 [1] 2.5
 ```
 
-**NOTE**   
-R passes arguments by value, not by reference.
-It basically implies that a variable that you pass into an R function cannot be changed.
 :::
 
 ## Built-in Functions
 
 Basic examples of built-in functions are seq(), mean(), max(), sum(), and paste(), among others.
-They are directly accessed by user-written applications.
 
 ### Function Information
 
-With `help()` or `?`, you can achieve information about a function:
+With `help()` or `?`, you can receive information about a function:
 
 ```r
 # Find out information about sd()
@@ -103,14 +99,14 @@ If you do not specify the value of an argument without default values, an error 
 R allows you to use functions within functions.
 
 :::note example
-To get the absolute differences in patient ages in gynaecology and dermatology, use `abs()` on `gynaecology - dermatology`. To determine the mean absolute deviation, call `abs()` within `mean()`.
+To get the absolute difference of two vectors you can nest `abs()` and `mean()`:
 
 ```r
-# The gynaecology and dermatology vectors have already been created for you
+# example vector, containing patient age data
 gynaecology <- c(16, 49, 25, 20, 33, 56)
 dermatology <- c(77, 56, 16, 28, 43, 64)
 
-# Calculate the mean absolute deviation
+# Calculate the mean absolute difference
 mean(abs(gynaecology - dermatology))
 
 output:
@@ -122,7 +118,7 @@ output:
 
 ### Create a Function
 
-You can use the preceding function construct to build your own function:
+You can define custom functions via the following syntax:
 
 ```r
 function_name <- function(arguments) {
@@ -133,9 +129,8 @@ function_name <- function(arguments) {
 - **Function name**: It should be short yet clear and meaningful, so that the person who sees our code understands exactly what this function performs.
 - **Function arguments**: We have already covered what arguments are.
 But it is possible for a function to have no arguments, although this is rarely practical.
-You can have as many arguments as you like, and you may assign default values to them or not.
+You can have as many arguments as you like, and you may assign default values to them.
 - **Function body**: The function body is a collection of commands enclosed by curly braces that are executed in a preset sequence each time the function is called.
-In other words, we put what we need the function to accomplish in the function body.
 
 :::note example
 We want to create a function that squares the given integer.
@@ -159,7 +154,7 @@ By default, R returns the value of the function's final statement.
 However, you may use the `return()` function to directly tell R what to return.
 
 :::note example
-You must assign `x` to a new variable and return it in the function body to do this.
+We want to create a function that squares the given integer.
 ```r
 # Return the value y by assigning y to x squared
 square <- function(x) {
@@ -175,11 +170,9 @@ output:
 ```
 :::
 
-Using `return()` at the conclusion of the function body is not usually beneficial, although it might be useful in some instances.
-
 ## Function Scoping
 
-Function scoping means that variables specified within a function are inaccessible outside that function.
+In the scope of on R function variables outside the function are not accessible. 
 
 Consider our global R environment (our whole program) to be a room that contains all the objects, variables, functions, etc. that we have utilized.
 When we call a variable x, R will search around the room to get the value of x.

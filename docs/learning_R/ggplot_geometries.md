@@ -1,8 +1,11 @@
+---
+sidebar_position: 11
+---
 # ggplot: Geometries
 
 The `ggplot()` function delivers the Cartesian plane on which the data points can be plotted on, however the function does not produce any visual output on its own.
 It is therefore necessary to add at least one geometric layer (or ***geoms*** for short) to our code.
-The geometric layer includes scatter plots, histograms, bar plots, box plots and many more.
+The geometric layer includes scatter plots, histograms, bar plots, boxplots and many more.
 The layer can be accessed using the `geom_*()` function, where `*` is a term that is linked to a specific type of plot, as seen below:
 
 - `geom_point()` creates a scatter plot.
@@ -11,17 +14,17 @@ The layer can be accessed using the `geom_*()` function, where `*` is a term tha
 - `geom_bar()` creates a bar chart.
 - `geom_histogram()` creates a histogram.
 - `geom_density()` creates a density plot.
-- `geom_boxplot()`creates a box plot.
+- `geom_boxplot()` creates a boxplot.
 
 
 ## NHANES Dataset
 
-In this chapter we will use the NHANES data set to create example plots.
+In this chapter we will use the NHANES dataset to create example plots.
 The National Health and Nutrition Examination Survey (NHANES) is a collection of studies conducted by the Center for Disease Control and Prevention (CDC) to assess the health and nutritional status of adults and children in the United States.
 The dataset contains a wide range of health-related information, including demographic characteristics, physical and laboratory measurements, dietary information, and information about health behaviours and conditions. 
 
 :::tip
-You can install the `NHANES` data set directly from R:
+You can install the `NHANES` dataset directly from R:
 1. Install the NHANES package by running the following code:
 ```r
 install.packages("NHANES")
@@ -38,7 +41,7 @@ library(NHANES)
 We can use ggplot() to create a bar chart that tells us about the distribution of the participants of the NHANES by race and gender:
 
 ```r
-# Create a bar chart to show the distribution of the participants in the NHANES data set by race and gender
+# Create a bar chart to show the distribution of the participants in the NHANES dataset by race and gender
 ggplot(NHANES, aes(x = Race1, fill = Gender)) +
      geom_bar() +
      xlab("Race") +
@@ -56,14 +59,9 @@ This bar chart shows that the number of male and female participants are almost 
 However, a larger proportion of the participants are of the "White" ethnicity.
 Only a small proportion is defined as "Black", "Hispanic", "Mexican" or other.
 
-
-:::caution
-Make sure to add the ***geom*** layer using a + sign!
-For a functioning code, the + sign needs to come at the end of the line of code, not at the beginning!
-:::
-
 :::tip
-There are currently about 50 different geometries to choose from. For an overview of the different geom layers in R Studio, you can use the following code snippet:
+There are currently about 50 different geometries to choose from.
+For an overview of the different geom layers in R, you can use the following code snippet:
 ```r
 # Load ggplot2 into your workspace
 library("ggplot2")
@@ -76,22 +74,19 @@ geomlayers$matches
 You can also have a look at the [ggplot cheat sheet](https://www.maths.usyd.edu.au/u/UG/SM/STAT3022/r/current/Misc/data-visualization-2.1.pdf)!
 :::
 
-## Required and Accepted Aesthetics 
+## Required and Optional Aesthetics 
 
 Depending on the geom function, different aesthetics for the mapping of variables are needed.
-You can differentiate between required and accepted aesthetics.
-Required aesthetics are needed for the geom to function and be displayed.
-Which aesthetics are necessary for a plot depends on the geom function that is added to the plot.
+You can differentiate between required and optional aesthetics.
 For example, the `geom_histogram()` function only requires the `x` aesthetic, but the `geom_point` function requires both the `x` and the `y` aesthetic.
 If required aesthetics are not included, you will receive an error message.
 
-For instance, suppose you want to plot the relationship between weight and BMI in a scatter plot and write the following:
+For instance, suppose you want to plot the relationship between weight and BMI in a scatter plot and write the following code:
 
 ```r
 #Plot the relationship between weight and BMI in a scatter plot
-ggplot(NHANES, aes(x = Weight, color = BMI)) +
+ggplot(NHANES, aes(x = Weight, colour = BMI)) +
     geom_point()
-
 ```
 You will not receive a plot, but rather this error message:
 ```r
@@ -110,23 +105,22 @@ Which will give you the following plot:
 
 :::tip
 
-If you are not sure, which aesthetics are required you can simply browse the geom's help file in R studio (e.g., by using ?geom_point) and scroll down to the “Aesthetics” section.
+If you are not sure, which aesthetics are required you can simply browse the geom's help file in RStudio (e.g., by using `?geom_point`) and scroll down to the “Aesthetics” section.
 The required aesthetics are displayed in bold!
 
 :::
 
-Accepted aesthetics, on the other hand, do not need to be specified in order for the geom function to work.
+Optional aesthetics, on the other hand, do not need to be specified in order for the geom function to work.
 Instead, these aesthetics can be used to add further detail on the plot and include more variables.
-In our earlier example, we could include the `color` aesthetic and map it to the gender variable to include more detail:
+In our earlier example, we could include the `colour` aesthetic and map it to the gender variable to include more detail:
 
 
 ```r
-
-ggplot(NHANES, aes(x = Weight, y = BMI, color = Gender)) +
+ggplot(NHANES, aes(x = Weight, y = BMI, colour = Gender)) +
        geom_point() 
 ```
 
-This block of code has the additional aesthetic colour, which is not essential to display a functioning plot, but can be used to add more detail.
+This block of code uses the additional aesthetic colour, which is not essential to display a functioning plot, but can be used to add more detail.
 The code translates to:
 
 ![NHANES weight and BMI and colour](./Images/ggplot_geom3.png)
@@ -135,12 +129,12 @@ We can see a positive correlation between BMI and weight, with the female partic
 
 ## Constant Aesthetics
 
-The same arguments inside an `ae()s` function can also be used to as a constant value to modify an individual geom layer altogether.
+The same arguments inside an `aes()` function can also be used to as a constant value to modify an individual geom layer altogether.
 This can be done, by specifying the arguments ***outside*** the `aes()` function and match them with the appropriate value:
 
 ```r
  ggplot(NHANES, aes(x = Weight, y = BMI)) +
-    geom_point(color = "blue", shape = 17) 
+    geom_point(colour = "blue", shape = 17) 
  ```
 Which translates to:
 
@@ -154,22 +148,22 @@ The most common arguments to modify the representation of geom layer are listed 
 
 | Aesthetic:     | What it does:     |  Example value:     | 
 |--------------|-----------|-----------|
-| `color`     | changes the color of points, lines and borders; can use hex code to identify color   | #45818e, "red", NA (transparent) | 
+| `colour`     | changes the colour of points, lines and borders; can use hex code to identify colour   | #45818e, "red", NA (transparent) | 
 | `size`  | changes the line width and the point size  | 12, 5, 1 |
 | `stroke`  | changes the line width of the outline of a shape | 12, 5, 1 |  
 |  `shape`  | changes the point shapes, with numbers from 0 to 24 representing different shapes (see aesthetics chapter for further information.)  | 0 (= open square), 1 (= open circle), 2 (= open triangle), NA (draws nothing) | 
-| `fill`       |  changes the color inside shapes such as bars.| 45818e, "red", NA (transparent) | 
+| `fill`       |  changes the colour inside shapes such as bars.| 45818e, "red", NA (transparent) | 
 |  `alpha`  |  changes the transparency of shapes.  | 0.7, 1, 0 | 
 |  `linetype` |  changes pattern for lines  | 1 (= solid), 2 (= dashed), 4 (= dotdash), 5 (= longdash), 6 (= twodash) | 
 |  `sides`     |   changes the placement of rug plots  | "b" (= bottom),"l" (= left), "t" (= top), "r" (= right), "bl" (= both bottom and left), "tr" (= both top and right)| 
-|  `width`   |  changes width of box plots | 5, 2, 30  | 
+|  `width`   |  changes width of boxplots | 5, 2, 30  | 
 |    `binwidth`     |  changes the bin width of histograms | 5, 2, 30  | 
-|    `notch`       |   shows if the box plots should be notched or not. | TRUE, FALSE | 
+|    `notch`       |   shows if the boxplots should be notched or not. | TRUE, FALSE | 
 |    `position`       |   controls how overlapping points should be displayed in one single layer. | "identity" (= default), "jitter" (=reduces point overlap), "dodge" (= places bar charts side by side), "stack" (= stacks grouped bar charts vertically), "fill" (= stacks grouped bar charts vertically and standardizes their height)  | 
 
 
 
-## Layering geoms 
+## Layering Geoms 
 
 It is possible to include multiple geoms in a single ggplot object, providing the ability to construct complex and engaging visualizations. 
 To incorporate various geoms, you can apply the "+" operator to add them together.
@@ -197,7 +191,6 @@ The output will remain the same:
 
 The code above passes the mappings to the `ggplot()` function, which can be a time-saving technique, particularly when adding multiple layers to your plot.
 By passing the mappings to ` ggplot()`, you can avoid specifying the aesthetics in each individual layer.
-Any other layers that you add to the plot will be automatically impacted by the mappings passed to the `ggplot()` function.
 
 Furthermore, besides the aesthetic mappings applied globally, it is also possible to add supplementary mappings within each geom.
 This enables you to make specific local changes to a particular geom layer.
@@ -206,7 +199,7 @@ For instance:
 ```r
 ggplot(NHANES, aes(x = Age, y = BPSys1)) +
   geom_point() +
-  geom_smooth(aes(color = Gender), method = "lm", se = FALSE,)
+  geom_smooth(aes(colour = Gender), method = "lm", se = FALSE,)
 ```
 
 
@@ -218,31 +211,6 @@ As this argument was defined only within the `geom_smooth()` layer, it will only
 This data visualization reveals notable differences between female and male participants.
 It appears that women generally have lower systolic blood pressure, but this trend seems to reverse at higher ages.
 
-### Overwriting global mappings
-It's possible to modify the global mappings for a specific layer by adding a local mapping.
-If you include a mapping in the local geom that is also included in the global mappings, the global mapping for that argument will be replaced by the local mapping for that specific layer. 
-
-For instance, in the following code we have added another `geom_smooth` layer which shows the trend between the systolic blood pressure and age for participants with a BMI over 30:
-
-```r
-# use the dplyr package to create a subset out of the NHANES data set (not covered in this course)
-NHANES_30.0_plus_BMI <- NHANES %>%
-  filter (BMI_WHO == "30.0_plus")
-
-# create a plot with one layer using the data from the subset.
-ggplot(NHANES, aes(x = Age, y = BPSys1)) +
-  geom_point() +
-  geom_smooth( aes(color = Gender), method = "lm", se = FALSE) +
-  geom_smooth( data = NHANES_30.0_plus_BMI, method = "lm", se = FALSE)
-
-```
-
-We have replaced the data specified in the global mappings with a subset of the original NHANES data set that only contains participants with an BMI over 30 in the third geom layer:
-
-![NHANES weight and BPSys1](./Images/ggplot_geom7.png)
-
-Participants with a BMI over 30 exhibit higher systolic blood pressure, as indicated by the dark blue line.
-
 ## Example plots
 
 ### Histograms
@@ -252,7 +220,7 @@ The code below creates a histogram that depicts the age distribution of the part
 
 ```r
 ggplot(NHANES, aes(x = Age)) +
-    geom_histogram(binwidth = 10, color = "black", fill = "blue") 
+    geom_histogram(binwidth = 10, colour = "black", fill = "blue") 
 ```
 This translates to:
 
@@ -288,7 +256,7 @@ The box-and-whisker plot shows the median (middle value), the upper and lower qu
 To create a boxplot using `geom_boxplot()`, we need to specify the data frame and the variables that we want to plot.
 The `x` aesthetic is used to specify the grouping variable, and the `y` aesthetic is used to specify the variable we want to plot. 
 
-The following code creates a box plot that depicts the BMI Distribution of the participants in NHANES:
+The following code creates a boxplot that depicts the BMI Distribution of the participants in NHANES:
 
 ```r
 ggplot(NHANES, aes(y = BMI)) +
@@ -299,7 +267,7 @@ ggplot(NHANES, aes(y = BMI)) +
 ```
 This translates to:
 
-![NHANES box plot](./Images/ggplot_geom10.png)
+![NHANES boxplot](./Images/ggplot_geom10.png)
 
 :::note
 Don't worry if the last bit of the code seems unfamiliar! This will be part of the next chapter!
