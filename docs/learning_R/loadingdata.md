@@ -1,22 +1,18 @@
 ---
-sidebar_position: 11
+sidebar_position: 14
 ---
 
 # Loading Data into R
 
-One way to use R is by typing your data directly into R.
-But what if you already had data local on your computer or online?
-**Let's learn how to load pre-existing data into R!**
+One way to use R is by typing your data directly into R this is called "hard coding".
+A more dynamic approach is to load data from an external data source such as .csv files or databases.
 
-## Data Types
-
-First, we will learn how to import CSV, TXT, Excel, JSON, and XML data files into R.
-These are commonly used data types.  
-
-## Importing a CSV File
+## Importing Text Files: CSV & TXT
 
 **CSV** (**C**omma-**S**eparated **V**alues) is a plain-text file that contains data.
 As the name reveals, CSV files use a comma to separate values.
+Some files might be named ".csv" without actually using a comma and on the other hand ".txt" files may use a comma as a separator.
+At the end these files are all plain text and there is no validation if a file adheres to a "csv" standard.
 
 :::note example dataset `patient_data.csv`
 ```
@@ -26,8 +22,9 @@ Laura M., f, 56, AB+
 Isobel P., f, 23, 0+
 Nina W., f, 18, B-
 ```
-:::
 The first row of the file contains the column names.
+:::
+
 
 :::tip
 With `dir()`, you can list existing files in your working directory.
@@ -53,17 +50,12 @@ output:
  $ Blood.type: chr  "A+" "AB+" "0+" "B-"
 ```
 
-## Importing a TXT File
-
-**TXT** files are plain text documents with no predetermined formatting.
-They can be used to store notes, instructions, manuscripts, or other text-based information. 
-
 ### `read.delim()`
-
+**TXT** files are plain text documents with no predetermined formatting.
 To import TXT files, use the `read.delim()` function.
 By default, the `sep` argument is set to `"\t"` (fields are separated by tabs) and the `header` argument to `TRUE` (the first row contains the field names).
 
-In the following example, we will import `medication.txt`, which contains 3 variables, but the variable names are *not* headed in the first line.
+In the following example, we will import `medication.txt`, which contains 3 columns, but the column names are *not* defined in the first line.
 That means, we will have to set the argument `header` to `FALSE`. The file also uses tabs as field separators.
 
 :::note example dataset `pain_medication.txt`
@@ -77,10 +69,10 @@ Tilidine/Naloxone	p.o.	50/4mg
 :::
 
 ```r
-# Import pain_medication.txt.: medication
+# import pain_medication.txt
 medication <- read.delim("pain_medication.txt", header = FALSE)
 
-# Summarize medication
+# summarize medication
 summary(medication)
 
 output:
@@ -92,9 +84,9 @@ output:
 
 ### `read.table()`
 
-For more complex TXT files, you can use the `read.table()` function.
-It allows you to specify tons of different arguments.  
-Unlike `read.csv()` and `read.delim()`, the `header` argument is set to `FALSE` by default and the `sep` argument is `""`. 
+`read.csv()` and `read.delim()` simply invoke `read.table()` with modified default parameters.
+If you need to read a file which does not conform with these default parameters you can instead use `read.table()` directly.
+Of course, you could also use `read.table()` for a regular csv file as long as you pass the correct parameters.
 
 :::tip
 With the argument `col.names = c()` within the `read.table()` function, you can name the different columns.
@@ -105,7 +97,7 @@ With the argument `col.names = c()` within the `read.table()` function, you can 
 path <- file.path("data", "pain_medication.txt")
 
 # Import the pain_medication.txt file: medication
-medication <- read.table(path, col.names = c("drug", "application", "dose"))
+medication <- read.table(path, sep="\t", col.names = c("drug", "application", "dose"))
 
 # Call head() on medication
 head(medication)
@@ -119,9 +111,7 @@ output:
 5 Tilidine/Naloxone        p.o. 50/4mg
 ```
 
-## Importing Data from Excel
-
-**Excel** is a software program that uses spreadsheets to organize numbers and data with formulas and functions. 
+## Importing Data from Excel Spreadsheets
 
 There is a multitude of packages for xlsx import, here we will choose one at random.
 To import data from Excel, you can use the [`readxl` package](https://readxl.tidyverse.org/) first.
@@ -248,7 +238,7 @@ $databases
 3 Selena M.  36
 ```
 
-As you can see, `jsonlite` appears to be more user-friendly than `rjson`.
+As you can see, `jsonlite` utilized a different default data structure than `rjson`.
 
 :::tip
 Instead of a filename, you can also import URLs with `fromJSON()`.
@@ -257,9 +247,6 @@ Instead of a filename, you can also import URLs with `fromJSON()`.
 ## Importing Data from XML
 
 The E**x**tensible **M**arkup **L**anguage (short **XML**) is an extended markup language similar to HTML.
-XML specifies the rules for document creation.
-It provides context for information in a document, but it doesn't define how to provide this.
-
 To begin, install and load the `XML` as well as the `xml2` package by typing the following commands into the R console:
 
 ```r
@@ -272,7 +259,7 @@ library(xml2)
 
 ### `read_xml()`
 
-The XML data may be read via a URL link to the XML site or the file name.
+The XML data may be read via a path or URL to an XML file.
 For this, use the `read_xml()` function:
 
 ```r
