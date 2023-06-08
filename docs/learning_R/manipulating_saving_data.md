@@ -84,7 +84,7 @@ Here are some examples:
 ```r
 # Filter the 2nd and 3rd row
 patients_dt1[2:3]
-# or
+# Or
 patients_dt1[2:3,]
 
 output:
@@ -98,7 +98,7 @@ output:
 ```r
 # Exclude the first 2 rows
 patients_dt1[-(1:2)]
-# or
+# Or
 patients_dt1[!(1:2)]
 
 output:
@@ -272,7 +272,7 @@ patients_dt3[, c("id", "name")]
 ```r
 # Select all columns except "sex" and "age"
 patients_dt3[, -c("sex", "age")]
-# or
+# Or
 patients_dt3[, !c("sex", "age")]
 
 output:
@@ -387,9 +387,9 @@ You can use `list()` or `.()` again.
 ```r
 # How many patients per sex?
 patients_dt3[, .N, by = "sex"]
-# or
+# Or
 patients_dt3[, .N, by = list(sex)]
-# or
+# Or
 patients_dt3[, .N, by = .(sex)]
 
 output:
