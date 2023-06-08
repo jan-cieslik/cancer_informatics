@@ -21,6 +21,13 @@ Linear regression is divided into two types:
 - **Simple linear regression**: looks at only one independent variable
 - **Multiple linear regression**: looks at two or more independent variables
 
+:::caution
+In linear regression, the dependent variables have to be *continuous*!
+
+You cannot perform linear regression with *categorical* dependent variables.
+For this, you would have to perform a [**logistic regression**](#logistic-regression).
+:::
+
 ### Simple Linear Regression
 
 Simple linear regression is used to evaluate the relationship between two quantitative variables.
@@ -186,7 +193,7 @@ hwd_graph
 
 Multiple linear regression can explain dependent variables through *multiple* independent variables.
 
-In this chapter, we will work with the [`Happiness Index 2018-2019`](https://www.kaggle.com/datasets/sougatapramanick/happiness-index-2018-2019) data set.
+In this chapter, we will work with the [Happiness Index 2018-2019](https://www.kaggle.com/datasets/sougatapramanick/happiness-index-2018-2019) data set.
 "*This study analyses the association between the Happiness Index Score in 2018 and 2019, and a set of independent variables [...].*"
 We will analyse the relationship between `Score` (dependent variable) and `Social.support` and `Healthy.life.expectancy` (independent variables).
 
@@ -333,7 +340,37 @@ The other independent variables (that are not plotted in the particular graph) a
 Since we have multiple independent variables, we cannot plot a single fitted regression line on a two-dimensional graph.
 :::
 
+## Logistic Regression
+
+Logistic regression is used in situations where the dependent variable is *categorical*.
+That is, when there are only 2 possible outcomes, for example "Yes" and "No".
+
+This time, we will use the [Breast Cancer Prediction Data Set](https://www.kaggle.com/datasets/merishnasuwal/breast-cancer-prediction-dataset) that was obtained from the University of Wisconsin Hospitals.
+
+### 1. Load the Data Set
+
+As always, the first step is to import and load your desired dataset.
+
+```r
+# Import the data set
+bcd <- read.csv("Breast_cancer_data.csv")
+
+# Call heads
+head(bcd)
+
+  mean_radius mean_texture mean_perimeter mean_area mean_smoothness diagnosis
+1       17.99        10.38         122.80    1001.0         0.11840         0
+2       20.57        17.77         132.90    1326.0         0.08474         0
+3       19.69        21.25         130.00    1203.0         0.10960         0
+4       11.42        20.38          77.58     386.1         0.14250         0
+5       20.29        14.34         135.10    1297.0         0.10030         0
+6       12.45        15.70          82.57     477.1         0.12780         0
+```
+
+As you can see, this data set includes a lot of information, including `diagnosis`, where `1` = breast cancer diagnosis and `0` = no diagnosis.
+
 ## Sources & Further Reading
 
+- [Breast Cancer Prediction Data Set](https://www.kaggle.com/datasets/merishnasuwal/breast-cancer-prediction-dataset)
+- [Happiness Index 2018-2019](https://www.kaggle.com/datasets/sougatapramanick/happiness-index-2018-2019)
 - [Heights and weights](https://www.kaggle.com/datasets/tmcketterick/heights-and-weights)
-- [`Happiness Index 2018-2019`](https://www.kaggle.com/datasets/sougatapramanick/happiness-index-2018-2019)
