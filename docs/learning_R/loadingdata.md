@@ -334,7 +334,7 @@ In our case, the first option makes the most sense.
   # Find all names in patient_data (content only)
   xml_text(xml_find_all(patient_data, ".//name"))
 
-  ouput:
+  output:
   [1] "Joey P."   "Max C."    "Selena M."
   ```
 
