@@ -4,15 +4,11 @@ sidebar_position: 15
 
 # Joining Data
 
-## Joining Data with `data.table`
-
 This chapter will teach you how to integrate data from *two* data tables into a *single* data table.
-Make sure you have both installed and loaded the [`data.table` package](https://www.rdocumentation.org/packages/data.table/versions/1.14.8).
+There are numerous ways to perform this operation and a multitude of packages to simplify the process.
+We will demonstrate `data.table`and `dplyr`.
 
-Before we get into the details, you should learn what table keys are.
-They are columns that are required in every data table to match rows for a link.
-
-### The `merge()` Function
+### base R: The `merge()` Function
 
 In this chapter, you will learn how to use the `merge()` function to perform *inner*, *full*, *left*, and *right* joins.
 This function is a built-in R function, but is upgraded in the `data.table` package.
@@ -109,7 +105,9 @@ output:
 4:  Nina W.    f  18  2
 ```
 
-### Joins with the `data.table` Syntax
+## Joining Data with `data.table`
+
+Here we will demonstrate the [`data.table`](https://www.rdocumentation.org/packages/data.table/versions/1.14.8) package.
 
 In order to use the `data.table` syntax for joining data, you must first create table keys with the `setkey()` function.
 
@@ -211,7 +209,7 @@ X[Y, on = .(key1, key2)]
 
 ## Joining Data with `dplyr`
 
-In this chapter, you will learn how to merge data with the [`dplyr` package](https://dplyr.tidyverse.org/) provided by [Tidyverse](https://www.tidyverse.org/index.html).
+In this chapter, you will learn how to merge data with the [`dplyr`](https://dplyr.tidyverse.org/) package, which is part of the [Tidyverse](https://www.tidyverse.org/index.html).
 Make sure you have installed and loaded the `dplyr` package.
 
 ### Join Functions
@@ -278,8 +276,8 @@ patients2 %>% full_join(patients2_id, by = "name")
 
 #### `semi_join()`
 
-- This function returns all rows from the first/left data set with a match in the second/right data set.
-- Only columns of the left data set are retained!
+- This function returns all rows from the first/left dataset with a match in the second/right dataset.
+- Only columns of the left dataset are retained!
 
 ```r
 semi_join(patients2, patients2_id, by = "name")
@@ -296,8 +294,8 @@ output:
 #### `anti_join()`
 
 - This function is the opposite to a *semi-join*.
-- It returns all rows from the first/left data set with*out* a match in the second/right data set.
-- This means that only rows that are not present in the right data set are returned and that only columns of the left data are retained!
+- It returns all rows from the first/left dataset with*out* a match in the second/right dataset.
+- This means that only rows that are not present in the right dataset are returned and that only columns of the left data are retained!
 
 ```r
 anti_join(patients2, patients2_id, by = "name")
@@ -309,9 +307,9 @@ output:
 1 Isobel P.   f  23
 ```
 
-### Joining Multiple Data Sets
+### Joining Multiple datasets
 
-To demonstrate joins of multiple data sets, we add a third data frame:
+To demonstrate joins of multiple datasets, we add a third data frame:
 
 :::note patients2_occ
 ```r
@@ -365,7 +363,7 @@ As you can see, there is now only one `id` column.
 
 ### Joining by Different Column Names
 
-If you want to link a variable in the first data set with another variable in the second data, you can equate them in the `by` argument as follows:
+If you want to link a variable in the first dataset with another variable in the second data, you can equate them in the `by` argument as follows:
 
 ```r
 # Rename "id" to "id_new"
@@ -423,7 +421,7 @@ output:
 ```
 
 As you can see, the output gives two *name* columns, `name.x` and `name.y`.
-In some cases you might not want to merge these columns as I did in the previous chapter, e.g. if they contain different patient names.
+In some cases you might not want to merge these columns as seen in the previous chapter, e.g. if they contain different patient names.
 
 In this case, you could easily customize your join for a more readable name by renaming the column names with a `suffix`:
 
@@ -441,16 +439,28 @@ output:
 
 ## Joining Data Summary
 
+### `base R`
+
+|Join Type |`merge()` Function                            |
+|----------|----------------------------------------------|
+|Inner Join|`merge(x = x, y = y, by = "xy")`              |
+|Full Join |`merge(x = x, y = y, by = "xy", all = TRUE)`  |
+|Left Join |`merge(x = x, y = y, by = "xy", all.x = TRUE)`|
+|Right Join|`merge(x = x, y = y, by = "xy", all.y = TRUE)`|
+|Anti-Join |/                                             |
+|Semi-Join |/                                             |
+
+
 ### `data.table`
 
-|Join Type |`merge()` Function                            |`data.table` Syntax|
-|----------|----------------------------------------------|-------------------|
-|Inner Join|`merge(x = x, y = y, by = "xy")`              |`x[y, nomatch = 0]`|
-|Full Join |`merge(x = x, y = y, by = "xy", all = TRUE)`  |/                  |
-|Left Join |`merge(x = x, y = y, by = "xy", all.x = TRUE)`|`y[x]`             |
-|Right Join|`merge(x = x, y = y, by = "xy", all.y = TRUE)`|`x[y]`             |
-|Anti-Join |/                                             |`x[!y]`            |
-|Semi-Join |/                                             |/                  |
+|Join Type |`data.table` Syntax|
+|----------|-------------------|
+|Inner Join|`x[y, nomatch = 0]`|
+|Full Join |/                  |
+|Left Join |`y[x]`             |
+|Right Join|`x[y]`             |
+|Anti-Join |`x[!y]`            |
+|Semi-Join |/                  |
 
 ### `dplyr`
 

@@ -70,7 +70,7 @@ A data table does not immediately convert characters into factors, thus avoiding
 When you print a data table, a colon (`:`) is inserted after the row number to visually distinguish it from the first column.
 
 :::tip
-Since a data table *is* a data frame, all the functions you would use for a data frame can also be used for data tables.
+Since a data table *is* a data frame, you can utilize all default functions such as:
 Here are some examples:
 - `nrow()`
 - `ncol()`
@@ -111,7 +111,7 @@ output:
 When used in the `i` argument, it returns the last row in the data table.
 
 :::tip reminder
-The general form of a data table is `DT[i, j, by]`.
+The general syntax for selecting data from a data table is `DT[i, j, by]`.
 :::
 
 ```r
@@ -134,7 +134,6 @@ output:
 - The `i` argument can also contain logical expressions that create a logical vector.
 This only returns those rows that evaluate to `TRUE`.
 - Columns within the parameters of a data table, i.e. within the two square brackets, are treated as variables.
-When creating expressions, this avoids the unnecessary repetition of the dollar sign when referring to column names, preventing subtle and hard-to-find errors.
 
 :::note example data table 3
 ```r
@@ -190,6 +189,7 @@ output:
 ```
 :::note
 At the beginning of a string, you can specify the pattern you are looking for with the meta-character caret (`^`).
+For more complex pattern search for a good regular expression "RegEx" tutorial.
 :::
 
 - With `%between%`, you can search for values within the closed interval `[val1, val2]`.
@@ -238,8 +238,8 @@ output:
 ### Filtering Columns
 
 - To select columns from a `data.table`, you can supply a *character* vector with column names as the second argument for `DT[i, j, by]`, similar to data frames.
-- The difference between data frames and data tables is that when you select a single column from a data frame you get a vector instead of a data frame, but when you select a single column from a data table you get a data table.
-This avoids unintentional coding errors.
+- A difference between data frames and data tables is that when you select a single column from a data frame you get a vector instead of a data frame, but when you select a single column from a data table you get a data table.
+This default behaviour can be changed by setting `drop=FALSE` to avoid reducing a dataframe to a vector.
 - You can also select columns by using column numbers.
 
 ```r
@@ -258,8 +258,7 @@ output:
 ```
 
 :::caution
-If the column order changes over time, the outcome will be wrong!
-To avoid this, you should always use column names and not the column numbers.
+To avoid confusion, you should always use column names and not the column numbers.
 This ensures that the outcome is correct regardless of the order.
 
 ```r
@@ -332,7 +331,6 @@ output:
 
 :::tip
 You may also use `.()` instead of `list()`.
-This saves time and allows you to focus on the selected columns.
 
 ```r
 # Select the column "age" with .()
@@ -503,7 +501,7 @@ output:
 ```
 
 :::note
-If only one column is added or changed, you can remove the quotation marks around the column names on the left-hand side.
+If only one column is added or changed, you can specify it directly without a vector and quotation marks.
 
 ```r 
 patients_dt1[, age := c(55, 29, 65, 44)]

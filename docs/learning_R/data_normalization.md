@@ -124,7 +124,7 @@ The resulting plot shows how Z-score normalization scales the data based on the 
 This can be useful in cases where we want to compare medicines based on their relative distance from the mean, or to identify outliers in the data.
 :::
 
-## Decimal scaling normalization
+## Decimal Scaling Normalization
 
 Decimal scaling normalization is a data normalization technique that involves scaling the values of a variable by dividing each value by a power of 10 based on the maximum absolute value in the data. 
 In R, you can perform decimal scaling normalization using a simple for loop and the `log10()` function to determine the appropriate scaling factor for each variable. Here's an example:
@@ -182,7 +182,7 @@ This makes it easier to compare the relative magnitudes of the blood pressure me
 This can be useful in cases where we want to simplify the data by removing large differences in magnitude between different variables, without losing the relative relationships between the data points.
 :::
 
-## Log transformation
+## Log Transformation
 
 In R, log transformation can be performed using the `log()` function. This function takes one argument, the vector or matrix to be transformed, and returns the natural logarithm of each element in the input. 
 The natural logarithm is a mathematical function that maps a positive number to its logarithm in base e (approximately 2.71828).
@@ -228,7 +228,7 @@ The resulting plot shows how log transformation compresses the range of values, 
 This transformation can be useful in cases where we want to reduce the impact of outliers or extreme values, while still preserving the underlying relationships between the data points.
 :::
 
-## Box-Cox transformation
+## Box-Cox Transformation
 
 The Box-Cox transformation is a method used to transform non-normal data into a normal distribution. 
 The transformation involves raising the data to a power (lambda) and then taking the natural logarithm of the result. 
