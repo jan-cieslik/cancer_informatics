@@ -7,7 +7,7 @@ sidebar_position: 19
 The goal of **Survival Analysis** is to identify the time until the event of interest occurs.
 This event can be anything but most of the time, it represents death.
 
-Survival Analysis may be used to explore large data sets, for example the time from surgery to death or from start of treatment to progression.
+Survival Analysis may be used to explore large datasets, for example the time from surgery to death or from start of treatment to progression.
 
 ## Getting Started
 
@@ -25,7 +25,7 @@ install.packages("survminer")
 library(survminer)
 ```
 
-Next, you can load the data set that you wish to analyse.
+Next, you can load the dataset that you wish to analyse.
 In this course, we will be using [Acute Myelogenous Leukaemia survival data](https://www.rdocumentation.org/packages/survival/versions/3.5-3/topics/aml).
 It is included in the `survival` package and may be loaded using the `data()` function:
 
@@ -33,7 +33,7 @@ It is included in the `survival` package and may be loaded using the `data()` fu
 data(cancer, package = "survival")
 ```
 
-:::note example data set AML
+:::note example dataset AML
 "*Survival in patients with Acute Myelogenous Leukaemia.*
 *The question at the time was whether the standard course of chemotherapy should be extended ('maintenance') for additional cycles.*"
 - time: survival or censoring time
@@ -42,7 +42,7 @@ data(cancer, package = "survival")
 :::
 
 :::tip
-Use R's `help()` function to discover more about a data set:
+Use R's `help()` function to discover more about a dataset:
 
 ```r
 help(cancer, package = "survival")
@@ -58,7 +58,7 @@ Reasons for censoring can be: The patient was either forgotten for follow-up, dr
 To summarize, the `cens` variable holds data indicating whether a person in the program died.
 You can count both censored and uncensored people with the `table()` function.
 
-In our example data set, the variable *status* indicates whether a person was censored.
+In our example dataset, the variable *status* indicates whether a person was censored.
 
 ```r
 # Count censored and uncensored data
@@ -231,12 +231,12 @@ This means that 90 % of patients survive more than 4 days.
 
 Unfortunately, using `ggsurvplot()` for creating a Weibull curve will not work, because it is not a step function.
 Instead, we have to follow these steps:
-1. Create a suitable grid.
-2. Calculate the time point for each probability using `predict()` with a vector of quantiles instead of a single value.
-3. Generate a data frame.
+1. Create a sequence of numbers for the survival probability between 0 and 1
+2. Calculate the time point for each probability using `predict()` with a vector of quantiles instead of a single value
+3. Generate a data frame
 
 ```r
-# Create a grid from .99 to .01 in steps of .01
+# Create a vector from .99 to .01 in steps of .01
 surv <- seq(.99, .01, by = -.01)
 
 # Calculate time points for each probability
@@ -245,7 +245,7 @@ t <- predict(wb, type = "quantile", p = 1 - surv, newdata = data.frame(1))
 # Create a data frame
 surv_wb <- data.frame(time = t, surv = surv)
 
-# Call heads on surv_wb
+# Call head on surv_wb
 head(surv_wb)
 
 output:
@@ -313,10 +313,10 @@ This is similar to what we have done before.
 The only difference is that we set `newdata` to our new data (`newdat`) that we created in step 2.
 
 ```r
-# Create a grid
+# Create a sequence between .99 and 0.01
 surv <- seq(.99, .01, by = -.01)
 
-# Get time for each probability
+# Calculate a time point for each probability
 t <- predict(wbmod, type = "quantile", p = 1 - surv, newdata = newdat)
 
 # Look at the dimension of t
@@ -415,10 +415,10 @@ lnmod <- survreg(Surv(time, status) ~ x, data = aml, dist = "lognormal")
 2. **Compute the survival functions for both models.**
 
 ```r
-# Create a new data set with the two levels of maintenance chemotherapy
+# Create a new dataset with the two levels of maintenance chemotherapy
 newdat <- data.frame(x = levels(aml$x))
 
-# Create a grid
+# Create a sequence between .99 and 0.01
 surv <- seq(.99, .01, by = -.01)
 
 # Compute both survival curves with predict()
@@ -461,15 +461,15 @@ ggsurvplot_df(surv_long, surv.geom = geom_line, linetype = "x", color = "dist", 
 ## The Cox Model
 
 The Cox model allows the analysis of the influence of variables on the time-to-event outcome.
-In contrary to the *Weibull model*, it is a semi-parametric model.
+In contrast to the *Weibull model*, it is a semi-parametric model.
 This indicates that we are less strict about the time-to-event distribution.
 
 The Cox model is also known as the *proportional hazards model* since, like the *Weibull model*, it assumes proportional hazards.
 That is why survival curves cannot cross.
 
-In the following example, we will again use our data set `aml`.
+In the following example, we will again use our dataset `aml`.
 We want to know if the maintenance chemotherapy is associated with the patients' survival time.
-Make sure you have loaded the `survival` and `survminer` packages as well as our data set.
+Make sure you have loaded the `survival` and `survminer` packages as well as our dataset.
 
 ### Computing a Cox Model
 
@@ -567,7 +567,7 @@ To generate the data frame with the desired information about the survival curve
 # Create the data frame
 surv_cxmod0 <- surv_summary(cxsf)
 
-# Call heads on surv_cxmod0
+# Call head on surv_cxmod0
 head(surv_cxmod0)
 
 output:

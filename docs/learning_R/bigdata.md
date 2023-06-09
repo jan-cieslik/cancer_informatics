@@ -146,7 +146,7 @@ Next, you can use the` getGEO()` function to download data from a specific GEO d
 For example, let's say you want to download the GEO dataset GSE109169, which contains gene expression data from breast cancer patients before and after treatment with the drug **ribociclib**. 
 
 :::infoinfo Ribociclib
-Ribociclib is an oral, small-molecule inhibitor of cyclin-dependent kinase (CDK) 4 and 6 that is under development by Novartis for the treatment of cancer. CDKs play an important role in cell cycle progression and cellular proliferation, and inhibition of these kinases with ribociclib results in G1 phase cell-cycle arrest. Ribociclib, in combination with an aromatase inhibitor, was recently approved in the USA for the first-line treatment of advanced breast cancer and has been submitted for approval in the EU for this indication.
+Ribociclib is an oral, small-molecule inhibitor of cyclin-dependent kinase (CDK) 4 and 6 that was developed by Novartis for the treatment of cancer. CDKs play an important role in cell cycle progression and cellular proliferation, and inhibition of these kinases with ribociclib results in G1 phase cell-cycle arrest.
 :::
 
 You can do this by running the following code:
@@ -179,7 +179,7 @@ sample_metadata <- pData(gse[[1]])
 table(sample_metadata$`characteristics_ch1.2`)
 ```
 Overall, analysing the GSE109169 data in R can provide insights into the molecular mechanisms involved in breast cancer development and identify potential biomarkers or therapeutic targets for breast cancer therapy. 
-You can then run further analysis which will be explained in the section **using_R**.
+You can then run further analysis which will be explained in the section **using R**.
 
 ## Sources & Further Reading
 

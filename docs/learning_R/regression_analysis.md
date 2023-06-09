@@ -1,5 +1,6 @@
 ---
 sidebar_position: 18
+draft: true
 ---
 
 # Regression Analysis
@@ -32,18 +33,18 @@ For this, you would have to perform a [**logistic regression**](#logistic-regres
 
 Simple linear regression is used to evaluate the relationship between two quantitative variables.
 
-In this chapter, we will work with the [Heights and weights](https://www.kaggle.com/datasets/tmcketterick/heights-and-weights) data set.
-"*This data set gives average masses for women as a function of their height in a sample of American women of age 30–39*."
+In this chapter, we will work with the [Heights and weights](https://www.kaggle.com/datasets/tmcketterick/heights-and-weights) dataset.
+"*This dataset gives average masses for women as a function of their height in a sample of American women of age 30–39*."
 
 
 We will analyse the relationship between the `Height` (*m*, independent variable) and the `Weight` (*kg*, dependent variable).
 
-#### 1. Load the Data Set
+#### 1. Load the dataset
 
-In order to load the data set, we have to [import the CSV file](./loadingdata.md#importing-a-csv-file) as follows:
+In order to load the dataset, we have to [import the CSV file](./loadingdata.md#importing-a-csv-file) as follows:
 
 ```r
-# Import the data set
+# Import the dataset
 hwd <- read.csv("hwd.csv")
 
 # Look at the structure
@@ -54,15 +55,15 @@ str(hwd)
  $ Weight: num  52.2 53.1 54.5 55.8 57.2 ...
 ```
 
-To make it easier to work with this data set, you can attach it to the search path as follows:
+To make it easier to work with this dataset, you can attach it to the search path as follows:
 
 ```r
 attach(hwd)
 ```
 
-This allows you to refer to the variables in the data set by their names alone, rather than as components of the data frame (e.g. `Height` rather than `hwd#Height`).
+This allows you to refer to the variables in the dataset by their names alone, rather than as components of the data frame (e.g. `Height` rather than `hwd$Height`).
 
-#### 2. Visualize the Data Set
+#### 2. Visualize the Dataset
 
 We should first visualize the data to understand it before running a simple linear regression.
 
@@ -193,22 +194,22 @@ hwd_graph
 
 Multiple linear regression can explain dependent variables through *multiple* independent variables.
 
-In this chapter, we will work with the [Happiness Index 2018-2019](https://www.kaggle.com/datasets/sougatapramanick/happiness-index-2018-2019) data set.
+In this chapter, we will work with the [Happiness Index 2018-2019](https://www.kaggle.com/datasets/sougatapramanick/happiness-index-2018-2019) dataset.
 "*This study analyses the association between the Happiness Index Score in 2018 and 2019, and a set of independent variables [...].*"
 We will analyse the relationship between `Score` (dependent variable) and `Social.support` and `Healthy.life.expectancy` (independent variables).
 
-#### 1. Load the Data Set
+#### 1. Load the Dataset
 
-First, you have to load your data set.
+First, you have to load your dataset.
 
 ```r
-# Import the data set
+# Import the dataset
 happiness <- read.csv("2018.csv")
 
-# Create a new data set with the relevant variables
+# Create a new dataset with the relevant variables
 happiness <- happiness[, "Score", "Country.or.region", "Social.support", "Healthy.life.expectancy"]
 
-# Call heads
+# Call head
 head(happiness)
 
   Score Country.or.region Social.support Healthy.life.expectancy
@@ -220,7 +221,7 @@ head(happiness)
 6 7.441       Netherlands          1.488                   0.878
 ```
 
-#### 2. Visualize the Data Set
+#### 2. Visualize the Dataset
 
 Before calculating the multiple linear regression analysis, you should first check whether this regression model could be a good model for the data.
 
@@ -228,7 +229,7 @@ For this, we want to check our variables for linearity (`Score` vs `Social.suppo
 We can do this with R's built-in function `plot()`.
 
 ```r
-# Attach the data set
+# Attach the dataset
 attach(happiness)
 
 # Plot Score vs Social.support
@@ -345,17 +346,17 @@ Since we have multiple independent variables, we cannot plot a single fitted reg
 Logistic regression is used in situations where the dependent variable is *categorical*.
 That is, when there are only 2 possible outcomes, for example "Yes" and "No".
 
-This time, we will use the [Breast Cancer Prediction Data Set](https://www.kaggle.com/datasets/merishnasuwal/breast-cancer-prediction-dataset) that was obtained from the University of Wisconsin Hospitals.
+This time, we will use the [Breast Cancer Prediction dataset](https://www.kaggle.com/datasets/merishnasuwal/breast-cancer-prediction-dataset) that was obtained from the University of Wisconsin Hospitals.
 
-### 1. Load the Data Set
+#### 1. Load the Dataset
 
 As always, the first step is to import and load your desired dataset.
 
 ```r
-# Import the data set
+# Import the dataset
 bcd <- read.csv("Breast_cancer_data.csv")
 
-# Call heads
+# Call head
 head(bcd)
 
   mean_radius mean_texture mean_perimeter mean_area mean_smoothness diagnosis
@@ -367,10 +368,10 @@ head(bcd)
 6       12.45        15.70          82.57     477.1         0.12780         0
 ```
 
-As you can see, this data set includes a lot of information, including `diagnosis`, where `1` = breast cancer diagnosis and `0` = no diagnosis.
+As you can see, this dataset includes a lot of information, including `diagnosis`, where `1` = breast cancer diagnosis and `0` = no diagnosis.
 
 ## Sources & Further Reading
 
-- [Breast Cancer Prediction Data Set](https://www.kaggle.com/datasets/merishnasuwal/breast-cancer-prediction-dataset)
+- [Breast Cancer Prediction dataset](https://www.kaggle.com/datasets/merishnasuwal/breast-cancer-prediction-dataset)
 - [Happiness Index 2018-2019](https://www.kaggle.com/datasets/sougatapramanick/happiness-index-2018-2019)
 - [Heights and weights](https://www.kaggle.com/datasets/tmcketterick/heights-and-weights)

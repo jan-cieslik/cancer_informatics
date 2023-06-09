@@ -20,7 +20,7 @@ There are several types of clustering algorithms, including:
 
 - **Density-based clustering:** This algorithm groups together data points that are located in dense regions of the feature space, separated by sparse areas.
 
-## `kmeans()` clustering
+## `kmeans()` Clustering
 
 K-means clustering is a popular clustering algorithm that partitions a dataset into K clusters, where K is a user-specified parameter. 
 The algorithm starts by randomly assigning K cluster centres to the data points and then iteratively reassigns the points to the nearest cluster centre and updates the centre until convergence. 
@@ -121,7 +121,7 @@ This should give the following result:
 
 ![](./Images/kmeans_clustering.png "kmeans clustering")
 
-## `hclust()` clustering
+## `hclust()` Clustering
 
 Hierarchical clustering is another clustering technique that builds a hierarchy of nested clusters by iteratively merging, or splitting clusters based on a similarity measure. 
 There are two main types of hierarchical clustering: agglomerative and divisive. 
@@ -192,7 +192,7 @@ Note that in practice, you may want to choose a linkage method that is appropria
 Additionally, you may want to consider normalizing or scaling your data before performing hierarchical clustering, depending on the specific characteristics of your dataset.
 :::
 
-## `densitybased()` clustering
+## `densitybased()` Clustering
 
 Density-based clustering is a clustering technique that identifies clusters based on areas of high data density. 
 The algorithm starts by identifying regions of the data space with high density, and then expands these regions until the points with lower densities are separated into distinct clusters. 
