@@ -1,28 +1,30 @@
+---
+sidebar_position: 9
+---
+
 # Matrix
 
-- A matrix is a two-dimensional tool to store a collection of data of the same type (numeric, character, or logical).
-- The data is arranged into a fixed number of rows (left to right) and columns (up and down), like a table.
-- Matrices can be created using all data types, but are usually used to contain numeric elements that are used in mathematical calculations.
+A matrix is a two-dimensional data structure that allows you to store data in a grid-like format
+Matrices are an essential data type in R and are widely used for various mathematical and statistical operations.
+A matrix in R is a rectangular arrangement of elements organized in rows and columns.
+All elements within a matrix must be of the same data type, such as numeric, character, or logical.
+
 
 ## Syntax
 
-A matrix can be created with the `matrix()` function.
-In addition to this, we also need to include a few **parameters** and  **functions** to specify the layout of the matrix:
+Matrices are created using the matrix() function, which takes the data elements and the desired dimensions of the matrix as arguments. 
 
-### The `data` parameter
-This is usually the first argument in the `matrix()` function and includes all the elements, that will be arranged into a matrix.
+### The `data` Parameter
+The first argument in the `matrix()` function includes all the elements, that will be arranged into a matrix.
 The data can be supplied via a vector:
 
 ```r
-# Define a vector on the spot using c()
-
+# define a vector directly inside the function
 first_matrix <- matrix(c(1, 2, 3, 4, 5, 6))
 
-# Using a pre existing vector
-
+# using a pre existing vector
 example_vector <- 1:6
 first_matrix <- matrix(data_matrix)
-
 ```
 
 Both examples will result in the same output:
@@ -41,15 +43,15 @@ Both examples will result in the same output:
 
 :::note 
 
-`1:6` is a shortcut for `c(1, 2, 3, 4, 5, 6)`. The colon operator `a:b` will create a sequence of numbers from a to b.
+`1:6` is a shortcut for `c(1, 2, 3, 4, 5, 6)`.
+The colon operator `a:b` will create a sequence of numbers from `a` to `b`.
 
 :::
 
-### The `nrow` and `ncol` parameter
+### The `nrow` and `ncol` Parameter
 
 R will create a matrix of one column and as many rows as the length of the vector by default.
 However, you can also specify how many columns and rows should be used.
-
 
 The `nrow` parameter indicates how many rows (left to right) the matrix should have, while the `ncol` parameter indicates how many columns (top to bottom) a matrix should have:
 
@@ -57,11 +59,10 @@ The `nrow` parameter indicates how many rows (left to right) the matrix should h
 colour_vector <- c("yellow", "red", "blue", "purple", "green", "brown" )
 
 # create a matrix with 3 rows and 2 columns
-
 colour_matrix <- matrix(colour_vector, nrow = 3, ncol = 2)
-
 ```
-The above line of code will give a matrix with 3 rows and 2 columns, with each element on one row:
+
+The above line of code will yield a matrix consisting of 3 rows and 2 columns:
 
 ```r
 >colour_matrix
@@ -75,7 +76,7 @@ The above line of code will give a matrix with 3 rows and 2 columns, with each e
 
 You need to make sure, that the number of rows and columns corresponds to the number of elements that you want to store in the matrix. 
 
-For example, if you have 7 elements, but specified 4 rows and 7 columns, R will reuse some elements and change the layout slightly by adding more columns, even if you did not specify that:
+For example, if you have 7 elements, but specified 4 rows and 7 columns, R will reuse some elements:
 ```r
 colour_matrix_2 <- matrix(colour_matrix, nrow = 4, ncol = 7)
 ```
@@ -95,16 +96,16 @@ R will also leave a warning along the lines of: *Data length is not a divisor or
 
 :::
 
+### The `byrow` Parameter
 
-
-### The `byrow` parameter
-
-The `byrow` parameter is a logical clue. By default, R will order the values column-wise (column by column).
-However, by setting the `byrow = TRUE`, the values will be sorted by rows.
+The `byrow` parameter is a boolean option.
+By default, R will order the values column-wise (column by column).
+However, by setting the `byrow = TRUE`, the values will be inserted by rows.
 
 ```r
 data_matrix <- 1:6
 first_matrix <- matrix(data_matrix, nrow = 2, ncol = 3, byrow = TRUE)
+second_matrix <- matrix(data_matrix, nrow = 2, ncol = 3, byrow = FALSE)
 ```
 The elements will now be sorted by rows:
 
@@ -114,8 +115,14 @@ The elements will now be sorted by rows:
      [,1] [,2] [,3]
 [1,]    1    2    3
 [2,]    4    5    6
+
+>second_matrix
+
+     [,1] [,2] [,3]
+[1,]    1    3    5
+[2,]    2    4    6
 ```
-### The `rownames()` and `colnames()` function
+### The `rownames()` and `colnames()` Function
 
 Using the `rownames()` function you can assign names to the rows of the matrix and using the `colnames()` function, you can assign the names to the columns of the matrix.
 
@@ -155,7 +162,7 @@ noon           23      5             26
 evening        24      3             25
 ```
 :::
-### The `rowSums()` and `colSums()` function
+### The `rowSums()` and `colSums()` Function
 
 To calculate the sum of a row inside a matrix, use the `rowSums()` function.
 As a parameter you need to include the matrix from which the values of the rows should be added together:
@@ -166,11 +173,10 @@ data_matrix <- 1:6
 first_matrix <- matrix(data_matrix, nrow = 2, ncol = 3, byrow = TRUE)
 
 # calculate the total of each row and assign it to a vector
-
 total_row <- rowSums(first_matrix)
 
 ```
-The vector `total_row` will contain the sum of the rows of the matrix `first_matrix`:
+The vector `total_row` will contain the sums of the rows of the matrix `first_matrix`:
 
 ```r
 > total_row
@@ -186,7 +192,6 @@ data_matrix <- 1:6
 first_matrix <- matrix(data_matrix, nrow = 2, ncol = 3, byrow = TRUE)
 
 # calculate the total of each column and assign it to a vector
-
 total_column <- colSums(first_matrix)
 
 ```
@@ -197,7 +202,7 @@ The vector `total_column` will contain the sum of the columns of the matrix `fir
 [1] 5 7 9
 ```
 
-### The `cbind()` and `rbind()` function
+### The `cbind()` and `rbind()` Function
 
 With these functions, you can add rows and columns to your existing matrix.
 If you want to add a column or multiple columns, you use the `cbind()` (column-bind) function. This will add data by columns:
@@ -218,15 +223,14 @@ R will add a new column to the matrix. In addition, the new column will have the
 [2,] 4 5 6        15
 ```
 
-If you want to add a row or multiple rows, you use the `rbind()` (row-bind) function. This will add data by rows:
-
+If you want to add a row or multiple rows, you can use the `rbind()` (row-bind) function.
+This will add data by rows:
 
 ```r
 # add a new row with the sum of the columns, calculated above, to first_matrix
-
 new_matrix <- rbind(first_matrix, total_column)
-
 ```
+
 R will add a new row to the matrix:
 
 ```r
@@ -240,22 +244,23 @@ total_column    5    7    9
 
 :::note
 
-Both `cbind()` and `rbind()` require multiple matrices or vectors which you want to concatenate.
+Both `cbind()` and `rbind()` require multiple data structures which you want to concatenate.
 
 :::
 
 ## Selecting Elements from a Matrix
 
-- You can also select certain elements from your matrix, just like in vectors, by using `[]`.
+You can also select certain elements from your matrix, just like in vectors, by using `[]`.
 But since matrices are two-dimensional you need to specify two indices.
 The first index inside the brackets refers to the **row** you want to select.
-The second index is separated by a comma from the first index and refers to the **column** that you want to select:
-    - `another_matrix[1,2]` selects the element at the first row and second column.
-    - `another_matrix[2:4, c(1,4)]` results in a matrix with the data of the rows 2, 3 and 4 and the columns 1 and 4.
+The second index is separated by a comma from the first index and refers to the **column** which you want to select:
 
-- If you want to select all elements of a row or a column, no index is needed before or after the comma:
-    - `another_matrix[,1]` selects all elements of the first column.
-    - `another_matrix[1,]` selects all elements of the first row.
+- `another_matrix[1,2]` selects the element of the first row and second column.
+- `another_matrix[2:4, c(1,4)]` results in a matrix with the data of the rows 2, 3 and 4 and the columns 1 and 4.
+
+If you want to select all elements of a row or a column you can leave out the index completely:
+- `another_matrix[,1]` selects all elements of the first column.
+- `another_matrix[1,]` selects all elements of the first row.
 
 :::note example
 ```r
@@ -263,12 +268,6 @@ The second index is separated by a comma from the first index and refers to the 
 new_data_matrix<- 1:16
 another_matrix <- matrix(new_data_matrix, nrow = 4, ncol = 4, byrow = TRUE)
 
-# select the data of the rows 2, 3 and 4 and columns 1 and 4 from another_matrix
-another_matrix[2:4, c(1,4)]
-```
-The output will be a matrix with selected elements:
-```r
-# for reference the whole matrix is shown first
 > another_matrix
 
      [,1] [,2] [,3] [,4]
@@ -277,7 +276,7 @@ The output will be a matrix with selected elements:
 [3,]    9   10   11   12
 [4,]   13   14   15   16
 
-# the following is a matrix containing only the selected elements
+# select the data of the rows 2, 3 and 4 and columns 1 and 4 from another_matrix
 > another_matrix[2:4, c(1,4)]
 
      [,1] [,2]
