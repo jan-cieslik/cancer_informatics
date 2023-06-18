@@ -202,6 +202,129 @@ The presence of a tumour with size 20-50 is associated with a 1.6-fold increased
 Also of interest: lymph node involvement has little effect on survival probability compared to the size of the primary tumour.
 :::
 
+## Gene Expression Analysis
+
+:::tipMost common genes associated with breast cancer
+**- 1. BRCA1 and BRCA2** - These are tumour suppressor genes that help to prevent the development of breast cancer. 
+Mutations in these genes can increase the risk of developing breast cancer.
+
+**- 2. TP53** - This is another tumour suppressor gene that plays a role in preventing the development of breast cancer. 
+Mutations in TP53 can increase the risk of developing breast cancer.
+
+**- 3. HER2** - This is a gene that codes for a protein called human epidermal growth factor receptor 2 (HER2). 
+Overexpression of HER2 is found in about 20-25% of breast cancers and is associated with more aggressive tumours.
+
+**- 4. ESR1** - This is a gene that codes for the estrogen receptor alpha (ERα). 
+ERα-positive breast cancer accounts for about 70% of all breast cancer cases. 
+:::
+
+Here's a simple example of gene expression analysis using the GSE2034 dataset, which is a breast cancer gene expression dataset available on the Gene Expression Omnibus (GEO) database.
+
+First, we need to load the necessary packages and download the dataset:
+
+```r
+# Load necessary packages
+library(GEOquery)
+library(limma)
+
+# Download the dataset
+gse <- getGEO("GSE2034", GSEMatrix = TRUE)
+
+# Extract the expression data
+exprs <- exprs(gse[[1]])
+```
+
+The exprs object now contains the expression data for all the genes in the dataset. 
+We can explore this data using various visualization techniques. 
+For example, we can plot a histogram of the expression values for a particular gene. 
+In this example we want to visualize the expression rate of the **ESR1 gene**. 
+We can explore this data using various visualization techniques. For example, we can plot a histogram of the expression values for a particular gene:
+
+:::infoESR1 gene
+ESR1 has been a focus in breast cancer for quite some time, but is also clinically relevant in endometrial, ovarian and other cancer types. 
+The identification of ER-positive breast cancers that are resistant to hormone therapy have inspired clinical sequencing efforts to shed light on the mechanisms of this resistance. 
+A number of mutations in the ligand binding domain of ESR1 have been implicated in hormone resistance and anti-estrogen therapies. 
+These observations have spurred efforts to develop therapeutics that stimulate ESR1 protein degradation (e.g. Fulvestrant), rather than acting as a small molecule antagonist. 
+These agents are currently in clinical trials and have seen some success.
+:::
+
+```r
+# Plot a histogram of the expression values for the gene ESR1
+hist(exprs["117_at",], breaks=50, col="gray", xlab="Expression Value", main="Histogram of ESR1 Expression Values")
+```
+
+This should result in the following image:
+
+![](./Images/geneexpression_breastcancer.png "breast_cancer")
+
+The histogram shows the distribution of gene expression values for a particular gene in the breast cancer dataset. 
+The x-axis represents the range of expression values and the y-axis shows the frequency of samples with expression values falling within each range.
+
+In this example, we can see that the distribution is roughly symmetrical, with a peak around 250 and a spread of values between 0 and 500. 
+This indicates that the gene is expressed at moderate levels in most of the samples, with a smaller number of samples having either really low or high expression levels.
+
+In subsequent chapters, even more complex analyses of gene expression will also be performed. 
+Thus, there is the possibility of a clear differentiation of expressed genes in healthy and diseased patients using R. 
+
+
+## Machine Learning
+
+Breast cancer is a complex disease, and machine learning techniques can be useful for predicting patient outcomes and identifying potential biomarkers for targeted therapies. 
+The Breast Cancer Wisconsin (Diagnostic) dataset from the UCI Machine Learning Repository is a well-known dataset that can be used for machine learning applications. 
+This dataset contains 569 breast cancer samples with 30 features, including clinical and demographic information as well as measurements of cell nuclei from digitized images of fine needle aspirate (FNA) biopsies.
+
+Here are the general steps for analysing the [**Breast Cancer Wisconsin**](https://archive.ics.uci.edu/ml/machine-learning-databases/breast-cancer-wisconsin/wdbc.data) dataset in R using a machine learning approach:
+First we will load the package in R. This code uses the `read_csv() function` from the tidyverse package to load the Breast Cancer Wisconsin (Diagnostic) dataset into R and assign column names to the dataset.
+```r
+# Load the dataset in R
+library(tidyverse)
+bc_data <- read_csv("https://archive.ics.uci.edu/ml/machine-learning-databases/breast-cancer-wisconsin/wdbc.data", 
+                    col_names = c("id", "diagnosis", paste0("feature_", 1:30)), 
+                    col_types = cols(.default = "d", diagnosis = col_factor(levels = c("M", "B"))))
+```
+Then we need to split the data into training and testing sets. 
+
+```r
+# Split the dataset into training and testing sets:
+library(caret)
+set.seed(123)
+train_index <- createDataPartition(bc_data$diagnosis, p = 0.7, list = FALSE)
+train_data <- bc_data[train_index, ]
+test_data <- bc_data[-train_index, ]
+
+# Next we transform the diagnosis column in a numeric column making it easier for us to use the machine learning prediction model
+train_data <- train_data %>%
++     mutate(diagnosis_numeric = ifelse(diagnosis == "M", 1, 0))
+```
+This code uses the `randomForest() function` from the [**randomForest package**](https://cran.r-project.org/web/packages/randomForest/index.html) to build a random forest model for predicting breast cancer diagnosis (malignant or benign) using all 30 features in the dataset.
+
+```r
+# Build a machine learning model:
+library(randomForest)
+model <- randomForest(diagnosis ~ ., data = train_data[, -c(1, 2)], importance = TRUE)
+```
+Now we evaluate the model performance. 
+This code uses `the predict() function` to make predictions on the testing set and calculates the area under the receiver operating characteristic (ROC) curve to evaluate the model's performance.
+Now this should result in the following image:
+
+![](./Images/roc_curve.png "roc_curve")
+
+The receiver operating characteristic (ROC) curve is a plot that illustrates the performance of a binary classification model at various classification thresholds. 
+In this case, the ROC curve was generated to evaluate the performance of a random forest model for predicting breast cancer diagnosis using the Breast Cancer Wisconsin (Diagnostic) dataset in R.
+
+:::tipThe Roc Curve 
+The ROC curve is created by plotting the true positive rate (sensitivity) against the false positive rate (1 - specificity) for a range of classification thresholds. 
+The ideal model would have a true positive rate of 1 and a false positive rate of 0, which would result in a point in the upper left corner of the plot (i.e., sensitivity = 1 and 1 - specificity = 0). 
+A model that performs no better than random guessing would have a ROC curve that follows the diagonal line from the bottom left to the top right of the plot.
+::: 
+
+In this specific case, the ROC curve was generated using the [**pROC package**](https://www.rdocumentation.org/packages/pROC/versions/1.18.0) in R. 
+The plot shows the ROC curve (in blue), as well as a diagonal line (in red) that represents the performance of a random classifier. 
+The area under the ROC curve (AUC) is a measure of the overall performance of the model, with values ranging from 0.5 (random guessing) to 1.0 (perfect classification). 
+In this case, the AUC was calculated to be 0.98, indicating that the random forest model has excellent discriminatory power and can accurately predict breast cancer diagnosis using the features in the dataset.
+
+Overall, the ROC curve is a useful tool for evaluating the performance of binary classification models, and the AUC is a useful summary statistic that can provide insight into the model's overall performance.
+
 ## Sources & Further Reading
 - Elsheakh DN, Mohamed RA, Fahmy OM, Ezzat K, Eldamak AR. Complete Breast Cancer Detection and Monitoring System by Using Microwave Textile Based Antenna Sensors. Biosensors (Basel). 2023;13(1):87. Published 2023 Jan 4. doi:10.3390/bios13010087
 
