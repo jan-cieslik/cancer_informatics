@@ -24,6 +24,21 @@ function HomepageHeader() {
   );
 }
 
+function SummerSchool() {
+  const {siteConfig} = useDocusaurusContext();
+  return (
+    <header className={clsx('hero', styles.heroBanner)}>
+      <div className="container">
+        <h1 className="hero__title">Cancer Informatics Summer School 2023</h1>
+        <p className="hero__subtitle">Join us on campus from 7 - 11. August 2023</p>
+        We are pleased to announce this years Cancer Informatics Summer School at the Heinrich-Heine-University of Düsseldorf. <br/>
+        <a href="blog/summerschool">Click here to learn more</a>
+
+      </div>
+    </header>
+  );
+}
+
 export default function Home() {
   const {siteConfig} = useDocusaurusContext();
   return (
@@ -31,6 +46,7 @@ export default function Home() {
       title={`Cancer Informatics`}
       description="">
       <HomepageHeader />
+        <SummerSchool />
       <main>
       </main>
     </Layout>
