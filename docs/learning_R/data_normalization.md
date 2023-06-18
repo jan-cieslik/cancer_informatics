@@ -262,7 +262,7 @@ The histogram on the left shows the distribution of the original blood pressure 
 We can see that the data is slightly skewed to the right, with most of the readings between 120 and 200 mmHg.
 
 The histogram on the right shows the distribution of the transformed blood pressure data, after applying the Box-Cox transformation with the optimal lambda value. 
-We can see that the data is now more symmetric and approximately normally distributed, with most of the readings between -1 and 1.
+We can see that the data is now more symmetric and approximately normally distributed, with most of the readings between 1.92 and 1.98.
 
 :::tip5 Tips for Data Normalization
 
