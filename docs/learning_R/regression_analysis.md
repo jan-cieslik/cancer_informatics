@@ -39,7 +39,7 @@ In this chapter, we will work with the [Heights and weights](https://www.kaggle.
 
 We will analyse the relationship between the `Height` (*m*, independent variable) and the `Weight` (*kg*, dependent variable).
 
-#### 1. Load the dataset
+#### 1. Load the Dataset
 
 In order to load the dataset, we have to [import the CSV file](./loadingdata.md#importing-a-csv-file) as follows:
 
@@ -370,8 +370,170 @@ head(bcd)
 
 As you can see, this dataset includes a lot of information, including `diagnosis`, where `1` = breast cancer diagnosis and `0` = no diagnosis.
 
+#### 2. Split the Dataset
+
+Now we are going to split the dataset into two parts: a *training set* for training the model and a *test set* for testing the model.
+
+```r
+# Attach the dataset
+attach(bcd)
+
+# Generate pseudorandom individuals
+set.seed(1)
+
+# Create a training set (70 % of dataset) and a test set (30 %)
+sample <- sample(c(TRUE, FALSE), nrow(bcd), replace = TRUE, prob = c(0.7,0.3))
+train_set <- bcd[sample,]
+test_set <- bcd[!sample,]
+```
+
+#### 3. Logistic Regression Analysis
+
+Next, you can build a logistic regression model using the `glm()` function.
+This function works similarly to the `lm()` function that we learnt about in linear regression.
+However, it is used to fit *generalized linear models*, whereas `lm()` only works for *linear models*.
+To use `glm()` for logistic regression models, you need to set the argument `family` to `binomial`.
+
+```r
+# Fit the logistic regression model
+bcd_model <- glm(diagnosis ~ mean_radius + mean_texture + mean_perimeter + mean_area + mean_smoothness, family = "binomial")
+```
+
+:::caution warning message
+In our example, this code gives us the following warning message:
+
+```r
+Warning message:
+glm.fit: fitted probabilities numerically 0 or 1 occurred 
+```
+
+This means that some observations in our dataset cannot differentiate between 0 and 1.
+This is not an error, just a warning, and the model will still be fitted.
+You should consider analysing the original dataset to understand why this warning occurred.
+Depending on your dataset, you can ignore this warning, as it does not always mean that the logistic regression model is bad.
+That is why we will continue with the logistic regression analysis.
+:::
+
+```r
+# Look at the summary
+summary(bcd_model)
+
+Call:
+glm(formula = diagnosis ~ mean_radius + mean_texture + mean_perimeter + 
+    mean_area + mean_smoothness, family = "binomial")
+
+Coefficients:
+                  Estimate Std. Error z value Pr(>|z|)    
+(Intercept)       12.52617    8.38544   1.494 0.135228    
+mean_radius        6.27525    1.83569   3.418 0.000630 ***
+mean_texture      -0.36410    0.06004  -6.064 1.33e-09 ***
+mean_perimeter    -0.60716    0.17944  -3.384 0.000715 ***
+mean_area         -0.04178    0.01375  -3.038 0.002378 ** 
+mean_smoothness -118.46210   20.64837  -5.737 9.63e-09 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 751.44  on 568  degrees of freedom
+Residual deviance: 169.22  on 563  degrees of freedom
+AIC: 181.22
+
+Number of Fisher Scoring iterations: 8
+```
+
+All of our independent variables have p-values < 0.05, indicating that they are likely to be important predictors in our logistic regression model.
+
+#### 4. Predicting and Forecasting
+
+Once the logistic regression model has been fitted, it can be used to predict breast cancer diagnosis.
+
+In the following, we will discover a way to predict the probability of breast cancer for randomly generated individuals.
+
+```r
+# Create a new data frame with two made-up individuals
+individuals <- data.frame(mean_radius = c(23, 36), mean_texture = 14, mean_perimeter = 126, mean_area = 1063, mean_smoothness = 0.56)
+
+# Predict the probability of breast cancer for both individuals
+predict(bcd_model, individuals, type = "response")
+
+           1            2 
+2.220446e-16 1.000000e+00 
+```
+
+:::note
+With `type` set to `response`, the output will give you percentages.
+:::
+
+Now I am going to show you how to predict the probability of developing breast cancer for each individual.
+
+```r
+# Predict the probability of breast cancer for each individual in the test set
+predicted <- predict(bcd_model, test_set, type = "response")
+```
+
+#### 5. Analysing the Logistic Regression Model
+
+In the last step, you can analyse your logistic regression model.
+
+##### Optimal Cut-Off
+
+By default, the `test_set` in our `predicted` function predicts a diagnosis of breast cancer if the calculated probability is > 0.5.
+In order to improve the accuracy of our model, we can find out what the ideal probability is (= *optimal cut-off*).
+
+To do so, install the `InformationValue` package and use the `optimalCutoff()` function as follows:
+
+```r
+install.packages("InformationValue")
+library(InformationValue)
+
+# Compute the optimal cut-off
+optimal_cutoff <- optimalCutoff(test_set$diagnosis, predicted)
+optimal_cutoff
+
+[1] 0.5499825
+```
+
+This means that a person who has a probability of ≥ 0.5499825 will be diagnosed with breast cancer.
+
+:::note
+By default, the `optimiseFor` argument is set to `misclasserror` which means that it calculates the cut-off with minimum misclassification.
+You can also set the argument to: `Ones`, `Zeros`, or `Both`.
+Click [here](https://www.rdocumentation.org/packages/InformationValue/versions/1.2.3/topics/optimalCutoff) for more information.
+:::
+
+##### ROC Plot and AUC
+
+A **ROC** (= *Receiver Operating Characteristic*) **curve** is a graph that shows how well a binary classifier can make a diagnosis.
+The curve represents two parameters: the true positive rate (= sensitivity) and the false positive rate (= 1-specificity).
+
+The **AUC** (= *Area Under the ROC Curve*), which measures the total area of the ROC curve, has a value between 0 and 1.
+The higher the AUC, the better the prediction.
+
+You can plot the ROC curve and calculate the AUC in a single step using the `PredictABEL` package and its `plotROC()` function.
+
+```r
+# Install and load "PredictABEL"
+install.packages("PredictABEL")
+library(PredictABEL)
+
+# Plot the ROC
+plotROC(test_set, 6, predrisk = predicted)
+```
+
+This will give you both the AUC and the ROC plot at the same time:
+
+```r
+AUC [95% CI] for the model 1 :  0.984 [ 0.969  -  0.999 ]
+```
+
+![](./Images/bcd_rocplot.png "bcd ROC Plot")
+
+Our ROC plot as well as the AUC show that our regression model is a good predictor of breast cancer diagnosis.
+
 ## Sources & Further Reading
 
 - [Breast Cancer Prediction dataset](https://www.kaggle.com/datasets/merishnasuwal/breast-cancer-prediction-dataset)
 - [Happiness Index 2018-2019](https://www.kaggle.com/datasets/sougatapramanick/happiness-index-2018-2019)
 - [Heights and weights](https://www.kaggle.com/datasets/tmcketterick/heights-and-weights)
+- [optimalCutoff](https://www.rdocumentation.org/packages/InformationValue/versions/1.2.3/topics/optimalCutoff)
