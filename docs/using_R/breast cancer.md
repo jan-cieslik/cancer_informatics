@@ -325,6 +325,107 @@ In this case, the AUC was calculated to be 0.98, indicating that the random fore
 
 Overall, the ROC curve is a useful tool for evaluating the performance of binary classification models, and the AUC is a useful summary statistic that can provide insight into the model's overall performance.
 
+## Data Visualization
+
+:::info
+In the following we will deal with the visualization of the data sets. 
+For this we primarily use the `ggplot` function. 
+If you need to brush up on this beforehand, visit the chapter provided for this under Learning R.
+:::
+
+Here's an example of how to create a basic data visualization for breast cancer data in R:
+
+First, we'll load the required libraries and the "BreastCancer" dataset from the "mlbench" package.
+To generate the dataset you can use the following code. Further information regarding abbreviations can be found in the legend at the following link [**BreastCancer: Wisconsin Breast Cancer Database**](https://rdrr.io/cran/mlbench/man/BreastCancer.html).
+
+```r
+# Install the mlbench package and then access the BreastCancer dataset
+install.packages(mlbench)
+library(mlbench)
+data(BreastCancer)
+```
+
+The data set contains a total of 11 variables. The variables we use are explained below
+:::info
+- **Cl.thickness**:	Clump Thickness
+-> This is used to assess if cells are mono-layered or multi-layered. 
+Benign cells tend to be grouped in monolayers, while cancerous cells are often grouped in multi-layer.
+- **Bl.cromatin**:	Bland Chromatin
+-> Describes a uniform texture of the nucleus seen in benign cell. 
+In cancer cell, the chromatin tends to be coarser.
+- **Mitoses**: Mitoses
+->  It is an estimate of the number of mitosis that has taken place. 
+Larger the value, greater is the chance of malignancy
+:::
+
+We can use the "ggplot2" package to create a scatter plot of two features, "Cl.thickness" and "Bland.Chromatin", coloured by diagnosis ("benign" or "malignant").
+```r
+# Visualization using the ggplot2
+install.packages(ggplot2)
+library(ggplot2)
+# Renaming column 8 for better understanding
+colnames(BreastCancer)[8] <- "Bland.Chromatin"
+ggplot(BreastCancer, aes(x = Cl.thickness, y = Bland.Chromatin, color = Class)) + 
+  geom_point()
+```
+This will create a scatter plot with points coloured by diagnosis:
+
+![](./Images/ggplot2.png "ggplot2")
+
+We can add additional layers to the plot to improve its readability and add more information. 
+For example, we can add axis labels and a title to the plot, and adjust the colour scale to use a more visible colour scheme.
+```r
+# Improving the ggplot2 graph
+ggplot(BreastCancer, aes(x = Cl.thickness, y = Bland.Chromatin, color = Class)) + 
+  geom_point() + 
+  labs(x = "Cl.thickness", y = "Bland.Chromatin", title = "Breast Cancer Diagnosis") +
+  scale_color_manual(values = c("#0072B2", "#D55E00"))
+```
+
+![](./Images/ggplot2_improved.png "ggplot2_improved")
+
+:::info
+As can be seen from the graph, the risk of breast malignancy increases with increasing clump thickness and coarsening of the bland chromatin portion.
+:::
+
+Here's another example of a data visualization using the "BreastCancer" dataset from the "mlbench" package in R. 
+In this case we use a stacked bar chart. 
+
+We can use the "ggplot2" package to create a stacked bar chart showing the distribution of diagnoses ("benign" or "malignant") by the presence or absence of a specific feature ("Mitoses").
+
+```r
+# This will create a stacked bar chart showing the distribution of diagnoses by the presence or absence of Mitoses.
+library(ggplot2)
+ggplot(BreastCancer, aes(x = Mitoses, fill = Class)) + 
+  geom_bar(position = "stack") + 
+  labs(x = "Mitoses", y = "Count", title = "Breast Cancer Diagnosis by Mitoses") +
+  scale_fill_manual(values = c("#0072B2", "#D55E00"))
+```
+
+![](./Images/stackedbar.png "stackedbar")
+
+We can further customize the plot by adjusting the colour scale, adding a legend, and changing the bar chart orientation.
+```r
+# This will create a customized stacked bar chart with a legend at the bottom and a horizontal orientation.
+ggplot(BreastCancer, aes(x = Mitoses, fill = Class)) + 
+  geom_bar(position = "stack") + 
+  labs(x = "Mitoses", y = "Count", title = "Breast Cancer Diagnosis by Mitoses") +
+  scale_fill_manual(values = c("#0072B2", "#D55E00"), labels = c("Benign", "Malignant")) +
+  theme(legend.position = "bottom") + 
+  coord_flip()
+```
+
+![](./Images/stackedbar_improved.png "stackedbar_improved")
+
+:::info
+Once again as said before: The larger the value of the mitoses, the greater is the chance of malignancy
+:::
+
+:::note
+There are many other types of data visualizations that can be created in R, depending on the data and research question. 
+The "ggplot2" package offers a wide range of customization options for creating high-quality visualizations.
+:::
+
 ## Sources & Further Reading
 - Elsheakh DN, Mohamed RA, Fahmy OM, Ezzat K, Eldamak AR. Complete Breast Cancer Detection and Monitoring System by Using Microwave Textile Based Antenna Sensors. Biosensors (Basel). 2023;13(1):87. Published 2023 Jan 4. doi:10.3390/bios13010087
 
