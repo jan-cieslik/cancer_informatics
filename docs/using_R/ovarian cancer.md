@@ -60,6 +60,91 @@ These packages can be used to create plots of gene expression data, survival cur
 
 **4. Cox proportional hazards model:** The Cox proportional hazards model is a widely used statistical model in survival analysis. It is used to assess the relationship between covariates (independent variables) and the time until an event of interest occurs (e.g., death, relapse, or failure). 
 
+## Data preprocessing
+
+Here's a detailed example of data preprocessing for ovarian cancer using the "ovarian" dataset from the survival package in R:
+Start by loading the necessary packages: survival, dplyr, and survminer. 
+These packages provide functions for survival analysis and data manipulation.
+```r
+# Load the Required Packages
+library(survival)
+library(dplyr)
+library(survminer)
+```
+The [**ovarian dataset**](https://r-data.pmagunia.com/dataset/r-dataset-package-survival-ovarian) is included in the survival package. 
+Load the dataset into R:
+```r
+# Load the Ovarian Cancer Dataset:
+data(cancer, package="survival")
+```
+Examine the structure and content of the ovarian dataset to understand its variables and format:
+```r
+# Explore the Dataset:
+str(ovarian)
+summary(ovarian)
+```
+This should result in the following image:
+
+![](./Images/ovarian.png "ovarian")
+
+The ovarian dataset contains information on 6 variables related to ovarian cancer, including survival status, age, stage, and treatment variables.
+
+:::tip Explanation of the items included in the ovarian dataset:
+**futime:** The follow-up time or survival time of the patients in days.
+
+**fustat:** The event status indicator, where 1 represents death (an event occurred) and 0 represents censoring (no event occurred).
+
+**age:** The age of the patient at the time of diagnosis.
+
+**resid.ds:** The residual disease status, which indicates the amount of residual disease after primary treatment. It is categorized as follows:
+
+    0: No visible residual disease.
+
+    1: Residual disease ≤1 cm.
+
+    2: Residual disease >1 cm.
+
+**rx:** The treatment received by the patient. This variable represents the type of chemotherapy treatment and is a factor variable with levels such as "standard" and "experimental".
+
+**ecog.ps:** The Eastern Cooperative Oncology Group performance status, which provides a measure of the patient's functional status or overall health. It is categorized as follows:
+
+    1: Fully active, able to carry out all activities without restriction.
+
+    2: Restricted in physically strenuous activity but ambulatory and able to carry out light work.
+
+    3: Restricted in ability to perform work and requiring some bed rest during the day.
+
+    4: Completely disabled and confined to bed or chair.
+:::
+
+Perform any necessary data cleaning and transformation steps. 
+In this example, we'll focus on selecting relevant variables and handling missing values.
+```r
+# Select relevant variables
+ovarian_filtered <- select(ovarian, age, resid.ds, rx)
+```
+Here, we select the variables age, resid.ds (residual disease status), and rx (treatment) for further analysis. 
+Adjust the variable selection according to your specific research questions.
+
+Check for missing values in the selected variables and handle them appropriately. In this example, we'll remove any rows with missing values.
+```r
+# Check for missing values
+missing_values <- sum(is.na(ovarian_filtered))
+
+# Remove rows with missing values
+ovarian_filtered <- na.omit(ovarian_filtered)
+``` 
+Convert the variables into the desired format for analysis. For example, convert the treatment variable (rx) into a factor:
+```r
+# Data formatting
+ovarian_filtered$rx <- as.factor(ovarian_filtered$rx)
+```
+Make sure to format the variables based on their data types and the analysis methods you plan to use.
+
+The following image will then be created:
+
+![](./Images/ovarian_improved.png "ovarian_improved")
+
 ## Sources & Further Reading
 
 - Roett MA, Evans P. Ovarian cancer: an overview. Am Fam Physician. 2009;80(6):609-616.
