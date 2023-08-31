@@ -194,7 +194,7 @@ This is necessary for a proper differential expression analysis.
 Ideally, the variance should remain constant throughout the range of mean expression values.
 The dots on the graph should be evenly distributed, forming a horizontal shape or cloud around a straight line.
 If you notice any noticeable patterns or trends in the graph, this may indicate problems with the normalization or transformation.
-You should then consider performing additional normalisation or transformation steps.
+You should then consider performing additional normalization or transformation steps.
 If you notice a U- or J-shape, as in our case, this could mean that genes with low expression levels have higher variance.
 Therefore, it seems that we should filter out more low-expressed genes.
 
@@ -269,14 +269,126 @@ We have now identified ten potentially differentially expressed miRNAs between n
 "Potentially" indicates that further analysis is required to confirm these findings.
 It is always important to interpret bioinformatic analyses with caution.
 
+## Case 2: Survival Analysis
+
+The second chapter includes a survival analysis of patients with cervical cancer.
+We will use the [**cervical cancer dataset (MSK, 2023)**](https://www.cbioportal.org/study/summary?id=cervix_msk_2023) from **cBioPortal**, an open source platform for interactive exploration of cancer genomics datasets.
+
+### Getting Started
+
+We will perform a **Kaplan-Meier** survival analysis using the [`survival`](https://CRAN.R-project.org/package=survival) and the [`survminer`](https://CRAN.R-project.org/package=survminer) packages, the latter for better vizualisation. 
+
+```r
+# Load the necessary packages
+library(survival)
+library(survminer)
+```
+
+As mentioned earlier, we will use the cervical cancer dataset (MSK, 2023) that I prepared beforehand to simplify the survival analysis.
+
+```r
+# Load the dataset
+cervsurv <- read.csv("cervical_survival.csv")
+```
+
+:::info cervical_survival.csv
+- `Patient_ID`
+- `Type`: sample type (*primary* or *metastasis*)
+- `Time`: overall survival (months)
+- `Status`: overall survival status (1 = *deceased*, 0 = *living*)
+:::
+
+### Kaplan-Meier Plot
+
+For the survival analysis, we will utilize the **Kaplan-Meier estimate**.
+First, we need to create a `Surv` object using the `Surv()` function.
+
+```r
+# Create a Surv object
+sobj <- Surv(cervsurv$Time, cervsurv$Status)
+```
+
+Next on, we will use this `Surv` object to generate survival curves using the `survfit()` function.
+
+```r
+# Fit the Kaplan-Meier curves
+km <- survfit(sobj ~ 1, data = cervsurv) # "~ 1" will construct a single survival function for all observations
+km
+```
+```r
+Call: survfit(formula = sobj ~ 1, data = cervsurv)
+
+   3 observations deleted as missing 
+       n events median 0.95LCL 0.95UCL
+[1,] 120     62   43.8    30.7      NA
+```
+
+Looking at the result of the `survfit()` function, we can see that the median survival of cervical cancer patients in this dataset is 43.8 months.
+
+We will visualize the Kaplan-Meier plot using the `ggsurvplot()` function.
+With the `risk.table` argument we can include the *number at risk*.
+
+```r
+# Create a Kaplan-Meier plot with number at risk
+ggsurvplot(km, risk.table = TRUE, surv.median.line = "hv")
+```
+
+This results in the following Kaplan-Meier plot:
+
+![](./Images/cervsurv_ggsurvplot.png "Kaplan-Meier Plot")
+
+### Kaplan-Meier Plot with Covariates
+
+For further analysis, we want to construct different survival curves with covariates.
+In this case we will compare the survival curves based on the sample type (*primary* or *metastasis*).
+
+We need to calculate a new Kaplan-Meier estimate using the `survfit()` function and type in the group name (in our case: `Type`) after the tilde (`~`).
+
+```r
+# Fit the Kaplan-Meier curves with covariates
+km_type <- survfit(sobj ~ Type, data = cervsurv) # "~ Type" will construct multiple survival functions
+km_type
+```
+```r
+Call: survfit(formula = sobj ~ Type, data = cervsurv)
+
+   3 observations deleted as missing 
+                 n events median 0.95LCL 0.95UCL
+Type=Metastasis 47     30   28.8    15.6      46
+Type=Primary    73     32   64.6    40.3      NA
+```
+
+Here we can see that the median survival for the `Metastasis` group is 28.8 months versus 64.6 months for the `Pimary` group.
+
+We will then visualize the Kaplan-Meier plot again with the `ggsurvplot()` function.
+With `pval` set to `TRUE`, we can also include the p-value for log-rank tests into the plot.
+This determines whether there are significant differences in survival between the groups.
+
+```r
+# Create a Kaplan-Meier plot with number at risk and p-value
+ggsurvplot(km_type, data = cervsurv, risk.table = TRUE, surv.median.line = "hv", pval = TRUE)
+```
+
+This produces the following survival curves:
+
+![](./Images/cervsurv_type_ggsurvplot.png "Kaplan Meier Plot with Covariates")
+
+From this graph, we can observe that the primary group has a longer median survival time indicating a superior outcome for those patients.
+With a p-value of < 0.05, there is a statistically significant difference in survival between patients with primary and metastatic cervical cancer.
+
 ## Sources & Further Reading
 
+- Cerami et al. The cBio Cancer Genomics Portal: An Open Platform for Exploring Multidimensional Cancer Genomics Data. Cancer Discovery. May 2012 2; 401.
+- Cervical Cancer (MSK, 2023). Targeted Sequencing of 177 cervical tumours and their matched normal samples via MSK-IMPACT. https://www.cbioportal.org/study/clinicalData?id=cervix_msk_2023.
 - Chen Y, Lun ATL, Smyth GK (2016). From reads to genes to pathways: differential expression analysis of RNA-Seq experiments using Rsubread and the edgeR quasi-likelihood pipeline. F1000Research 5, 1438
+- Gao et al. Integrative analysis of complex cancer genomics and clinical profiles using the cBioPortal. Sci. Signal. 6, pl1 (2013).
 - Gentleman R, Carey V, Huber W, Irizarry R, Dudoit S. (2005). Bioinformatics and Computational Biology Solutions Using R and Bioconductor. doi.org/10.1007/0-387-29362-0
 - Goksuluk D, Zararsiz G, Korkmaz S (2022). _NBLDA: Negative Binomial Linear Discriminant Analysis_. R package version 1.0.1, <https://CRAN.R-project.org/package=NBLDA>.
+- Kassambara A, Kosinski M, Biecek P (2021). _survminer: Drawing Survival Curves using 'ggplot2'_. R package version 0.4.9, <https://CRAN.R-project.org/package=survminer>.
 - Law CW, Chen Y, Shi W, Smyth GK (2014). Voom: precision weights unlock linear model analysis tools for RNA-seq read counts. Genome Biology 15, R29. doi:10.1186/gb-2014-15-2-r29.
 - McCarthy DJ, Chen Y and Smyth GK (2012). Differential expression analysis of multifactor RNA-Seq experiments with respect to biological variation. Nucleic Acids Research 40, 4288-4297
 - Morgan M, Ramos M (2023). _BiocManager: Access the Bioconductor Project Package Repository_. R package version 1.30.21, <https://CRAN.R-project.org/package=BiocManager>.
 - Ritchie ME, Phipson B, Wu D, Hu Y, Law CW, Shi W, Smyth GK (2015). “limma powers differential expression analyses for RNA-sequencing and microarray studies.” Nucleic Acids Research, 43(7), e47. doi:10.1093/nar/gkv007.
 - Robinson MD, McCarthy DJ and Smyth GK (2010). edgeR: a Bioconductor package for differential expression analysis of digital gene expression data. Bioinformatics 26, 139-140
+- Therneau T (2023). _A Package for Survival Analysis in R_. R package version 3.5-5, <https://CRAN.R-project.org/package=survival>.
 - Witten D, et al. (2010) Ultra-high throughput sequencing-based small RNA discovery and discrete statistical biomarker analysis in a collection of cervical tumours and matched controls. BMC Biology, 8:58. Published online 2010 May 11. doi: 10.1186/1741-7007-8-58
