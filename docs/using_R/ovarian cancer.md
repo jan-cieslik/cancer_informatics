@@ -1,7 +1,7 @@
 ---
 sidebar_position: 3
 ---
-# Use Case: Ovarian Cancer
+# Survival: Ovarian Cancer
 
 ## Introduction
 
@@ -28,7 +28,7 @@ R has several packages that can be used for survival analysis in ovarian cancer,
 **3. Data Visualization:** R is an excellent tool for data visualization, which is essential in cancer informatics.
 Popular examples include [**ggplot2**](https://cran.r-project.org/web/packages/ggplot2/index.html) and [**lattice**](https://cran.r-project.org/web/packages/lattice/index.html), both can be used to create informative and visually appealing plots and graphs.
 
-## Used Packaged
+## Used Packages
 We will use the following packages in this article.
 Keep in mind that you might need to install the packages first before you can use them.
 
