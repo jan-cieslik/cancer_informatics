@@ -80,6 +80,12 @@ const config = {
             position: 'left',
             label: 'Learning & Using R',
           },
+          {
+            type: 'doc',
+            docId: 'ai/introduction',
+            position: 'left',
+            label: 'AI & Imaging',
+          },
           {to: '/blog', label: 'Blog', position: 'left'},
           {
             href: 'https://github.com/jan-cieslik/cancer_informatics',
