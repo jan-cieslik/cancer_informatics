@@ -2,65 +2,69 @@
 sidebar_position: 4
 ---
 
-# Use Case: Cervical Cancer
+# Gene Expression: Cervical Cancer
 
 This chapter focuses on two different datasets on **cervical cancer**, which we will use to perform different tasks.
+A great in-depth ressource for differential gene expression analysis in R is a [mRNAseq workshop by the UC Davis Bioinformatics Core](https://ucdavis-bioinformatics-training.github.io/2019_March_UCSF_mRNAseq_Workshop/differential_expression/orig_DE_Analysis.html).
 
-## Case 1: Gene Expression Levels
+## Packages
 
 In the upcoming tasks, we will analyse the [**cervical cancer data**](https://search.r-project.org/CRAN/refmans/NBLDA/html/cervical.html) from the [`NBLDA`](https://cran.r-project.org/web/packages/NBLDA/index.html) (*Negative Binomial Linear Discriminant Analysis*) package.
 This dataset contains gene expression levels of 714 miRNAs in 29 tumour and 29 non-tumour cervical samples. We aim to determine differences in miRNA gene expression levels between the cervical cancer and non-tumour samples using this dataset.
 
-To perform **differential expression analysis** of miRNA, we will use [**`limma`**](https://bioconductor.org/packages/release/bioc/html/limma.html) and [**`edgeR`**](https://bioconductor.org/packages/release/bioc/html/edgeR.html). These are packages developed by [Bioconductor](https://bioconductor.org/), which is an open source bioinformatics software.
+To perform **differential expression analysis** of miRNA, we will use [**`limma`**](https://bioconductor.org/packages/release/bioc/html/limma.html) and [**`edgeR`**](https://bioconductor.org/packages/release/bioc/html/edgeR.html). These are packages distributed via [Bioconductor](https://bioconductor.org/), which is an open source bioinformatics platform.
 
-### Getting Started
-
-To get started, download the `NBLDA` package and the `cervical` dataset into your R session.
+### Installing Packages
 
 ```r
-# Install & load NBLDA
-install.packages("NBLDA")
-library(NBLDA)
+# Install BiocManager (Bioconductor's package manager)
+if (!require("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
 
+# Install limma from Bioconductor
+BiocManager::install("limma")
+
+# Install edgeR from Bioconductor
+BiocManager::install("edgeR")
+
+# Install NBLDA from CRAN
+install.packages("NBLDA")
+```
+
+### Loading Packages
+
+```r
+# Load the necessary packages
+library(NBLDA)
+library(edgeR)
+library(limma)
+```
+
+
+## Getting Started
+
+To get started, load the `cervical` dataset into your R session.
+
+```r
 # Load the dataset
 data(cervical)
 ```
 
-Look at the first 4 rows and the structure of the cervical cancer data.
-Next, provide a summary of the dataset.
+Let's take a look at the first 5 rows of the first 3 tumour and non-tumour samples.
 
 ```r
-# Look at the first 4 rows
-head(cervical, 4)
-
-# Look at the structure
-str(cervical)
-
-# Look at the summary
-summary(cervical)
+> cervical[1:5, c(1:3, 30:32)]
+         N1   N2   N3   T1    T2   T3
+let-7a  865  810 5505 3343  4990 5193
+let-7a*   3   12   30   12    99   15
+let-7b  975 2790 4912 4217 41617 5152
+let-7b*  15   18   27    8   148   14
+let-7c  828 1251 2973  519  4664 1274
 ```
 
-Do not worry if you feel a little overwhelmed by large datasets.
-Take your time and try to understand what is happening in your dataset.
-The more you work with the dataset, the more comfortable you will become!
+One can observe, that the tumour/non-tumour information is encoded in the column name "N1" (non-tumour) vs "T1" (tumour).
 
-For performing **differential expression analysis**, you need to install [`BiocManager`](<https://CRAN.R-project.org/package=BiocManager>) (*a tool for installing and updating Bioconductor packages*) and the packages `limma` and `edgeR`:
-
-```r
-# Install BiocManager
-if (!require("BiocManager", quietly = TRUE))
-    install.packages("BiocManager")
-
-# Install & load limma
-BiocManager::install("limma")
-library(limma)
-
-# Install & load edgeR
-BiocManager::install("edgeR")
-library(edgeR)
-```
-
-### Data Preprocessing
+## Data Preprocessing
 
 To analyse the difference in expression, we need to prepare our data beforehand.
 Please note that our example is using **RNA-seq data**.
@@ -71,17 +75,19 @@ Choosing the right preprocessing steps according to the data type is crucial in 
 If you use data other than RNA-seq, your steps may differ.
 
 
-#### 1. Creating a `DGEList` Object
+### 1. Creating a `DGEList` Object
 
-Firstly, we need to create a `DGEList` object, which is a list that contains various components, including sample information, groups, and genes, among others.
+Firstly, we need to create a `DGEList` (Digital Gene Expression List) object, which is a list that contains various components, including sample information, groups, and genes, among others.
 This provides a well-structured and efficient way to manage count data for further analysis.
 
 ```r
 # Create a DGEList object
 cerv0 <- DGEList(cervical)
+# Prodide group information
+cerv0$samples$group <- substr(colnames(cervical), 1, 1)
 ```
 
-#### 2. Data Normalization Factors
+### 2. Data Normalization Factors
 
 We can then calculate the scaling factors with `calcNormFactors()`.
 This converts the original library size to a normalized effective library size.
@@ -97,14 +103,15 @@ It concentrates on normalizing the library size.
 To achieve complete normalization, you need to include additional steps, such as using the `voom()` function which we will discuss later.
 :::
 
-#### 3. Filtering Low-Expressed Genes
+### 3. Filtering Low-Expressed Genes
 
 Genes with low expression levels may not contribute significantly to further analysis and may be more affected by noise.
-That is why they are usually filtered out.
+We will filter them out in our example.
 
 ```r
+# see https://ucdavis-bioinformatics-training.github.io/2019_March_UCSF_mRNAseq_Workshop/differential_expression/orig_DE_Analysis.html
 # Set the cutoff to "1"
-cutoff <- 1
+cutoff <- 3
 
 # Calculate the max CPM value for each gene
 # Store genes with a max CPM value below the cutoff under "drop"
@@ -113,66 +120,70 @@ drop <- which(apply(cpm(cerv0), 1, max) < cutoff)
 # Create a new DGEList object by excluding "drop"
 cerv <- cerv0[-drop,] 
 
-# Look at the number of genes left
+# Look at the originial number of miRNAs
+dim(cerv0)
+# Look at the number of miRNAs left
 dim(cerv)
 ```
 
 ```r
-[1] 712  58
+[1] 714  58
+[1] 704  58
 ```
 
-We now have expression levels for 712 miRNAs, indicating that 2 miRNAs were removed.
+We now have expression levels for 704 miRNAs, indicating that 10 miRNAs were removed.
 
-#### 4. Extracting Experiment Information
+### 4. Visualizing the Data
 
-We will now extract experimental information from the sample names.
-The sample names in our dataset determine their respective groups.
-Non-tumour samples are represented by the letter "N" whereas the letter "T" represents tumour samples.
+We will go over the most popular approaches for dimensionality reduction: multidimensional scaling (MDS), principal component analysis (PCA), and t-distributed stochastic neighbor embedding (t-SNE).
+These plots provide a first insight into your gene expression data.
+Samples that are closer together on the graph have more similar gene expression than those that are further apart. 
+Ideally, samples from the same group should cluster together, indicating that different groups should be separated.
+Outliers, samples that fall outside the expected range, may indicate poor data quality.
 
-```r
-# Extract the sample names
-sample_names <- colnames(cervical)
-
-# Extract the first letter (N/T) of the sample names
-group <- substr(sample_names, 1, 1)
-group
-```
-
-```r
- [1] "N" "N" "N" "N" "N" "N" "N" "N" "N" "N" "N" "N" "N" "N" "N" "N" "N" "N" "N" "N" "N" "N" "N" "N" "N" "N" "N" "N" "N"
-[30] "T" "T" "T" "T" "T" "T" "T" "T" "T" "T" "T" "T" "T" "T" "T" "T" "T" "T" "T" "T" "T" "T" "T" "T" "T" "T" "T" "T" "T"
-```
-
-#### 5. Multidimensional Scaling Plot
-
-The multidimensional scaling (MDS) plot is a method to display how similar or different samples are based on their gene expression profiles.
+#### MDS Plot
 
 ```r
 # Convert the group vector into a numeric vector
-group_numeric <- ifelse(group == "N", 1, 2) # this will convert "N" to 1, "T" to 2
+# this will convert "N" to 1, "T" to 2
+group_numeric <- ifelse(cerv$samples$group == "N", 1, 2) 
 
 # Create the MDS plot
 # Specify the sample colors based on their groups
 plotMDS(cerv, col = group_numeric)
 ```
 
-This will produce the following **MDS plot**:
-
 ![](./Images/cervical_MDSplot.png "MDS Plot")
 
-MDS plots provide a first insight into your gene expression data.
-Samples that are closer together on the graph have more similar gene expression than those that are further apart. 
-Ideally, samples from the same group should cluster together, indicating that different groups should be separated.
-Outliers, samples that fall outside the expected range, may indicate poor data quality.
+#### PCA Plot
 
-:::caution
-MDS plots visually represent data similarities but **do not** indicate statistical significance.
-Therefore, they should be followed up with appropriate statistical analysis.
-:::
+```r    
+counts <- t(as.matrix(cerv$counts))
+df <- as.data.frame(cbind(cerv$samples$group, counts))
+colnames(df)[1] <- "group"
 
-#### 6. `voom`-Transformation
+pca_res <- prcomp(counts, scale. = TRUE, center=T)
+autoplot(pca_res, colour ="group", data=df) +
+    theme_classic()+ theme(legend.position="bottom")
+```
 
-The final step in the preprocessing is the `voom`-transformation.
+#### tSNE Plot
+
+```r
+# Perform tSNE and plot via ggplot. Code adapted from:
+# https://stackoverflow.com/questions/44837536/how-to-use-ggplot-to-plot-t-sne-clustering
+counts <- t(as.matrix(cerv$counts))
+tsne <- Rtsne(counts, perplexity=floor((nrow(counts) - 1) / 3),)
+#plot(tsne$Y, col=group_numeric)
+tsne_plot <- data.frame(x = tsne$Y[,1], y = tsne$Y[,2],
+                        col = cerv$samples$group)
+ggplot(tsne_plot) + geom_point(aes(x=x, y=y, color=col)) +
+    theme_classic()+ theme(legend.position="bottom")
+```
+
+### 6. `voom`-Transformation
+
+Finally, we can perform `voom`-transformation.
 As mentioned above, `voom()` is a crucial step in the preprocessing of RNA-seq data.
 After applying `voom()`, the data can be used in linear models to perform differential expression analysis.
 
@@ -198,11 +209,11 @@ You should then consider performing additional normalization or transformation s
 If you notice a U- or J-shape, as in our case, this could mean that genes with low expression levels have higher variance.
 Therefore, it seems that we should filter out more low-expressed genes.
 
-### Differential Expression Analysis
+## Differential Expression Analysis
 
 After all the preprocessing, we can finally start the differential expression analysis.
 
-#### 1. Fitting Linear Models
+### 1. Fitting Linear Models
 
 Since our data is now appropriate for linear models, we can begin by fitting the model.
 
@@ -227,7 +238,7 @@ fit_contrast <- contrasts.fit(fit, contrast_matrix)
 fit_contrast <- eBayes(fit_contrast)
 ```
 
-#### 2. Top-Ranked miRNAs
+### 2. Top-Ranked miRNAs
 
 Lastly, we want to obtain the results of the differential expression analysis.
 We can achieve this by using the `topTable()` function in `limma`.
@@ -269,115 +280,9 @@ We have now identified ten potentially differentially expressed miRNAs between n
 "Potentially" indicates that further analysis is required to confirm these findings.
 It is always important to interpret bioinformatic analyses with caution.
 
-## Case 2: Survival Analysis
-
-The second chapter includes a survival analysis of patients with cervical cancer.
-We will use the [**cervical cancer dataset (MSK, 2023)**](https://www.cbioportal.org/study/summary?id=cervix_msk_2023) from **cBioPortal**, an open source platform for interactive exploration of cancer genomics datasets.
-
-### Getting Started
-
-We will perform a **Kaplan-Meier** survival analysis using the [`survival`](https://CRAN.R-project.org/package=survival) and the [`survminer`](https://CRAN.R-project.org/package=survminer) packages, the latter for better vizualisation. 
-
-```r
-# Load the necessary packages
-library(survival)
-library(survminer)
-```
-
-As mentioned earlier, we will use the cervical cancer dataset (MSK, 2023) that I prepared beforehand to simplify the survival analysis.
-
-```r
-# Load the dataset
-cervsurv <- read.csv("cervical_survival.csv")
-```
-
-:::info cervical_survival.csv
-- `Patient_ID`
-- `Type`: sample type (*primary* or *metastasis*)
-- `Time`: overall survival (months)
-- `Status`: overall survival status (1 = *deceased*, 0 = *living*)
-:::
-
-### Kaplan-Meier Plot
-
-For the survival analysis, we will utilize the **Kaplan-Meier estimate**.
-First, we need to create a `Surv` object using the `Surv()` function.
-
-```r
-# Create a Surv object
-sobj <- Surv(cervsurv$Time, cervsurv$Status)
-```
-
-Next on, we will use this `Surv` object to generate survival curves using the `survfit()` function.
-
-```r
-# Fit the Kaplan-Meier curves
-km <- survfit(sobj ~ 1, data = cervsurv) # "~ 1" will construct a single survival function for all observations
-km
-```
-```r
-Call: survfit(formula = sobj ~ 1, data = cervsurv)
-
-   3 observations deleted as missing 
-       n events median 0.95LCL 0.95UCL
-[1,] 120     62   43.8    30.7      NA
-```
-
-Looking at the result of the `survfit()` function, we can see that the median survival of cervical cancer patients in this dataset is 43.8 months.
-
-We will visualize the Kaplan-Meier plot using the `ggsurvplot()` function.
-With the `risk.table` argument we can include the *number at risk*.
-
-```r
-# Create a Kaplan-Meier plot with number at risk
-ggsurvplot(km, risk.table = TRUE, surv.median.line = "hv")
-```
-
-This results in the following Kaplan-Meier plot:
-
-![](./Images/cervsurv_ggsurvplot.png "Kaplan-Meier Plot")
-
-### Kaplan-Meier Plot with Covariates
-
-For further analysis, we want to construct different survival curves with covariates.
-In this case we will compare the survival curves based on the sample type (*primary* or *metastasis*).
-
-We need to calculate a new Kaplan-Meier estimate using the `survfit()` function and type in the group name (in our case: `Type`) after the tilde (`~`).
-
-```r
-# Fit the Kaplan-Meier curves with covariates
-km_type <- survfit(sobj ~ Type, data = cervsurv) # "~ Type" will construct multiple survival functions
-km_type
-```
-```r
-Call: survfit(formula = sobj ~ Type, data = cervsurv)
-
-   3 observations deleted as missing 
-                 n events median 0.95LCL 0.95UCL
-Type=Metastasis 47     30   28.8    15.6      46
-Type=Primary    73     32   64.6    40.3      NA
-```
-
-Here we can see that the median survival for the `Metastasis` group is 28.8 months versus 64.6 months for the `Pimary` group.
-
-We will then visualize the Kaplan-Meier plot again with the `ggsurvplot()` function.
-With `pval` set to `TRUE`, we can also include the p-value for log-rank tests into the plot.
-This determines whether there are significant differences in survival between the groups.
-
-```r
-# Create a Kaplan-Meier plot with number at risk and p-value
-ggsurvplot(km_type, data = cervsurv, risk.table = TRUE, surv.median.line = "hv", pval = TRUE)
-```
-
-This produces the following survival curves:
-
-![](./Images/cervsurv_type_ggsurvplot.png "Kaplan Meier Plot with Covariates")
-
-From this graph, we can observe that the primary group has a longer median survival time indicating a superior outcome for those patients.
-With a p-value of < 0.05, there is a statistically significant difference in survival between patients with primary and metastatic cervical cancer.
-
 ## Sources & Further Reading
 
+- https://ucdavis-bioinformatics-training.github.io/2019_March_UCSF_mRNAseq_Workshop/differential_expression/orig_DE_Analysis.html
 - Cerami et al. The cBio Cancer Genomics Portal: An Open Platform for Exploring Multidimensional Cancer Genomics Data. Cancer Discovery. May 2012 2; 401.
 - Cervical Cancer (MSK, 2023). Targeted Sequencing of 177 cervical tumours and their matched normal samples via MSK-IMPACT. https://www.cbioportal.org/study/clinicalData?id=cervix_msk_2023.
 - Chen Y, Lun ATL, Smyth GK (2016). From reads to genes to pathways: differential expression analysis of RNA-Seq experiments using Rsubread and the edgeR quasi-likelihood pipeline. F1000Research 5, 1438

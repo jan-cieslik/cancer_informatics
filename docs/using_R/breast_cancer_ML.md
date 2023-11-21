@@ -1,7 +1,8 @@
 ---
 sidebar_position: 2
+draft: true
 ---
-# GEO: Breast Cancer
+# ML: Breast Cancer
 
 ## Introduction
 Breast cancer is a malignant condition originating from the proliferation of abnormal breast cells.
@@ -39,7 +40,6 @@ With the `GeoQuery` package from BioConductor we can easily access the data from
 # Download the dataset
 gset <- getGEO("GSE2034", GSEMatrix = TRUE, AnnotGPL = TRUE)
 gpl <- getGEO("GPL96")
-pData <- pData(gset[[1]])
 ```
 
 The `getGEO()` function downloads a dataset from the GEO database.

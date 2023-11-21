@@ -3,6 +3,10 @@ sidebar_position: 3
 ---
 # Survival: Ovarian Cancer
 
+:::info
+This resource is available as an [R Markdown Notebook](/notebooks/ovarian_cancer.Rmd) and as a [PDF](/notebooks/ovarian_cancer.pdf).
+:::
+
 ## Introduction
 
 Ovarian cancer (OS) can be subdivided into three main types: epithelial ovarian cancer, germ cell tumours, and stromal tumours with epithelial ovarian cancer being the most common type.
@@ -109,6 +113,8 @@ data$Treatment <- factor(data$Treatment, levels=c(0,1), labels=c("No CTX", "Adj.
 data$HighRisk <- factor(data$HighRisk, levels=c(0,1),
                            labels=c("Low Risk",
                                     "High Risk"))
+#Adjust column names
+colnames(data)[2] <- "RiskGroup"
 ```
 
 Next, we can perform any necessary data cleaning and transformation steps. 
