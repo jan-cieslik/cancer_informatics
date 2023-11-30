@@ -246,6 +246,162 @@ The Kaplan-Meier survival curves are widely used in survival analysis to visuali
 They provide valuable insights into the survival patterns and can help identify potential differences in survival outcomes based on various factors, such as treatment groups, clinical characteristics, or other variables of interest.
 :::
 
+## Data Visualization
+
+Here's an example of data visualization using the ovarian package in R:
+Start by loading the necessary packages for data visualization:
+```r
+# Load the Required Packages:
+library(ovarian)
+library(ggplot2)
+```
+Load the ovarian dataset from the ovarian package into R:
+```r
+# Load the Ovarian Cancer Dataset:
+data(cancer, package="survival")
+```
+Let's say you want to visualize the distribution of patient age in the ovarian cancer dataset. You can create a histogram using the ggplot2 package:
+```r
+# Create a histogram of patient age
+ggplot(ovarian, aes(x = age)) +
+  geom_histogram(binwidth = 5, fill = "skyblue", color = "black") +
+  labs(x = "Age", y = "Number of patients", title = "Distribution of Patient Age")
+```
+
+![](./Images/ovarian_histogram.png "ovarian_histogram")
+
+:::info Detailed explanation of the histogram created above
+The histogram created in the example above visualizes the distribution of patient age in the ovarian cancer dataset. 
+Let's explain the components of the histogram:
+
+The x-axis represents the range of patient age values. 
+In this example, each bar on the x-axis represents a specific age range. 
+The width of each bar is determined by the binwidth parameter, which controls the size of the age intervals.
+
+The y-axis represents the frequency or count of patients falling within each age range. 
+The height of each bar corresponds to the number of patients within that age range. 
+The higher the bar, the greater the number of patients falling within that particular age group.
+
+The bars in the histogram are filled with a colour specified by the "fill" parameter (in this case, "skyblue") and outlined with a black colour specified by the "colour" parameter.
+
+The histogram provides an overview of the distribution of patient age in the ovarian cancer dataset. 
+It allows you to see the concentration of patients within different age ranges and identify any patterns or notable features in the age distribution.
+
+In this specific visualization, the x-axis represents the age of the patients, the y-axis represents the frequency or count of patients within each age range, and the title "Distribution of Patient Age" provides a clear description of the plot's content.
+
+Remember that histograms are commonly used to explore the distribution of continuous variables.
+They provide insights into the central tendency, variability, and shape of the data. 
+You can customize the histogram by adjusting parameters such as binwidth, colours, and labels to better suit your specific needs and preferences.
+:::
+
+## Cox proportional hazards model
+Here's a detailed explanation of how to use the Cox proportional hazards model with the ovarian dataset from the survival package in R:
+Start by loading the necessary packages for survival analysis:
+```r
+# Load the Required Packages:
+library(survival)
+```
+Load the ovarian dataset from the ovarian package into R:
+```r
+# Load the Ovarian Cancer Dataset:
+data(cancer, package="survival")
+```
+To perform a survival analysis using the Cox proportional hazards model, you need to create a survival object using the `Surv()` function. 
+Specify the survival time and event status variables from the ovarian dataset:
+```r
+# Create the Survival Object:
+surv_object <- with(ovarian, Surv(futime, fustat))
+```
+
+The futime variable represents the survival time, and the fustat variable indicates the event status (1 for death, 0 for censored).
+Use the `coxph()` function to fit the Cox proportional hazards model:
+```r
+# Fit the Cox Proportional Hazards Model:
+cox_model <- coxph(surv_object ~ age + resid.ds + rx, data = ovarian)
+```
+In this example, we are fitting the model with the formula surv_object ~ age + resid.ds + rx. 
+This formula specifies the survival object as the response variable and includes age, resid.ds (residual disease status), and rx (treatment) as covariates. 
+Adjust the covariates according to your research question and variable of interest.
+To view the summary of the Cox proportional hazards model, use the `summary()` function:
+```r
+# View the Model Summary:
+summary(cox_model)
+```
+
+![](./Images/ovarian_coxmodel.png "ovarian_coxmodel")
+
+:::info How to read a cox model
+The results from the Cox proportional hazards model provide information about the estimated coefficients, standard errors, p-values, and hazard ratios for each covariate included in the model. Let's explain the key elements of the model summary:
+
+**Coefficients:**
+The "coef" column in the model summary displays the estimated coefficients for each covariate. 
+These coefficients represent the logarithm of the hazard ratio, indicating the direction and magnitude of the effect of each covariate on the hazard of the event (death). 
+Positive coefficients indicate an increased hazard, while negative coefficients indicate a decreased hazard.
+
+**Standard Errors:**
+The "se(coef)" column provides the standard errors associated with the estimated coefficients. 
+These standard errors indicate the precision or reliability of the coefficient estimates. Smaller standard errors suggest more precise estimates.
+
+**Hazard Ratios:**
+The "exp(coef)" column displays the hazard ratios, which are exponentiated values of the estimated coefficients. 
+Hazard ratios represent the relative risk of an event (death) associated with a one-unit increase in the corresponding covariate, while adjusting for other covariates in the model. 
+Hazard ratios greater than 1 indicate an increased risk, while hazard ratios less than 1 indicate a decreased risk.
+
+**Confidence Intervals:**
+The "exp(coef)" column is accompanied by two additional columns, "lower .95" and "upper .95," which represent the lower and upper bounds of the 95% confidence interval for the hazard ratios. 
+The confidence interval provides a range of plausible values for the true hazard ratio, considering the uncertainty in the estimation.
+
+**p-values:**
+The "Pr(>|z|)" column displays the p-values associated with the estimated coefficients. 
+These p-values indicate the statistical significance of each covariate in the model. A p-value less than the chosen significance level (e.g., 0.05) suggests that the covariate has a significant effect on the hazard of the event.
+:::
+
+:::tip Further explanation (very detailed)
+
+***Coefficient Interpretation:***
+
+**Age:** 
+The coefficient for age is 0.1285. 
+It indicates that for every one-unit increase in age, the hazard (risk) of the event (death) increases by a factor of exp(0.1285) = 1.1372, after adjusting for the other covariates in the model. 
+The p-value (0.00657) suggests that age is statistically significant in predicting the survival outcome.
+
+**Residual Disease Status:** 
+The coefficient for resid.ds is 0.6964. 
+However, the p-value (0.35858) indicates that resid.ds is not statistically significant in predicting the survival outcome. 
+The hazard ratio (exp(0.6964) = 2.0065) suggests that patients with higher residual disease status have a 2.0065 times higher hazard compared to those with lower residual disease status, but this effect is not statistically significant.
+
+**Treatment:** 
+The coefficient for rx is -0.8489. 
+The p-value (0.18416) suggests that treatment is not statistically significant in predicting the survival outcome. 
+The hazard ratio (exp(-0.8489) = 0.4279) indicates that patients receiving the treatment have a 0.4279 times lower hazard compared to those not receiving the treatment, but again, this effect is not statistically significant.
+
+**Confidence Intervals:**
+The confidence intervals provide a range within which we can be reasonably confident that the true hazard ratios lie. 
+For example, the 95% confidence interval for age (lower .95 = 1.0365, upper .95 = 1.248) suggests that the true hazard ratio for age is likely to be between 1.0365 and 1.248.
+
+***Model Evaluation:***
+
+**Concordance:** 
+The concordance value of 0.812 indicates a moderate level of predictive accuracy for the Cox proportional hazards model. 
+It measures the ability of the model to rank order pairs of subjects correctly with respect to their survival times.
+
+**Likelihood Ratio Test:** 
+The likelihood ratio test statistic (16.77) with 3 degrees of freedom (df) assesses the overall significance of the model. 
+The p-value (8e-04) indicates that the model as a whole is statistically significant in predicting the survival outcome.
+
+**Wald Test:** 
+The Wald test statistic (14.63) with 3 df evaluates the significance of individual coefficients in the model. 
+The p-value (0.002) suggests that the overall effect of the covariates in the model is statistically significant.
+
+**Score (Logrank) Test:** 
+The score test statistic (20.76) with 3 df assesses the proportional hazards assumption of the Cox model. 
+The p-value (1e-04) indicates that there is strong evidence of violation of the proportional hazards assumption.
+
+Overall, the results suggest that age is a statistically significant predictor of survival outcome, with higher age associated with an increased hazard of death. 
+However, the other variables (residual disease status and treatment) are not statistically significant in predicting the survival outcome in this analysis. 
+It is important to interpret these results in the context of the study and consider potential limitations and confounding factors.
+:::
+
 ## Sources & Further Reading
 
 - S3-Leitlinie Diagnostik, Therapie und Nachsorge maligner Ovarialtumoren https://register.awmf.org/de/leitlinien/detail/032-035OL
