@@ -2,9 +2,11 @@
 
 Supervised machine learning is used to categorize unknown data with the use of models which were trained with a labeled dataset. In this context "labeled" means, that for example images of breast cancer cells are already classified as benign or malignant.
 
-In Python there are various libraries that can be used to build a machine learning model. In the following we will use [scikit-learn](https://scikit-learn.org/stable/index.html) to implement a supervised machine learning model that can classify breast cancer cells as benign or malignant.
+In Python there are various libraries that can be used to build a machine learning model. In the following we will use [scikit-learn](https://scikit-learn.org/stable/index.html).
 
-First, we will need a dataset that is already labeled. Because it is simple to work with we can use the [Breast Cancer Wisconsin dataset](https://archive.ics.uci.edu/dataset/17/breast+cancer+wisconsin+diagnostic) in the beginning. For every image of this dataset features of the cell nuclei were measured and put into a list together with the label "benign" or "malignant". If the label is "benign", the list contains `0`, which stands also for `false` and for "malignant" it contains `1` for `true`.
+First, we will need a dataset that is already labeled. Because it is simple to work with, we can use the [Breast Cancer Wisconsin dataset](https://archive.ics.uci.edu/dataset/17/breast+cancer+wisconsin+diagnostic) in the beginning. For every image of this dataset features of the cell nuclei were measured and put into a list together with the label "benign" or "malignant". If the label is "benign", the list contains `0`, which stands also for `false` and for "malignant" it contains `1` for `true`.
+
+## Packages
 
 To implement a machine learning model in Python we first need to import all dependencies with the following code:
 
@@ -23,7 +25,9 @@ The dataset we want to work with is already integrated in scikit-learn. We can l
 dataset = load_breast_cancer()
 ```
 
-The dataset also contains metadata, which is not needed for our machine learning model. The only parts we will need are the labels and the data itself. Because this dataset is organized as a dictionary, it consists of key-value pairs. An example of an arbitrary dictionary you can see here:
+Sometimes you would have to preprocess the data to use it for machine learning. Because our dataset hasn't any missing values or other critical content, we don't have to do this in this case.
+
+The dataset contains metadata, which is not needed for our machine learning model. The only parts we will need are the labels and the data itself. Because this dataset is organized as a dictionary, it consists of key-value pairs. An example of an arbitrary dictionary you can see here:
 
 ```python
 dataset = {"data": [[0.3, 0.04, ...], 
@@ -54,8 +58,8 @@ Normally the test dataset is smaller than the one for training, so we use the pa
 
 ## Define model
 
-There are different kinds of algorithms we can use to define a supervised machine learning model. The choice depends on the underlying data and the task, which can be classification or regression. Classification algorithms are used to categorize data, whereas regression algorithms can predict new data.
-Popular methods are for example decision trees, random forests and logistic regression. 
+There are different kinds of algorithms we can use to define a supervised machine learning model. The choice depends on the underlying data and the task, which can for example be classification or regression. Classification algorithms are used to categorize data, whereas regression algorithms can predict new data.
+Popular methods are for example decision trees, random forests and logistic regression.
 
 In this case we want our model to classify the data with the labels "benign" or "malignant". Our method of choice will be a decision tree. To define our model we use `DecisionTreeClassifier()`:
 
@@ -84,11 +88,11 @@ tree.plot_tree(model)
 
 Output:
 
-TODO: include tree
+![](./Images/supervised_ml_tree.png "Decision Tree")
 
 ## Test model
 
-To test the performance of our machine learning model we use the function `score()` on the training and test data and compare the results. Ideally the results should be nearly the same.
+To test the performance of our machine learning model we use the function `score()` on the training and testing data and compare the results. Ideally the results should be nearly the same.
 
 ```python
 print(f"Training accuracy:  {model.score(X_train, y_train)}")
@@ -101,12 +105,73 @@ Training accuracy:  0.9912087912087912
 Testing accuracy:  0.8947368421052632
 ```
 
-As you can see there is a big difference between the two results which would indicate overfitting. That means the model memorized the training data and doesn't perform well on unseen data. You can imagine it like you would memorize physics tasks with the exact numbers but can't solve new similar tasks with different numbers.
+As we can see, there is a big difference between the two results which would indicate overfitting. That means, the model memorized the training data and doesn't perform well on unseen data.
 
-To solve this problem we could change the `max_depth` parameter of `DecisionTreeClassifier()` to a smaller number. For every model you individually need to adjust `max_depth` to avoid overfitting.
+To solve this problem we could change the `max_depth` parameter of `DecisionTreeClassifier()` to a smaller number. For every new model you individually need to adjust `max_depth` to avoid overfitting.
+Here you can see how the score varies if the max_depth is changed in this example:
 
+![](./Images/max_depth.png "max_depth variation")
 
-TODO: include graphic max_depth variation
+To make it more clear, that our model can now classify breast cancer cells as benign or malignant, we take a single data point as input. Therefore we can chose any point of our test data `X_test()` and let our model predict the label. To check, if it is correct, we can print the already known label with the `y_test` array:
+
+```python
+# prints the known label of the sixth datapoint
+print(y_test[5])
+```
+
+Output:
+```
+0
+```
+
+Now we use our model:
+
+```python
+# predicts the label of the given data
+print(model.predict(X_test[5:6]))
+```
+
+Output:
+```
+[0]
+```
+
+We can see, that the outputs match. Our model predicted correctly, that this breast cancer cell is benign.
+
+## Summary
+
+To have a better overview, here is a short summary of the most important steps to create your own supervised machine learning model.
+
+```python
+# import dependencies
+from sklearn.datasets import load_breast_cancer
+from sklearn.model_selection import train_test_split
+from sklearn import tree
+
+# load dataset
+# this step can vary if you use an external dataset
+dataset = load_breast_cancer()
+
+# preprocess data if needed
+
+# access labels and data
+data = dataset["data"]
+targets = dataset["target"]
+
+# split the dataset in training data and a test set
+X_train, X_test, y_train, y_test = train_test_split(data, targets, test_size = 0.2, shuffle = False)
+
+# define your model
+model = tree.DecisionTreeClassifier(random_state = 0, max_depth = 4)
+
+# train model
+model.fit(X_train, y_train)
+
+# test model
+print(f"Training accuracy:  {model.score(X_train, y_train)}")
+print(f"Testing accuracy:  {model.score(X_test, y_test)}")
+```
+
 
 
 ## References
