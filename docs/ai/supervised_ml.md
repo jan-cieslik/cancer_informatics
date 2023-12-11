@@ -176,6 +176,8 @@ print(f"Testing accuracy:  {model.score(X_test, y_test)}")
 
 ## References
 
-<https://scikit-learn.org/stable/modules/tree.html>
+- <https://scikit-learn.org/stable/modules/tree.html>
 
-<https://archive.ics.uci.edu/dataset/17/breast+cancer+wisconsin+diagnostic>
+- Breast Cancer Wisconsin dataset: <https://archive.ics.uci.edu/dataset/17/breast+cancer+wisconsin+diagnostic>
+
+- <https://scikit-learn.org/stable/modules/generated/sklearn.tree.DecisionTreeClassifier.html#sklearn.tree.DecisionTreeClassifier>
