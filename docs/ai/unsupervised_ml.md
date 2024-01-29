@@ -12,7 +12,7 @@ After you download the dataset, your directory, which contains the images, shoul
 
 ## Import dependencies
 
-We have to import the needed python modules, we will use.
+In the beginning, we have to import the needed python packages.
 
 ```python
 import os
@@ -27,12 +27,12 @@ from sklearn.decomposition import PCA
 
 ## Data preprocessing
 
-The directories of the images still contain the masks of each image, which shows where a tumor is located. We only will use the images without the masks further. Make sure, that you delete or move the images which include the masks, so only the ultrasound images remain. In Linux, you can do this for example by using the command `rm *mask*` in each of the three folders.
+The directories of the images still contain the mask of each image, which shows where a tumor is located. We only will use the images without the masks further. Make sure, that you delete or move the images which include the masks, so only the ultrasound images remain. In Linux, you can do this for example by using the command `rm *mask*` in each of the three folders.
 
 ### Resizing the images
 
 When you look at the images, you can see, that they don't have the same size, so we have to scale them equally first. Doing this, we first have to decide what size would be best. In this case we do not have a large number of images, so we don't have to worry about restrictions regarding our computer performance. Otherwise, with a huge amount of images we would have to lower the resolution of the images to reduce the training time.
-The chosen size should fit all images included in the dataset. For this reason we look at the smallest included image, which size is 190x335 pixels. Often, quadratic images are used for machine learning models, so we chose a size of 190x190 pixels.
+The chosen size should fit all images included in the dataset. For this reason we look at the smallest included image, which size is 190x335 pixels. Often, square images are used for machine learning models, so we chose a size of 190x190 pixels.
 
 We will use the [PIL library](https://pillow.readthedocs.io/en/stable/) among others to preprocess the images. With the following code we can resize them.
 
@@ -49,7 +49,7 @@ for img in images_benign:
 In this example we chose `width = 190` and `height = 190`. The variable `data_path_benign` includes the path, where you get the original (benign) images from. The variable `images_benign` contains a list of all images in this folder, so we can access them at once and do not have to access every image individually. 
 To resize the images we have to load them with `Image.open()`, resize them with `resize()` and in the end save them in the desired folder with `save()`.
 
-Make sure, you also repeat this process for the directories with the malignant and normal images before you continue.
+Make sure, you repeat this process for the directories with the malignant and normal images before you continue.
 
 ### Prepare dataset
 
@@ -102,7 +102,7 @@ label_array = np.array(label_array)
 
 The `dataset_array`, which can also be seen as a matrix, should now contain the data of every image. One row of the matrix represents the whole data of one image. The columns, on the other hand, represent the data of the first pixel of every image, the second pixel of every image and so on. These columns are called features.
 
-To test, if the `dataset_array` has the right dimensions, we can print the shape of the array. We have a total of 1256 images with the size of 190x190 pixels, so if everything worked correctly, the array should have the shape `(1256, 36100)`. The first number is the number of images or rather the amount of rows of the matrix and the second number refers to the number of pixels (190 x 190) of one image or the amount of columns of the matrix.
+To test, if the `dataset_array` has the right dimensions, we can print the shape of the array. We have a total of 1256 images with the size of 190x190 pixels, so if everything worked correctly, the array should have the shape `(1256, 36100)`. The first number is the number of images or more specifically the amount of rows in the matrix and the second number refers to the number of pixels (190 x 190) of one image or the amount of columns in the matrix.
 
 ```python
 print(dataset_array.shape)
@@ -118,10 +118,10 @@ As you can see, the output is correct. We can continue.
 
 ### Normaliziation
 
-To normalize our data, we divide each element of the `dataset_array` with 255, because the brightness of a pixel of a grayscale image is stored as a number between 0 and 255. The result will be an array of values between 0 and 1 as you can see after the first ten elements of the dataset array were printed before and after normalization.
+To normalize our data, we divide each element of the `dataset_array` by 255, because the brightness of a pixel of a grayscale image is stored as a number between 0 and 255. The result will be an array of values between 0 and 1 as you can see, after the first ten elements of the dataset array were printed before and after normalization below.
 
 ```python
-print(dataset_array[:10]) # Print dataset array befor normalization
+print(dataset_array[:10]) # Print dataset array before normalization
 dataset_array = dataset_array / 255
 print(dataset_array[:10]) # Print dataset array after normalization
 ```
@@ -165,10 +165,11 @@ print("With PCA: " + dataset_array_pca.shape)
 Output:
 
 ```
-(1256, 50)
+Without PCA: (1256, 36100)
+With PCA: (1256, 50)
 ```
 
-As you can see, the dimensionality of the array was reduced.
+As you can see, the dimensionality of the array was reduced immensely.
 The amount of principal components, that is required for the task and dataset, can vary and needs to be adjusted.
 
 ## Split dataset
@@ -183,13 +184,13 @@ As `test_size` we chose `0.1`, which means, ten percent of our dataset is used f
 
 ## Define model
 
-In this example we will use the [kMeans clustering algorithm](https://scikit-learn.org/stable/modules/generated/sklearn.cluster.KMeans.html#sklearn.cluster.KMeans) for our model.
+In this example we need an algorithm that divides our data points into three different groups. This process is called clustering. We will use the [kMeans clustering algorithm](https://scikit-learn.org/stable/modules/generated/sklearn.cluster.KMeans.html#sklearn.cluster.KMeans) for our model.
 
 ```python
 model = KMeans(n_clusters = 3, random_state = 0)
 ```
 
-`n_clusters = 3` is chosen, because our data consists of three labels ("benign", "malignant" and "normal"). Our model should also divide the data in three appropriate clusters.
+`n_clusters = 3` is chosen, because our data consists of three labels ("benign", "malignant" and "normal"). The parameter `random_state = 0` is used to avoid changing results if we run the code multiple times.
 
 ## Train model
 
@@ -226,15 +227,15 @@ Training accuracy: 0.0988
 Testing accuracy: 0.1146
 ```
 
-The [adjusted rand index](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.adjusted_rand_score.html#sklearn.metrics.adjusted_rand_score) can have a value between -0.5 and 1.0. A negative value would be worse than random guessing, 0.0 would be random guessing and 1.0 would be optimal prediction. Our values are near 0.0, so our model performs slightly better than random guessing.
+The [adjusted rand index](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.adjusted_rand_score.html#sklearn.metrics.adjusted_rand_score) can vary between -0.5 and 1.0. A negative value would be worse than random guessing, 0.0 would be random guessing and 1.0 would be optimal prediction. Our values are near 0.1, so our model performs slightly better than random guessing. For better results we could have used other methods for preprocessing our data. Another approach would be using an artificial neural network instead of a simple machine learning algorithm because of the complexity of the image data.
 
 ## References
 
-Al-Dhabyani, W., Gomaa, M., Khaled, H., & Fahmy, A. (2020). Dataset of breast ultrasound images. Data in Brief, 28. https://doi.org/10.1016/j.dib.2019.104863
+Al-Dhabyani, W., Gomaa, M., Khaled, H., & Fahmy, A. (2020). Dataset of breast ultrasound images. *Data in Brief, 28*. https://doi.org/10.1016/j.dib.2019.104863
 
-Cohn, R., & Holm, E. (2021). Unsupervised machine learning via transfer learning and k-means clustering to classify materials image data. Integrating Materials and Manufacturing Innovation, 10(2), 231-244. https://doi.org/10.1007/s40192-021-00205-8
+Cohn, R., & Holm, E. (2021). Unsupervised machine learning via transfer learning and k-means clustering to classify materials image data. *Integrating Materials and Manufacturing Innovation, 10*(2), 231-244. https://doi.org/10.1007/s40192-021-00205-8
 
-Jolliffe, I., & Cadima, J. (2016). Principal component analysis: a review and recent developments. Philosophical transactions of the royal society A: Mathematical, Physical and Engineering Sciences, 374(2065), 20150202. https://doi.org/10.1098/rsta.2015.0202
+Jolliffe, I., & Cadima, J. (2016). Principal component analysis: a review and recent developments. *Philosophical transactions of the royal society A: Mathematical, Physical and Engineering Sciences, 374*(2065), 20150202. https://doi.org/10.1098/rsta.2015.0202
 
 <https://pillow.readthedocs.io/en/stable/>
 
