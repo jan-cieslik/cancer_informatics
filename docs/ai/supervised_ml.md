@@ -14,6 +14,7 @@ To implement a machine learning model in Python we first need to import all depe
 from sklearn.datasets import load_breast_cancer
 from sklearn.model_selection import train_test_split
 from sklearn import tree
+from sklearn.metrics import confusion_matrix
 import matplotlib.pyplot as plt
 ```
 
@@ -112,10 +113,34 @@ Here you can see how the score varies if the max_depth is changed in this exampl
 
 ![](./Images/max_depth.png "max_depth variation")
 
+Other metrics we can look at are the sensitivity and specificity. We can calculate them with the following code.
+
+```python
+y_pred = model.predict(X_test)
+
+# We need the confusion matrix to calculate the sensitivity and specificity
+conf_mat = confusion_matrix(y_test, y_pred)
+tp, fn, fp, tn = conf_mat.ravel()
+
+sensitivity = tp / (tp + fn)
+specificity = tn / (tn + fp)
+
+print(f"Sensitivity: {sensitivity}")
+print(f"Specificity: {specificity}")
+```
+
+Output:
+```
+Sensitivity: 0.8846153846153846
+Specificity: 0.8977272727272727
+```
+
+As we can see, the sensitivity is 88,46% and the specificity is 89,77%.
+
 To make it more clear, that our model can now classify breast cancer cells as benign or malignant, we take a single data point as input. Therefore we can chose any point of our test data `X_test()` and let our model predict the label. To check, if it is correct, we can print the already known label with the `y_test` array:
 
 ```python
-# prints the known label of the sixth datapoint
+# Prints the known label of the sixth datapoint
 print(y_test[5])
 ```
 
@@ -127,7 +152,7 @@ Output:
 Now we use our model:
 
 ```python
-# predicts the label of the given data
+# Predicts the label of the given data
 print(model.predict(X_test[5:6]))
 ```
 
@@ -143,31 +168,31 @@ We can see, that the outputs match. Our model predicted correctly, that this bre
 To have a better overview, here is a short summary of the most important steps to create your own supervised machine learning model.
 
 ```python
-# import dependencies
+# Import dependencies
 from sklearn.datasets import load_breast_cancer
 from sklearn.model_selection import train_test_split
 from sklearn import tree
 
-# load dataset
-# this step can vary if you use an external dataset
+# Load dataset
+# This step can vary if you use an external dataset
 dataset = load_breast_cancer()
 
-# preprocess data if needed
+# Preprocess data if needed
 
-# access labels and data
+# Access labels and data
 data = dataset["data"]
 targets = dataset["target"]
 
-# split the dataset in training data and a test set
+# Split the dataset in training data and a test set
 X_train, X_test, y_train, y_test = train_test_split(data, targets, test_size = 0.2, shuffle = False)
 
-# define your model
+# Define your model
 model = tree.DecisionTreeClassifier(random_state = 0, max_depth = 4)
 
-# train model
+# Train model
 model.fit(X_train, y_train)
 
-# test model
+# Test model (there are different possibilities for this step)
 print(f"Training accuracy:  {model.score(X_train, y_train)}")
 print(f"Testing accuracy:  {model.score(X_test, y_test)}")
 ```
@@ -184,3 +209,4 @@ print(f"Testing accuracy:  {model.score(X_test, y_test)}")
 
 - <https://scikit-learn.org/stable/modules/generated/sklearn.tree.DecisionTreeClassifier.html#sklearn.tree.DecisionTreeClassifier>
 
+- <https://scikit-learn.org/stable/modules/generated/sklearn.metrics.confusion_matrix.html#sklearn.metrics.confusion_matrix>
