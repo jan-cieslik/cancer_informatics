@@ -534,9 +534,9 @@ Our ROC plot as well as the AUC show that our regression model is a good predict
 ## Sources & Further Reading
 
 - [Breast Cancer Prediction dataset](https://www.kaggle.com/datasets/merishnasuwal/breast-cancer-prediction-dataset)
-- Fox J, Weisberg S (2019). _An R Companion to Applied Regression_, Third edition. Sage, Thousand Oaks CA. <https://socialsciences.mcmaster.ca/jfox/Books/Companion/>.
+- Fox J, Weisberg S (2019). _An R Companion to Applied Regression_, Third edition. Sage, Thousand Oaks CA. https://socialsciences.mcmaster.ca/jfox/Books/Companion/.
 - [Happiness Index 2018-2019](https://www.kaggle.com/datasets/sougatapramanick/happiness-index-2018-2019)
 - [Heights and weights](https://www.kaggle.com/datasets/tmcketterick/heights-and-weights)
-- Kundu S, Aulchenko YS, Janssens ACJ (2020). _PredictABEL: Assessment of Risk Prediction Models_. R package version 1.2-4, <https://CRAN.R-project.org/package=PredictABEL>.
+- Kundu S, Aulchenko YS, Janssens ACJ (2020). _PredictABEL: Assessment of Risk Prediction Models_. R package version 1.2-4, https://CRAN.R-project.org/package=PredictABEL.
 - [optimalCutoff](https://www.rdocumentation.org/packages/InformationValue/versions/1.2.3/topics/optimalCutoff)
-- Prabhakaran S (2016). _InformationValue: Performance Analysis and Companion Functions for Binary Classification Models_. R package version 1.3.1, <http://r-statistics.co/Information-Value-With-R.html>.
+- Prabhakaran S (2016). _InformationValue: Performance Analysis and Companion Functions for Binary Classification Models_. R package version 1.3.1, http://r-statistics.co/Information-Value-With-R.html.

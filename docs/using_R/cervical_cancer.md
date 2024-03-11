@@ -288,12 +288,12 @@ It is always important to interpret bioinformatic analyses with caution.
 - Chen Y, Lun ATL, Smyth GK (2016). From reads to genes to pathways: differential expression analysis of RNA-Seq experiments using Rsubread and the edgeR quasi-likelihood pipeline. F1000Research 5, 1438
 - Gao et al. Integrative analysis of complex cancer genomics and clinical profiles using the cBioPortal. Sci. Signal. 6, pl1 (2013).
 - Gentleman R, Carey V, Huber W, Irizarry R, Dudoit S. (2005). Bioinformatics and Computational Biology Solutions Using R and Bioconductor. doi.org/10.1007/0-387-29362-0
-- Goksuluk D, Zararsiz G, Korkmaz S (2022). _NBLDA: Negative Binomial Linear Discriminant Analysis_. R package version 1.0.1, <https://CRAN.R-project.org/package=NBLDA>.
-- Kassambara A, Kosinski M, Biecek P (2021). _survminer: Drawing Survival Curves using 'ggplot2'_. R package version 0.4.9, <https://CRAN.R-project.org/package=survminer>.
+- Goksuluk D, Zararsiz G, Korkmaz S (2022). _NBLDA: Negative Binomial Linear Discriminant Analysis_. R package version 1.0.1, https://CRAN.R-project.org/package=NBLDA.
+- Kassambara A, Kosinski M, Biecek P (2021). _survminer: Drawing Survival Curves using 'ggplot2'_. R package version 0.4.9, https://CRAN.R-project.org/package=survminer.
 - Law CW, Chen Y, Shi W, Smyth GK (2014). Voom: precision weights unlock linear model analysis tools for RNA-seq read counts. Genome Biology 15, R29. doi:10.1186/gb-2014-15-2-r29.
 - McCarthy DJ, Chen Y and Smyth GK (2012). Differential expression analysis of multifactor RNA-Seq experiments with respect to biological variation. Nucleic Acids Research 40, 4288-4297
-- Morgan M, Ramos M (2023). _BiocManager: Access the Bioconductor Project Package Repository_. R package version 1.30.21, <https://CRAN.R-project.org/package=BiocManager>.
+- Morgan M, Ramos M (2023). _BiocManager: Access the Bioconductor Project Package Repository_. R package version 1.30.21, https://CRAN.R-project.org/package=BiocManager.
 - Ritchie ME, Phipson B, Wu D, Hu Y, Law CW, Shi W, Smyth GK (2015). “limma powers differential expression analyses for RNA-sequencing and microarray studies.” Nucleic Acids Research, 43(7), e47. doi:10.1093/nar/gkv007.
 - Robinson MD, McCarthy DJ and Smyth GK (2010). edgeR: a Bioconductor package for differential expression analysis of digital gene expression data. Bioinformatics 26, 139-140
-- Therneau T (2023). _A Package for Survival Analysis in R_. R package version 3.5-5, <https://CRAN.R-project.org/package=survival>.
+- Therneau T (2023). _A Package for Survival Analysis in R_. R package version 3.5-5, https://CRAN.R-project.org/package=survival.
 - Witten D, et al. (2010) Ultra-high throughput sequencing-based small RNA discovery and discrete statistical biomarker analysis in a collection of cervical tumours and matched controls. BMC Biology, 8:58. Published online 2010 May 11. doi: 10.1186/1741-7007-8-58
