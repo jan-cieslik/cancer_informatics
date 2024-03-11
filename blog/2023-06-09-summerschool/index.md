@@ -1,6 +1,6 @@
 ---
 slug: summerschool
-title: Cancer Informatics Summer School
+title: Cancer Informatics Summer & Winter School
 authors: [jcieslik]
 tags: [infopost]
 ---
@@ -9,10 +9,14 @@ Do you want to enhance your understanding of data analysis, bioinformatics, and 
 Look no further!
 We are thrilled to announce the launch of the Cancer Informatics Summer School, an immersive and transformative educational experience designed for students like you.
 
-Course Overview:
+
 Duration: 5 days  
-Date: 7 - 11 August 2023  
 Location: Heinrich-Heine-University Düsseldorf, Germany
+## Dates
+- 23 - 27 September 2024
+- 18 - 22 March 2024
+- 7 - 11 August 2023  
+
 
 
 ## Course Outline:
@@ -40,15 +44,15 @@ Location: Heinrich-Heine-University Düsseldorf, Germany
 
 ## Why Should You Join?
 
-- Comprehensive Learning Experience: This summer school offers a comprehensive curriculum that covers the fundamental concepts of cancer informatics, empowering you to apply these skills in your future research and clinical practice.
+- Comprehensive Learning Experience: This summer/winter school offers a comprehensive curriculum that covers the fundamental concepts of cancer informatics, empowering you to apply these skills in your future research and clinical practice.
 - Hands-On Training: Through practical sessions and interactive workshops, you will gain hands-on experience with state-of-the-art bioinformatics tools, data analysis platforms, and machine learning techniques used in cancer research.
 - Industry Insights: Gain insights into the real-world applications of cancer informatics and understand its impact on advancements in cancer diagnosis, treatment, and precision medicine.
 
 ## Registration Details
-Registration for the Cancer Informatics Summer School is now open! Please note that seats are limited, so early registration is highly recommended.
+Registration for the Cancer Informatics Summer/Winter School is now open! Please note that seats are limited, so early registration is highly recommended.
 
 You can register via email: cancer-informatics@hhu.de
 
-Don't miss this incredible opportunity to delve into the fascinating world of cancer informatics! Join us at the Cancer Informatics Summer School and unlock your potential to contribute to the fight against cancer.
+Don't miss this incredible opportunity to delve into the fascinating world of cancer informatics! Join us at the Cancer Informatics Summer/Winter School and unlock your potential to contribute to the fight against cancer.
 
-We look forward to welcoming you to the Cancer Informatics Summer School!
+We look forward to welcoming you to the Cancer Informatics Summer/Winter School!

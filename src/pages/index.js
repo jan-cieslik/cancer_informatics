@@ -29,9 +29,9 @@ function SummerSchool() {
   return (
     <header className={clsx('hero', styles.heroBanner)}>
       <div className="container">
-        <h1 className="hero__title">Cancer Informatics Summer School 2023</h1>
-        <p className="hero__subtitle">Join us on campus from 7 - 11. August 2023</p>
-        We are pleased to announce this years Cancer Informatics Summer School at the Heinrich-Heine-University of Düsseldorf. <br/>
+        <h1 className="hero__title">Cancer Informatics Summer & Winter School</h1>
+        <p className="hero__subtitle">Join us on campus for our Cancer Informatics Summer & Winter Schools</p>
+        Each year we hold two in person workshops at the Heinrich-Heine-University of Düsseldorf. <br/>
         <a href="blog/summerschool">Click here to learn more</a>
 
       </div>
