@@ -320,7 +320,7 @@ In summary, we have confirmed that the model assumptions are reasonably met.
 
 #### 5. Visualize the Results
 
-In the following, I will show you a simple and quick way to visualize a multiple linear regression model with the `car` package.
+In the following, I will show you a simple and quick way to visualize a multiple linear regression model with the [`car` package](https://CRAN.R-project.org/package=car).
 
 ```r
 # Install & load the car package
@@ -481,7 +481,7 @@ In the last step, you can analyse your logistic regression model.
 By default, the `test_set` in our `predicted` function predicts a diagnosis of breast cancer if the calculated probability is > 0.5.
 In order to improve the accuracy of our model, we can find out what the ideal probability is (= *optimal cut-off*).
 
-To do so, install the `InformationValue` package and use the `optimalCutoff()` function as follows:
+To do so, install the [`InformationValue` package](http://r-statistics.co/Information-Value-With-R.html) and use the `optimalCutoff()` function as follows:
 
 ```r
 install.packages("InformationValue")
@@ -510,7 +510,7 @@ The curve represents two parameters: the true positive rate (= sensitivity) and 
 The **AUC** (= *Area Under the ROC Curve*), which measures the total area of the ROC curve, has a value between 0 and 1.
 The higher the AUC, the better the prediction.
 
-You can plot the ROC curve and calculate the AUC in a single step using the `PredictABEL` package and its `plotROC()` function.
+You can plot the ROC curve and calculate the AUC in a single step using the [`PredictABEL` package](https://CRAN.R-project.org/package=PredictABEL) and its `plotROC()` function.
 
 ```r
 # Install and load "PredictABEL"
@@ -534,6 +534,9 @@ Our ROC plot as well as the AUC show that our regression model is a good predict
 ## Sources & Further Reading
 
 - [Breast Cancer Prediction dataset](https://www.kaggle.com/datasets/merishnasuwal/breast-cancer-prediction-dataset)
+- Fox J, Weisberg S (2019). _An R Companion to Applied Regression_, Third edition. Sage, Thousand Oaks CA. <https://socialsciences.mcmaster.ca/jfox/Books/Companion/>.
 - [Happiness Index 2018-2019](https://www.kaggle.com/datasets/sougatapramanick/happiness-index-2018-2019)
 - [Heights and weights](https://www.kaggle.com/datasets/tmcketterick/heights-and-weights)
+- Kundu S, Aulchenko YS, Janssens ACJ (2020). _PredictABEL: Assessment of Risk Prediction Models_. R package version 1.2-4, <https://CRAN.R-project.org/package=PredictABEL>.
 - [optimalCutoff](https://www.rdocumentation.org/packages/InformationValue/versions/1.2.3/topics/optimalCutoff)
+- Prabhakaran S (2016). _InformationValue: Performance Analysis and Companion Functions for Binary Classification Models_. R package version 1.3.1, <http://r-statistics.co/Information-Value-With-R.html>.
