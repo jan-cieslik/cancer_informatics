@@ -1,3 +1,6 @@
+---
+sidebar_position: 3
+---
 # Unsupervised Machine Learning
 
 Unsupervised machine learning models work with unlabeled data, which means, that the model doesn't know the correct outcome but tries to cluster the data in sensible groups (e.g. the groups "benign" and "malignant") by using the similarity or differences of the characteristics of the data.

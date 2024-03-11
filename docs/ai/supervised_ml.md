@@ -1,3 +1,6 @@
+---
+sidebar_position: 2
+---
 # Supervised Machine Learning
 
 Supervised machine learning is used to categorize unknown data with the use of models which were trained with a labeled dataset. In this context "labeled" means, that for example images of breast cancer cells are already classified as benign or malignant.

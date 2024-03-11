@@ -1,3 +1,6 @@
+---
+sidebar_position: 4
+---
 # Segmentation of 3D MRI Images With 3D Slicer
 
 MRI images are often stored using the DICOM standard (Digital Imaging and Communications in Medicine), which is the international standard, that defines how medical image data, e.g., ultrasound or MRI images, should be handled.

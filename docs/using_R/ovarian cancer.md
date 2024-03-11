@@ -12,7 +12,7 @@ This resource is available as an [R Markdown Notebook](/notebooks/ovarian_cancer
 Ovarian cancer (OS) can be subdivided into three main types: epithelial ovarian cancer, germ cell tumours, and stromal tumours with epithelial ovarian cancer being the most common type.
 In this article, we will focus on the early stage serous epithelial ovarian cancer, which is the most common type of ovarian cancer.
 Upon first diagnosis of early OS a staging laparotomy is performed to determine the extent of the disease.
-One well known study (ICON1) compared immediate adjuvant chemotherapy after surgery vs no adjuvant chemotherapy (see sources below).
+One well-known study (ICON1) compared immediate adjuvant chemotherapy after surgery vs no adjuvant chemotherapy (see sources below).
 We provide a simulated dataset based on the ICON1 study, which can be used to perform survival analysis in R.
 **Please note that this dataset is simulated and for educational purposes only and should not be used for clinical decision-making.**
 
@@ -101,7 +101,7 @@ The ovarian dataset contains information on 4 variables related to ovarian cance
 :::tip Explaining the variables in the ovarian dataset
 - **Treatment:** This variable indicates whether the patient received no adjuvant chemotherapy (0) or adjuvant chemotherapy (1).
 - **HighRisk:** This variable indicates whether the patient is considered low-risk (0) or high-risk (1).
-- **Time:** This variable represents the survival time. As this is a mock dataset we do not define the unit of time. In a real-world scenario this would be days, months or years.
+- **Time:** This variable represents the survival time. As this is a mock dataset, we do not define the unit of time. In a real-world scenario this would be days, months or years.
 - **Status:** This variable indicates whether an event (death) occurred: the patient is alive (0) or dead (1).
 :::
 
@@ -170,7 +170,7 @@ The hazard ratio for treatment is 0.5048, which means that patients receiving ad
 The hazard ratio for high-risk status is 1.6657, which means that patients with high-risk status have a 66% higher risk of death compared to patients with low-risk status.
 
 ## Forest Plot
-In the next step we can visualize the results using a forest plot.
+In the next step, we can visualize the results using a forest plot.
 ```r
 #this is required to adjust the labels in the forest plot
 #try creating the plot without this helper variable to see why we use it
