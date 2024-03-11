@@ -28,12 +28,12 @@ Relational operators are used to compare two values:
 
 | Operator    | Description |
 |:------:|:-----:|
-| > |  `TRUE` when first value is greater than second value |        
-| <      |  `TRUE` when first value is smaller than second value |       
-| <= | `TRUE` when first value is less than or equal to second value |   
-|    >=  |  `TRUE` when first value is greater than or equal to second value |        
-| ==      | `TRUE` when first value is equal to second value |
-|   !=   | `TRUE` when first value is not equal to second value | 
+| `>` |  `TRUE` when first value is greater than second value |
+| `<`      |  `TRUE` when first value is smaller than second value |
+| `<=` | `TRUE` when first value is less than or equal to second value |
+|    `>=`  |  `TRUE` when first value is greater than or equal to second value |  
+| `==`      | `TRUE` when first value is equal to second value |
+|   `!=`   | `TRUE` when first value is not equal to second value | 
 
 
 ## Logical Operators
