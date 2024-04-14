@@ -1,21 +1,44 @@
 # Automated 3D MRI Segmentation with nnU-Net
 
-In [this tutorial](./3d_mri_segmentation.md) we learned how to segment a 3D MRI image with 3D Slicer. There, we had to set the segment seeds by ourselves before the software could calculate the segments. Another method, which doesn't require as much human input, is utilizing deep neural networks. In the following, we will use the pretrained deep learning model [nnU-Net](https://github.com/MIC-DKFZ/nnUNet) for automated image segmentation on our 3D MRI images. Be aware, that we only will use Python for a small part of this tutorial, but use the Linux shell for the rest of it. You can also use other operating systems, but the steps will differ from the ones described here.
+In [this tutorial](./3d_mri_segmentation.md) we learned how to segment a 3D MRI image with 3D Slicer. There, we had to set the segment seeds by ourselves before the software could calculate the segments. Another method, which doesn't require as much human input, is utilizing deep neural networks. In the following, we will use the pretrained deep learning model [nnU-Net](https://github.com/MIC-DKFZ/nnUNet) for automated image segmentation on our 3D MRI images. Be aware, that we not only will use Python code but also bash commands (Linux shell). Furthermore, we will execute the whole programm in Google Colab because it requires more computing power than our computers probably have.
+
+## Working with Google Colab
+
+To use Google Colab, visit [this website](https://colab.research.google.com) and log in with your Google account. Then, create a new Jupyter notebook by hitting "File" in the toolbar and selecting "New notebook".
+
+We want to use a GPU for executing our program. To do this, click on "Additional connection options" as shown below (red box):
+
+![](./Images/gpu.png "Change runtime type")
+
+Select "Change runtime type". Then tick "T4 GPU" and save. Now, the GPU should be shown under "resources":
+
+![](./Images/show_resources.png "Show resources")
+![](./Images/resources.png "Resources")
 
 ## Install required packages
 
-First of all, we need to install the required Python packages, on which nnU-Net depends. Because nnU-Net uses the PyTorch library, we need to install it first, before we install the nnU-Net package. In the Linux shell you can use the following commands. Pay attention, that you don't change the order.
+Now, we can start with our code. First, we need to install the required Python packages, on which nnU-Net depends. Because nnU-Net uses the PyTorch library, we need to install it first, before we install the nnU-Net package. Create a new code cell as shown in the graphic below.
+
+![](./Images/create_code_cell.png "Create code cell in Jupyter notebook")
+
+Now, execute the following commands. Pay attention, that you don't change the order. The "!" at the beginning of the lines are needed because these are bash commands and we want to use them in our Jupyter notebook.
 
 ```
-pip install torch
-pip install nnunetv2
+!pip install torch
+!pip install nnunetv2
 ```
+
+Probably, there will appear a warning after installing nnU-Net, that you should restart the runtime, but you don't have to do that.
 
 ## Set up datasets
 
+For working with Google Colab, the following steps have to be taken while being in Google Drive, so the data can be accessed in Colab.
+
+:::caution Never upload non-anonymized patient data to a cloud. :::
+
 ### Directory structure
 
-A special directory structure is required for nnU-Net to be able to access the data. First, create a new directory, in which you want to save your datasets. Now in this directory, create three more folders with the following names:
+A special directory structure is required for nnU-Net to be able to access the data. First, create a new directory in Google Drive, in which you want to save your datasets. Now in this directory, create three more folders with the following names:
 - nnUNet_raw
 - nnUNet_preprocessed
 - nnUNet_results
@@ -28,7 +51,7 @@ We can save new datasets in the "nnUNet_raw" directory. Every dataset has to hav
 
 The ID and the description can be chosen by the user, but the ID should not collide with already existing ones, which you can find [here](https://github.com/MIC-DKFZ/nnUNet/tree/master/nnunetv2/dataset_conversion).
 
-The last thing, we have to consider regarding the directory structure, is that every dataset folder has to include the following directories:
+The last thing we have to consider, regarding the directory structure, is that every dataset folder has to include the following directories:
 - imagesTr
 - labelsTr
 
@@ -70,14 +93,25 @@ The names of the corresponding segmentation files (in the labelsTr directory) sh
 
 ![](./Images/segs_nnunet.png "Segmentation names")
 
+### Mount Drive
+
+After we generated the required directories and uploaded our data to Google Drive, we have to mount Drive in Google Colab by using the following code in a new code cell:
+
+```python
+from google.colab import drive
+drive.mount('/content/drive', force_remount = True)
+```
+
+A popup window will appear, where you have to connect to your Google account. After that, you should be able to access your data in Colab.
+
 ### Generate a JSON file 
 
-To save some meta data reguarding the dataset, a JSON file has to be generated. We can do this automatically by writing a short Python script, in which we use the `generate_dataset_json()` function from the nn-Unet package.
+To save some meta data reguarding the dataset, a JSON file has to be generated. We can do this automatically by using the `generate_dataset_json()` function from the nn-Unet package.
 
 ```python
 from nnunetv2.dataset_conversion.generate_dataset_json import generate_dataset_json
 
-generate_dataset_json('./nnUnet_raw/Dataset011_Breast', # path to the dataset directory
+generate_dataset_json('./nnUnet_raw/Dataset011_Breast', # insert the right path to the dataset directory
                         channel_names = {0: 'MRI'},
                         labels = {
                             'background': 0,
@@ -115,32 +149,29 @@ Your dataset directory should now be structured as shown in the following graphi
 
 ![](./Images/dataset_directory_json.png "Dataset directory")
 
+
 ## Set environment variables
 
-To make sure, that nnU-Net can locate the directories of your datasets, you have to set environment variables in your system. For this, open the .bashrc file in your /home directory and add the environment variables to the bottom as shown below.
+To make sure, that nnU-Net can locate the directories of your datasets, you have to set environment variables in your system. For this, create a new code block in your notebook and run the following code.
 
-```bash
-export nnUNet_raw='/home/user/Documents/nnUNet/nnUNet_raw'
-export nnUNet_preprocessed='/home/user/Documents/nnUNet/nnUNet_preprocessed'
-export nnUNet_results='/home/user/Documents/nnUNet/nnUNet_results'
+```python
+import os
+
+os.environ['nnUNet_raw'] = "/content/drive/MyDrive/ColabNotebooks/nnUNet/nnUNet_raw"
+os.environ['nnUNet_preprocessed'] = "/content/drive/MyDrive/ColabNotebooks/nnUNet/nnUNet_preprocessed"
+os.environ['nnUNet_results'] = "/content/drive/MyDrive/ColabNotebooks/nnUNet/nnUNet_results"
 ```
 
 Be aware, that you have to chose the right path to the respective directory.
 
-After you added the variables and saved the .bashrc file, you have to execute the following command in the Linux shell.
-
-```
-source ~/.bashrc
-```
-
-To test, if the environment variables are correctly set, you can also use the command `echo ${nnUNet_raw}` afterwards. If the right path of your nnUnet_raw directory is shown as output, you can go on to the next step of the tutorial. If the output is empty, you should check if you spelled everything right in the .bashrc file and try again. Don't forget to execute `source ~/.bashrc` once more, if you changed the file.
+To test, if the environment variables are correctly set, you can also use the command `!echo ${nnUNet_raw}` afterwards. If the right path of your nnUnet_raw directory is shown as output, you can go on to the next step of the tutorial. If the output is empty, you should check if you spelled everything right and try again.
 
 ## Preprocess data
 
 Before we can train the model with our images, the dataset has to be preprocessed. To do this, we can execute the following command:
 
 ```
-nnUNetv2_plan_and_preprocess -d 011 --verify_dataset_integrity
+!nnUNetv2_plan_and_preprocess -d 011 --verify_dataset_integrity
 ```
 The dataset ID "011" has to be exchanged for the right ID of your dataset, that you want to use.
 After preprocessing, a new directory including a preprocessed version of your dataset should appear in the nnUNet_preprocessed directory.
@@ -150,18 +181,30 @@ After preprocessing, a new directory including a preprocessed version of your da
 To train the model, we also just have to use one single command:
 
 ```
-nnUNetv2_train 011 3d_lowres 1 -device cpu
+!nnUNetv2_train 011 3d_lowres 1
 ```
 
 Here are some of the options, that can be chosen from:
 
 - "011" is again the ID of the used dataset.
 - We chose "3d_lowres" because we have 3D images with a low resolution. There are also the options "3d_fullres", "2d" and "3d_cascade_lowres".
-- As device it is recommended to use a powerful GPU, but if your computer doesn't have one, you can add "-device cpu" to execute the training on the CPU.
+- As device it is recommended to use a powerful GPU, but if your computer doesn't have one (and if you don't use Colab), you can add "-device cpu" to execute the training on the CPU.
+
+In most cases, the training will take a few hours. If you want to interrupt it, click on "Interrupt execution" and use the following command the next time, you want to continue the training.
+
+```
+!nnUNetv2_train 011 3d_lowres 1 --c
+```
+
+While the model is being fitted, you will get an output after each epoch, which will include some information like the training loss and validation loss and how long an epoch takes:
+
+![](./Images/training_output.png "Training output")
 
 ## References
 
 - Isensee, F., Jaeger, P. F., Kohl, S. A., Petersen, J., & Maier-Hein, K. H. (2021). nnU-Net: a self-configuring method for deep learning-based biomedical image segmentation. Nature methods, 18(2), 203-211.
+
+- <https://colab.research.google.com>
 
 - <https://github.com/MIC-DKFZ/nnUNet>
 
