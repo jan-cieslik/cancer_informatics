@@ -21,9 +21,9 @@ Now, we can start with our code. First, we need to install the required Python p
 
 ![](./Images/create_code_cell.png "Create code cell in Jupyter notebook")
 
-Now, execute the following commands. Pay attention, that you don't change the order. The "!" at the beginning of the lines are needed because these are bash commands and we want to use them in our Jupyter notebook.
+Now, execute the following commands. Pay attention, that you don't change the order. The `!` at the beginning of the lines are needed because these are bash commands and we want to use them in our Jupyter notebook.
 
-```
+```shell
 !pip install torch
 !pip install nnunetv2
 ```
@@ -76,7 +76,7 @@ The labelmap can now be found in the "Data" section.
 To save the labelmap and the corresponding volume or image as NRRD files, follow these steps:
 - Select "Save" from the toolbar.
 - Tick "Show options" as shown in the graphic below.
-- Chose "NRRD (.nrrd)" as file format.
+- Choose "NRRD (.nrrd)" as file format.
 - <ins>Do not tick "Compress"</ins> because nnU-Net needs uncompressed data.
 - For our segmentation we used the volume *7 t1_fl3d_nonfs_tra_dyn*, so we save this file in the imagesTr directory and the segmentation file in the labelsTr directory.
 - Save.
@@ -127,7 +127,7 @@ generate_dataset_json('./nnUnet_raw/Dataset011_Breast', # insert the right path 
 
 The JSON file for example contains the names of the labels and which integer values are corresponding to what label. It also contains the number of training cases, so it can later be checked if this amount of training cases are really included in the dataset folder. For this example, the file should look like this:
 
-```
+```json
 {
     "channel_names": {
         "0": "MRI"
@@ -162,7 +162,7 @@ os.environ['nnUNet_preprocessed'] = "/content/drive/MyDrive/ColabNotebooks/nnUNe
 os.environ['nnUNet_results'] = "/content/drive/MyDrive/ColabNotebooks/nnUNet/nnUNet_results"
 ```
 
-Be aware, that you have to chose the right path to the respective directory.
+Be aware, that you have to choose the right path to the respective directory.
 
 To test, if the environment variables are correctly set, you can also use the command `!echo ${nnUNet_raw}` afterwards. If the right path of your nnUnet_raw directory is shown as output, you can go on to the next step of the tutorial. If the output is empty, you should check if you spelled everything right and try again.
 
@@ -170,35 +170,57 @@ To test, if the environment variables are correctly set, you can also use the co
 
 Before we can train the model with our images, the dataset has to be preprocessed. To do this, we can execute the following command:
 
-```
+```shell
 !nnUNetv2_plan_and_preprocess -d 011 --verify_dataset_integrity
 ```
-The dataset ID "011" has to be exchanged for the right ID of your dataset, that you want to use.
+The dataset ID `011` has to be exchanged for the right ID of your dataset, that you want to use.
 After preprocessing, a new directory including a preprocessed version of your dataset should appear in the nnUNet_preprocessed directory.
 
 ## Train model
 
 To train the model, we also just have to use one single command:
 
-```
-!nnUNetv2_train 011 3d_lowres 1
+```shell
+!nnUNetv2_train 011 3d_lowres 1 -tr nnUNetTrainer_5epochs
 ```
 
 Here are some of the options, that can be chosen from:
 
-- "011" is again the ID of the used dataset.
-- We chose "3d_lowres" because we have 3D images with a low resolution. There are also the options "3d_fullres", "2d" and "3d_cascade_lowres".
-- As device it is recommended to use a powerful GPU, but if your computer doesn't have one (and if you don't use Colab), you can add "-device cpu" to execute the training on the CPU.
+- `011` is again the ID of the used dataset.
+- We choose `3d_lowres` because we have 3D images with a low resolution. There are also the options `3d_fullres`, `2d` and `3d_cascade_lowres`.
+- The default number of training epochs is 1000. Because it would take a long time to train with this setting, we add `-tr nnUNetTrainer_5epochs` to only train for 5 epochs. To check, which numbers of epochs you can use whithout programming an own class, click [here](https://github.com/MIC-DKFZ/nnUNet/blob/master/nnunetv2/training/nnUNetTrainer/variants/training_length/nnUNetTrainer_Xepochs.py).
+- As device it is recommended to use a powerful GPU, but if your computer doesn't have one (and if you don't use Colab), you can add `-device cpu` to execute the training on the CPU.
 
-In most cases, the training will take a few hours. If you want to interrupt it, click on "Interrupt execution" and use the following command the next time, you want to continue the training.
+In most cases, the training will take one to a few hours (depends on the amount of epochs). If you want to interrupt it, click on "Interrupt execution" and use the following command the next time, you want to continue the training.
 
-```
-!nnUNetv2_train 011 3d_lowres 1 --c
+```shell
+!nnUNetv2_train 011 3d_lowres 1 -tr nnUNetTrainer_5epochs --c
 ```
 
 While the model is being fitted, you will get an output after each epoch, which will include some information like the training loss and validation loss and how long an epoch takes:
 
 ![](./Images/training_output.png "Training output")
+
+## Test model
+
+Now, that we have a trained model, we can test it by letting it predict the segmentation of a 3D volume, which wasn't part of the training data. Use the following code:
+
+```shell
+!nnUNetv2_predict   -i /content/drive/MyDrive/ColabNotebooks/nnUNet/nnUNet_raw/Dataset011_Breast/imagesTs 
+                    -o /content/drive/MyDrive/ColabNotebooks/nnUNet/nnUNet_raw/Dataset011_Breast/imagesTs/predictions 
+                    -d 011 -tr nnUNetTrainer_5epochs -c 3d_lowres -f 1
+```
+
+The configurations we used are listed below.
+
+- With `-i` followed by a path you can choose the input folder, where your test images are saved.
+- `-o` chooses the output folder, where the predicted segmentations should be saved (if the directory doesn't exist, it will be automatically created).
+- `-d 011 -tr nnUNetTrainer_5epochs -c 3d_lowres` means, that we want to choose the model, that was trained for 5 epochs with the dataset 011, including 3D low resolution images.
+- `-f 1` is used to choose, with which fold of the cross validation the model was trained.
+
+After the prediction is done, you can find the predicted segmentation in the chosen output folder. You can open it in 3D Slicer along with the reference volume to see how it turned out. In the following graphic you can see our example. You probably get a better result, if you train the model with more images and for more epochs, but also the time, the training takes, will be longer.
+
+![](./Images/predicted_segmentation.png "Predicted segmentation. Left: reference volume, right: segmentation")
 
 ## References
 
@@ -215,6 +237,8 @@ While the model is being fitted, you will get an output after each epoch, which 
 - <https://github.com/MIC-DKFZ/nnUNet/blob/master/documentation/dataset_format.md>
 
 - <https://github.com/MIC-DKFZ/nnUNet/blob/master/nnunetv2/dataset_conversion/generate_dataset_json.py>
+
+- <https://github.com/MIC-DKFZ/nnUNet/blob/master/nnunetv2/training/nnUNetTrainer/variants/training_length/nnUNetTrainer_Xepochs.py>
 
 - <https://pytorch.org/>
 
