@@ -1,3 +1,6 @@
+---
+sidebar_position: 1
+---
 # Introduction to Artificial Intelligence
 
 Artificial Intelligence (AI) becomes more and more important in the field of medicine.

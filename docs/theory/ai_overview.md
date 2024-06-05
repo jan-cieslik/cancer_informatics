@@ -6,16 +6,13 @@ Artificial intelligence (AI) can be described as the intelligence of machines th
 
 Machine learning (ML) refers to the learning process of an algorithm, which is iteratively adjusting its parameters to solve the given task. It can be divided into the following subfields:
 
-- **Supervised machine learning:** <br> 
+- **Supervised machine learning:** 
     Supervised machine learning works with labeled data by learning through input-output pairs.
-
-- **Unsupervised machine learning:** <br> 
+- **Unsupervised machine learning:**  
     The difference of unsupervised to supervised machine learning are the missing labels of the data. Unsupervised learning uses patterns in the data to associate similar data points with one another.
-
-- **Semi-supervised learning:** <br> 
+- **Semi-supervised learning:** 
     Semi-supervised learning is the connection of unsupervised with supervised machine learning. By using for example a (unsupervised) clustering algorithm before using a supervised learning technique, the data can be pre-structured beforehand, which can be useful.
-
-- **Reinforcement learning:** <br> 
+- **Reinforcement learning:**  
     In reinforcement learning, an agent interacts with an environment and gets rewards by following given rules or execute desired actions.
 
 ## Neural networks

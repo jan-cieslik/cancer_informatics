@@ -1,3 +1,6 @@
+---
+sidebar_position: 5
+---
 # Automated 3D MRI Segmentation with nnU-Net
 
 In [this tutorial](./3d_mri_segmentation.md) we learned how to segment a 3D MRI image with 3D Slicer. There, we had to set the segment seeds by ourselves before the software could calculate the segments. Another method, which doesn't require as much human input, is utilizing deep neural networks. In the following, we will use the pretrained deep learning model [nnU-Net](https://github.com/MIC-DKFZ/nnUNet) for automated image segmentation on our 3D MRI images. Be aware, that we not only will use Python code but also bash commands (Linux shell). Furthermore, we will execute the whole programm in Google Colab because it requires more computing power than our computers probably have.
@@ -34,7 +37,9 @@ Probably, there will appear a warning after installing nnU-Net, that you should 
 
 For working with Google Colab, the following steps have to be taken while being in Google Drive, so the data can be accessed in Colab.
 
-:::caution Never upload non-anonymized patient data to a cloud. :::
+:::caution 
+Never upload non-anonymized patient data to a cloud.
+:::
 
 ### Directory structure
 
