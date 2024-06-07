@@ -231,20 +231,20 @@ After the prediction is done, you can find the predicted segmentation in the cho
 
 - Isensee, F., Jaeger, P. F., Kohl, S. A., Petersen, J., & Maier-Hein, K. H. (2021). nnU-Net: a self-configuring method for deep learning-based biomedical image segmentation. Nature methods, 18(2), 203-211.
 
-- <https://colab.research.google.com>
+- https://colab.research.google.com
 
-- <https://github.com/MIC-DKFZ/nnUNet>
+- https://github.com/MIC-DKFZ/nnUNet
 
-- <https://github.com/MIC-DKFZ/nnUNet/blob/master/documentation/set_environment_variables.md>
+- https://github.com/MIC-DKFZ/nnUNet/blob/master/documentation/set_environment_variables.md
 
-- <https://github.com/MIC-DKFZ/nnUNet/blob/master/documentation/how_to_use_nnunet.md>
+- https://github.com/MIC-DKFZ/nnUNet/blob/master/documentation/how_to_use_nnunet.md
 
-- <https://github.com/MIC-DKFZ/nnUNet/blob/master/documentation/dataset_format.md>
+- https://github.com/MIC-DKFZ/nnUNet/blob/master/documentation/dataset_format.md
 
-- <https://github.com/MIC-DKFZ/nnUNet/blob/master/nnunetv2/dataset_conversion/generate_dataset_json.py>
+- https://github.com/MIC-DKFZ/nnUNet/blob/master/nnunetv2/dataset_conversion/generate_dataset_json.py
 
-- <https://github.com/MIC-DKFZ/nnUNet/blob/master/nnunetv2/training/nnUNetTrainer/variants/training_length/nnUNetTrainer_Xepochs.py>
+- https://github.com/MIC-DKFZ/nnUNet/blob/master/nnunetv2/training/nnUNetTrainer/variants/training_length/nnUNetTrainer_Xepochs.py
 
-- <https://pytorch.org/>
+- https://pytorch.org/
 
-- <https://www.slicer.org/>
+- https://www.slicer.org/
