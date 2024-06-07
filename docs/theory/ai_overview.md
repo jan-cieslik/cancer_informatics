@@ -1,10 +1,13 @@
-# Artificial intelligence - An overview
+# Artificial Intelligence - An Overview
 
-Artificial intelligence (AI) can be described as the intelligence of machines that works similar to human intelligence. So far, individual algorithms can solve specific tasks at human level and beyond. There is however no artificial general intelligence (AGI), yet.
+Artificial intelligence (AI) can be described as the intelligence of machines that works similar to human intelligence.
+So far, individual algorithms can solve specific tasks at human level and beyond.
+There is, however, no artificial general intelligence (AGI), yet.
 
 ## Machine Learning
 
-Machine learning (ML) refers to the learning process of an algorithm, which is iteratively adjusting its parameters to solve the given task. It can be divided into the following subfields:
+Machine learning (ML) refers to the learning process of an algorithm, which is iteratively adjusting its parameters to solve the given task.
+It can be divided into the following subfields:
 
 - **Supervised machine learning:** 
     Supervised machine learning works with labeled data by learning through input-output pairs.

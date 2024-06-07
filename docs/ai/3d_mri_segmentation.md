@@ -81,8 +81,8 @@ Also tick "visible segments only" to exclude the "air" segment. Then click "Expo
 
 - Pinter, C., Lasso, A., & Fichtinger, G. (2019). Polymorph segmentation representation for medical image computing. *Computer Methods and Programs in Biomedicine, 171*, 19-26. https://doi.org/10.1016/j.cmpb.2019.02.011
 
-- <https://www.dicomstandard.org/>
+- https://www.dicomstandard.org/
 
-- <https://www.slicer.org/>
+- https://www.slicer.org/
 
-- <https://slicer.readthedocs.io/en/latest/>
+- https://slicer.readthedocs.io/en/latest/
