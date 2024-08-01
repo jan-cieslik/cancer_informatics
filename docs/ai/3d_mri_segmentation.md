@@ -65,6 +65,36 @@ At the end do not forget to save the file. Otherwise, you have to start over aga
 
 ![](./Images/toolbar_save.png "Save file")
 
+## Export Segments of the MRI Images
+
+After we are done with our segments and set enough seeds we can also export these. 
+Firstly, use the "Save Data" function, which has already been mentioned in the section above. 
+For reasons of redundancy, this is not illustrated again.
+
+:::caution
+It is important to save the data **BEFORE** you use the "Grow from seed" function. 
+Otherwise, you won't be able to change your seeds in the future.
+:::
+
+This should open the following window as shown below. Note that you need to tick all three boxes.
+
+![](./Images/Save_Segmentation.png "Save Segmentation")
+
+Once you have selected the directory location, the following files should appear:
+
+![](./Images/Save_Segmentation_Directory.png "Save Segmentation Directory")
+
+As you can now see, four different files have been created. 
+The MRT image is hidden under the name ‘3 t2_tse_tra_bds’. 
+The segmentation is saved in the file ‘Segmentation.seg’. 
+The file ‘2024-07-24-Scene’ can be used to call up the segmentations and set seeds. 
+The PNG file of the same name only contains a sequence of the segmentation and should be ignored.
+
+:::note
+If further changes are made to the segments, it is not necessary to save the MRI image again. 
+The tick for the nrrd file can be removed accordingly.
+:::
+
 ## Export a 3D Mesh of the Segmentation
 
 Another thing we can do is exporting a 3D mesh of the segmentation to use it later on.
