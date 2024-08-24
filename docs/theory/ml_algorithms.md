@@ -12,7 +12,6 @@ In the following, some examples of popular algorithms are shown.
 
 |Algorithm|Description|Task|Pros & Cons|
 |---------|-----------|-----------|-----------|
-
 |Decision Trees|can be imagined as a tree, which splits from the root into leafs by making decisions based on the feature threshold|Classification and regression|+ can work with various data + easy to interpret + missing values can be interpolated + high performance + efficient - tends to overfit |
 |Random forests|consists of decision trees|Classification|+ no overfitting + efficient + noise can be handled - large amount of trees can increase computation time|
 |K-nearest neighbor|classifies a data point by chosing the class of its nearest neighbors|Classification and regression|+ simple use + can be used for multi-modal classification - large amount of training data lowers performance - noise and irrelevelant features decrease accuracy|
@@ -35,7 +34,6 @@ Here you can see a few examples of unsupervised machine learning algorithms:
 
 |Algorithm|Description|Task|Pros & Cons|
 |---------|-----------|-----------|-----------|
-
 |K-Means|creates a chosen number of clusters by adjusting the cluster centroids repeatedly|Partitional clustering|+ efficient + simple to interpret and use + fast - amount of clusters must be chosen before (even if they are unknown) - sensitive to amount of data|
 |Agglomerative clustering|clusters objects based on the distance between them|Hierarchical clustering|+ amount of clusters does not have to be given - high complexity (less efficient)|
 |Principal component analysis|reduces dimensionality by computing variables of the data without loosing too much information|Dimensionality reduction|+ fast calculation + lowers dimensionality to increase performance of other algorithms - can lead to information loss - difficult to interpret|
