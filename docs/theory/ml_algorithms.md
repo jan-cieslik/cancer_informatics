@@ -12,37 +12,35 @@ In the following, some examples of popular algorithms are shown.
 
 |Algorithm|Description|Task|Pros & Cons|
 |---------|-----------|-----------|-----------|
-|Decision Trees|can be imagined as a tree, which splits <br/>from the root into leaves by making <br/>decisions based on a feature threshold|classification and regression|+ can work with various data <br/>+ easy to interpret <br/>+ missing values can be interpolated <br/>+ efficient |
-|Random Forests|consists of decision trees|classification|+ efficient <br/>+ better noise tolerance <br/>- large number of trees can increase computation time|
-|K-Nearest Neighbour|classifies a data point by choosing <br/>the class of its nearest neighbours|classification and regression|+ simple use <br/>+ can be used for multimodal classification <br/>- large amount of training data lowers performance <br/>- noise and irrelevant features decrease accuracy|
-|Linear Regression|fits a line to the data|regression|+ simple use <br/>- can only be used for linear problems <br/>- maybe too simple for real problems|
-|Logistic Regression|fits a logistic curve to the data|classification|+ simple use <br/>+ noise can be tolerated <br/>+ efficient <br/>- requires large amounts of training data|
-|Naïve Bayes|classifies objects by using <br/>conditional probability|classification and <br/>clustering (unsupervised)|+ simple use <br/>+ fast training <br/>+ little data needed <br/>+ can be applied for binary & multiclass classification <br/>+ used data can be discrete or continuous <br/>- cannot be used if features are dependent (e.g., time)|
-|Support Vector Machines|classifies objects with the help of <br/>hyperplanes and creating margins <br/>between the classes|classification and regression|+ high accuracy <br/>+ works well with high-dimensional data <br/>- performance is dependent on parameter selection <br/>- noise decrease accuracy <br/>- difficult to interpret|
+
+|Decision Trees|can be imagined as a tree, which splits from the root into leafs by making decisions based on the feature threshold|Classification and regression|+ can work with various data + easy to interpret + missing values can be interpolated + high performance + efficient - tends to overfit |
+|Random forests|consists of decision trees|Classification|+ no overfitting + efficient + noise can be handled - large amount of trees can increase computation time|
+|K-nearest neighbor|classifies a data point by chosing the class of its nearest neighbors|Classification and regression|+ simple use + can be used for multi-modal classification - large amount of training data lowers performance - noise and irrelevelant features decrease accuracy|
+|Linear regression|fits a line to the data|Regression|+ simple use + overfitting can be avoided - can only be used for linear problems - may be too simple for real problems|
+|Logistic regression|fits a logistic curve to the data|Classification|+ simple use + noise can be tolerated + efficient - tends to overfit - requires large amounts of training data|
+|Naïve Bayes|classifies objects by using conditional propability|Classification and clustering (unsupervised)|+ simple use + fast training + little data needed + can be applied for binary & multiclass classification + used data can be discrete or continuous - cannot be used if features are dependent (e.g. time)|
+|Support Vector Machines|classifies objects with the help of hyperplanes and creating margins between the classes|Classification and regression|+ high accuracy + works well with high dimensional data + rarely overfits - performance is dependent on parameter selection - noise decrease accuracy - difficult to interpret|
 
 ## Unsupervised machine learning
 
-In contrast to supervised machine learning, unlabelled data is used for unsupervised machine learning.
-There are different divisions of unsupervised learning.
-The following is only an example:
-- **Clustering:**
-    Clusters of data points are created by finding their similarities and patterns.
-    Clustering can be divided into different techniques like hierarchical and partitional clustering.
-- **Dimensionality reduction:**
+In contrast to supervised machine learning, unlabeled data is used for unsupervised machine learning. There are different divisions of unsupervised learning. The following is only an example:
+- **Clustering:**  
+    Clusters of data points are created by finding their similarities and patterns. Clustering can be divided into different techniques like hierarchical and partitional clustering.
+- **Dimensionality reduction:**  
     High dimensional data is reduced to the most import information.
-- **Association rule learning:**
-    This technique is often used on large datasets, e.g., for data mining.
-    It is based on finding the associations of different features.
+- **Association rule learning:**  
+    This technique is often used on large datasets, e.g. for data mining. It is based on finding the associations of different features.
 
 Here you can see a few examples of unsupervised machine learning algorithms:
 
 |Algorithm|Description|Task|Pros & Cons|
 |---------|-----------|-----------|-----------|
-|K-Means|creates a chosen number of clusters by <br/>adjusting the cluster centroids repeatedly|partitional clustering|+ efficient <br/>+ simple to interpret and use <br/>- number of clusters must be chosen before (even if they are unknown) <br/>- sensitive to the amount of data|
-|Agglomerative Clustering | clusters objects based on the distance between them|hierarchical clustering|+ number of clusters does not have to be given <br/>- high complexity (less efficient)|
-|Principal Component Analysis|reduces dimensionality by computing <br/>variables of the data without losing too <br/>much information|dimensionality reduction|+ fast calculation <br/>+ lowers dimensionality to increase performance of other algorithms <br/>- can lead to information loss <br/>- difficult to interpret|
-|Apriori Algorithm|identifies frequently occurring data from <br/>a database by scanning it more than once|association rule learning|+ easy to implement <br/>- may have low performance|
-|Frequent Pattern Growth Algorithm|is an improvement of the _a priori_ <br/>algorithm, which needs to scan the database twice|association rule learning|+ efficient and fast <br/>- harder to implement|
+
+|K-Means|creates a chosen number of clusters by adjusting the cluster centroids repeatedly|Partitional clustering|+ efficient + simple to interpret and use + fast - amount of clusters must be chosen before (even if they are unknown) - sensitive to amount of data|
+|Agglomerative clustering|clusters objects based on the distance between them|Hierarchical clustering|+ amount of clusters does not have to be given - high complexity (less efficient)|
+|Principal component analysis|reduces dimensionality by computing variables of the data without loosing too much information|Dimensionality reduction|+ fast calculation + lowers dimensionality to increase performance of other algorithms - can lead to information loss - difficult to interpret|
+|Apriori algorithm|identifies frequently occurring data from  a database by scanning it more than once|Association rule learning|+ easy to implement - may have low performance|
+|Frequent pattern growth algorithm|is an improvement of the apriori algorithm, which needs to scan the database twice|Association rule learning|+ efficient and fast - harder to implement|
 
 ## References
 
