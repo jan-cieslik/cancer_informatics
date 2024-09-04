@@ -52,11 +52,11 @@ You can use the "Channels" tool in the viewer to adapt the visibility of each ch
 Before performing any analyses, it's crucial to understand the type of staining used in your images. Throughout this series, we will be working with images from the ACROBAT dataset stained with either Hematoxylin and Eosin (H&E) or H-DAB. These are commonly used staining techniques in histopathology. Here's a brief overview:
 
 ### Hematoxylin and Eosin (H&E) Staining:
-1. **Hematoxylin:** Stains the nuclei of cells a deep blue to purple. This stain binds to the acidic components of the nucleus, particularly DNA, allowing pathologists to visualize nuclear structures.
-2. **Eosin:** Stains the cytoplasm and extracellular matrix of tissues in varying shades of pink. Eosin is an acidic dye that binds to the basic components of cells, such as proteins, providing contrast to the nuclei stained by hematoxylin. Together, H&E staining provides a view of tissue architecture, highlighting both cellular and extracellular components.
+- **Hematoxylin:** Stains the nuclei of cells a deep blue to purple. This stain binds to the acidic components of the nucleus, particularly DNA, allowing pathologists to visualize nuclear structures.
+- **Eosin:** Stains the cytoplasm and extracellular matrix of tissues in varying shades of pink. Eosin is an acidic dye that binds to the basic components of cells, such as proteins, providing contrast to the nuclei stained by hematoxylin. Together, H&E staining provides a view of tissue architecture, highlighting both cellular and extracellular components.
 
 ### DAB Staining (3,3'-Diaminobenzidine):
-1. **DAB:** A chromogen used in immunohistochemistry (IHC) that produces a brown color upon reacting with the enzyme horseradish peroxidase (HRP), which is linked to the antibody targeting the antigen of interest. DAB staining can highlight virtually any antigen within a sample. For instance, in the context of Ki67 (a proliferation marker) staining, DAB marks Ki67-positive nuclei with a brown color, indicating cells that are actively proliferating.
+- **DAB:** A chromogen used in immunohistochemistry (IHC) that produces a brown color upon reacting with the enzyme horseradish peroxidase (HRP), which is linked to the antibody targeting the antigen of interest. DAB staining can highlight virtually any antigen within a sample. For instance, in the context of Ki67 (a proliferation marker) staining, DAB marks Ki67-positive nuclei with a brown color, indicating cells that are actively proliferating.
 
 ## Basic Functions in QuPath
 
@@ -84,3 +84,4 @@ For more instructions and information, have a look at QuPath documentation [here
 ## References
 
 - https://qupath.readthedocs.io/en/0.5/
+- Bankhead, P. et al. QuPath: Open source software for digital pathology image analysis. Scientific Reports (2017). https://doi.org/10.1038/s41598-017-17204-5
