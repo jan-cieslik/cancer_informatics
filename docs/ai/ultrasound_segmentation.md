@@ -417,12 +417,15 @@ for i in range(90, 100):
 
 We trained the model for 40 epochs.  Here are some of our output images:
 
-![](./Images/in_out_pred_sample_94.png "Image 94")
-![](./Images/in_out_pred_sample_98.png "Image 98")
-![](./Images/in_out_pred_sample_93.png "Image 93")
-![](./Images/in_out_pred_sample_97.png "Image 97")
+![](./Images/in_out_pred_sample_94.png "Image 1")
+![](./Images/in_out_pred_sample_98.png "Image 2")
+![](./Images/in_out_pred_sample_93.png "Image 3")
+![](./Images/in_out_pred_sample_97.png "Image 4")
 
-Your results may look different because of the random assignment of the images to the train and test dataset. As you can see, some predicted masks turned out well, others didn't. This could for example be improved by training for more epochs.
+Your results may look different because of the random assignment of the images to the train and test dataset. As you can see, some predicted masks turned out well, others didn't. This could for example be improved by training longer.
+In the following graphic, you can see how the results improve by training for more epochs. The form of the segmented tumor gets better, but on the other hand, the background gets noisier, what could have happened due to overfitting. For every case, an optimal amount of epochs has to be found to achieve the best results without risking the model to overfit.
+
+![](./Images/unet_training_comparison.png "Training for more epochs")
 
 ## References
 
