@@ -1,5 +1,5 @@
 ---
-sidebar_position: 4
+sidebar_position: 6
 ---
 # Introduction to QuPath
 
@@ -23,7 +23,7 @@ QuPath supports a variety of image formats commonly used in digital pathology, i
 
 To import images into your project, select "Project" > "Add Images." Navigate to your image file, select them, and click "Open." The images will be added to your project directory and ready for analysis.
 
-![](./Images/01 add images.png "Add images")
+![](./Images/qupath_01_add_images.png "Add images")
 
 ## Working with Overlays and Channels
 
