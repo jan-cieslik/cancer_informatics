@@ -1,5 +1,5 @@
 ---
-sidebar_position: 4
+sidebar_position: 6
 ---
 # Introduction to QuPath
 
@@ -13,7 +13,7 @@ For this tutorial series, we'll utilize the publicly available ACROBAT study dat
 
 To start using QuPath, download and install the software from the official QuPath GitHub page [here](https://github.com/qupath/qupath/releases/tag/v0.5.1). After launching QuPath, create a new project by selecting "Project" > "New Project" from the menu. Specify the directory where the project will be stored and name your project accordingly.
 
-![](./Images/01 create project.png "Create project")
+![](./Images/qupath_01_create_project.png "Create project")
 
 ## Importing Images
 
@@ -23,7 +23,7 @@ QuPath supports a variety of image formats commonly used in digital pathology, i
 
 To import images into your project, select "Project" > "Add Images." Navigate to your image file, select them, and click "Open." The images will be added to your project directory and ready for analysis.
 
-![](./Images/01 add images.png "Add images")
+![](./Images/qupath_01_add_images.png "Add images")
 
 ## Working with Overlays and Channels
 
@@ -32,20 +32,20 @@ QuPath allows for the import of multi-channel images, which is particularly usef
 To illustrate, we will import an image with Hematoxylin and Eosin (H&E) staining. During the import, ensure you select the image stained with H&E.
 - **Select Analysis > Set Image Type > Brightfield (H&E):** This ensures that QuPath recognizes the staining type and adjusts its tools accordingly.
 
-![](./Images/01 importing images.png "Import image")
+![](./Images/qupath_01_importing_images.png "Import image")
 
 ## Navigating Within the Image
 
 To navigate within the image, you can zoom in and out using the scroll wheel on your mouse or by using the zoom buttons on the toolbar. To move around the image, click and hold the left mouse button while dragging the image to the desired position. To move or recenter the image, you can also use the buttons of the toolbar shown below.
 
-![](./Images/01 navigating the image.png "Navigating within the image")
+![](./Images/qupath_01_navigating_the_image.png "Navigating within the image")
 
 ## Viewing Channels Separately
 You can use the "Channels" tool in the viewer to adapt the visibility of each channel individually. 
 
-![](./Images/01 viewing channels.png "Viewing channels")
+![](./Images/qupath_01_viewing_channels.png "Viewing channels")
 
-![](./Images/01 select different channels.png "Selecting different channels")
+![](./Images/qupath_01_select_different_channels.png "Selecting different channels")
 
 ## Understanding H&E and DAB Staining
 

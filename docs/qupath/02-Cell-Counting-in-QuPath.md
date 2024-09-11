@@ -1,5 +1,5 @@
 ---
-sidebar_position: 4
+sidebar_position: 7
 ---
 # Cell Counting in QuPath
 
@@ -20,11 +20,11 @@ Manual cell counting is a straightforward method where users manually annotate c
 3. **Place Markers**: Click on each cell within the image to place a marker. Each click represents one counted cell.
 4. **Review and Save**: Once all markers are placed, review your work. If everything is satisfactory, you can save your points as a .tsv file. This is also useful if you need to pause counting and resume later from where you stopped.
 
-![](./Images/02 select point tool.png "Select point tool")
+![](./Images/qupath_02_select_point_tool.png "Select point tool")
 
-![](./Images/02 add annotations.png "Add annotations")
+![](./Images/qupath_02_add_annotations.png "Add annotations")
 
-![](./Images/02 place markers.png "Place markers")
+![](./Images/qupath_02_place_markers.png "Place markers")
 
 The advantage of manual cell counting is obvious, as it provides a high level of precision. However it can be time-consuming, particularly for large datasets.
 
@@ -34,9 +34,9 @@ For larger datasets, automated cell counting is the preferred method, offering b
 
 **Tip**: When working with large images, tissues, or a high number of cells, cell detection can be resource-intensive in terms of processing time and computer memory. To optimize your workflow, it's recommended to perform initial tests on a smaller, representative area of your image. This allows you to fine-tune your parameters more efficiently. Once optimized, these parameters can be applied to larger areas or the entire image for further refinement.
 
-**Select the Rectangle/Brush/Circle/Wand Tool in the toolbar > Draw the shape over the area you want to analyze > Lock annotation**: Right-click on the annotation and select Lock Annotation to secure your selection. Locking ensures that the selected area remains fixed while you test and apply your optimized parameters. In the demonstration image, I used the Wand Tool to select an area with clearly visible cells for the automatic cell counting.
+- **Select the Rectangle/Brush/Circle/Wand Tool in the toolbar > Draw the shape over the area you want to analyze > Lock annotation**: Right-click on the annotation and select Lock Annotation to secure your selection. Locking ensures that the selected area remains fixed while you test and apply your optimized parameters. In the demonstration image, I used the Wand Tool to select an area with clearly visible cells for the automatic cell counting.
 
-![](./Images/02 create and lock annotation.png "Create and lock annotation")
+![](./Images/qupath_02_create_and_lock_annotation.png "Create and lock annotation")
 
 ### Steps for Automated Cell Detection:
 1. **Analyze > Open Cell Detection Tool**: Navigate to Analyze > Cell detection. This opens the cell detection configuration panel where you can customize the detection settings.
@@ -49,19 +49,19 @@ For larger datasets, automated cell counting is the preferred method, offering b
 5. **Apply Detection to Larger Area**: At this stage, you can apply the cell detection algorithm to a larger area or the entire image, depending on your requirements and analysis needs.
 6. **Check Cell Detection Number**: Close the configuration panel and go to the Annotation tab of your image. Click on the annotation area you marked in the first step, and the "Measurements" panel will appear below. There, you will find Num Detections, which shows the number of detected cells from your cell detection—this number represents the counted cells.
 
-![](./Images/02 open cell detection.png "Open cell detection")
+![](./Images/qupath_02_open_cell_detection.png "Open cell detection")
 
-![](./Images/02 cell detection parameters.png "Set cell detection parameters")
+![](./Images/qupath_02_cell_detection_parameters.png "Set cell detection parameters")
 
-![](./Images/02 showhide detection objects.png "Review results")
+![](./Images/qupath_02_showhide_detection_objects.png "Review results")
 
-![](./Images/02 check cell detection number.png "Check cell detection number")
+![](./Images/qupath_02_check_cell_detection_number.png "Check cell detection number")
 
 ## Final Result
 
 As shown in my results, QuPath detected 2,166 cells in the annotated area. Given the time manual counting would require, this highlights the efficiency of QuPath's automated cell counting for large tissues or entire datasets.
 
-![](./Images/02 final result.png "Final result")
+![](./Images/qupath_02_final_result.png "Final result")
 
 ## Manually Editing Pre-Detected Cells
 

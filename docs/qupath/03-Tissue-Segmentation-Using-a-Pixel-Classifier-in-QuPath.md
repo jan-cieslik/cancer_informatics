@@ -1,5 +1,5 @@
 ---
-sidebar_position: 4
+sidebar_position: 8
 ---
 # Tissue Segmentation Using a Pixel Classifier in QuPath
 
@@ -14,7 +14,7 @@ The pixel classifier in QuPath is a machine learning-based tool for automatic ti
 ## Importing the Ki67-Stained Whole Slide Image
 We'll be working with a Ki67-stained whole-slide image (WSI) from the ACROBAT dataset. For demonstration purposes, we'll use the image “0_KI67_val.tif” from the validation dataset “valid.zip”. You can import this image by following the steps outlined in our first article, “Introduction to QuPath.”
 
-![](./Images/03 import image.png "Import image")
+![](./Images/qupath_03_import_image.png "Import image")
 
 ## Identifying and Selecting Regions of Interest (ROIs)
 
@@ -22,7 +22,7 @@ As previously mentioned, QuPath is capable of performing complex image analyses,
 
 - **Select the Brush or Wand Tool:** Draw a shape along the outline of the tissue, in which you you want to continue working. Right-click on the annotation and select "Lock Annotation" to secure the selection.
 
-![](./Images/03 selecting ROI.png "Draw tissue annotation")
+![](./Images/qupath_03_selecting_ROI.png "Draw tissue annotation")
 
 Alternatively, you can use QuPath’s Pixel Thresholder to automatically create an annotation based on pixel intensity values. This method can often be more efficient and precise. However, since our demonstration image displays very light staining, the manual approach is faster and sufficiently accurate in this case. 
 
@@ -39,13 +39,13 @@ Let’s create these training annotations:
 3. **Classify Annotations:** You will now see all of your annotations in the annotation tab on the image on the left. Now classify each annotation by left-clicking on it to Classify or by clicking on each annotation first, then on the according class on the right and “Set Selected”.
 - Select Annotation > Select Class
 
-![](./Images/03 draw training annotations.png "Draw training annotations")
+![](./Images/qupath_03_draw training annotations.png "Draw training annotations")
 
-![](./Images/03 create class 1.png "Create class Step 1")
+![](./Images/qupath_03_create_class_1.png "Create class Step 1")
 
-![](./Images/03 create class 2.png "Create class Step 2")
+![](./Images/qupath_03_create_class_2.png "Create class Step 2")
 
-![](./Images/03 classify training annotarions.png "Classify training annotations")
+![](./Images/qupath_03_classify_training_annotarions.png "Classify training annotations")
 
 ## Creating Pixel Classifier for Tumor/Epithelial vs. Stroma Segmentation
 
@@ -62,23 +62,23 @@ Now that we have our training annotations, we can proceed with training the pixe
 5. **Save the Classifier:** Once you’re happy with the classifier’s performance, name and save it.
 6. **Create Objects > Current Selection:** After training, use the “Create Objects” function to segment the image based on your annotations. Make sure to select the current selection as the parent object. The segmented regions will appear as objects in the annotation tab. It is usually recommended to adjust the minimum object size and hole size, as pixel classification at high resolution can otherwise generate hundreds or even thousands of tiny objects. You can fine-tune these parameters either through trial and error or by estimating the minimum area based on your image’s characteristics and the desired object size.
 
-![](./Images/03 open pixel classifier.png "Open pixel classifier")
+![](./Images/qupath_03_open_pixel_classifier.png "Open pixel classifier")
 
-![](./Images/03 train pixel classification panel very high.png "Settings for pixel classification with very high resolution")
+![](./Images/qupath_03_train_pixel_classification_panel_very_high.png "Settings for pixel classification with very high resolution")
 
-![](./Images/03 low vs very high resolution.png "Pixel classifier with low vs. very high resolution")
+![](./Images/qupath_03_low_vs_very_high_resolution.png "Pixel classifier with low vs. very high resolution")
 
-![](./Images/03 show hide pixel overlay.png "Show/hide the pixel overlay to review results ")
+![](./Images/qupath_03_show_hide_pixel_overlay.png "Show/hide the pixel overlay to review results ")
 
-![](./Images/03 create objects from pixel classifier.png "Create objects from pixel classifier Step 1")
+![](./Images/qupath_03_create_objects_from_pixel_classifier.png "Create objects from pixel classifier Step 1")
 
-![](./Images/03 create objects from pixel classifier 2.png "Create objects from pixel classifier Step 2")
+![](./Images/qupath_03_create_objects_from_pixel_classifier_2.png "Create objects from pixel classifier Step 2")
 
 ## Measuring Tissue Composition with the Pixel Classifier
 
 When running the pixel classifier, QuPath automatically calculates the percentage of each tissue class (stroma vs. tumor/epithelium) based on the pixel area. In the annotation tab select the tissue annotation and the results will be displayed in the Measurements tab on the bottom left. That way the tissue classifier also proves as a method to assess tissue composition.
 
-![](./Images/03 results after running pixel classificier.png "Final results with measurements")
+![](./Images/qupath_03_results_after_running_pixel_classificier.png "Final results with measurements")
 
 As shown in my results, QuPath detected 19.89 % tumor/epithelial area and 80.10 % stromal area in my tissue. 
 
