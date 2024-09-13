@@ -1,6 +1,10 @@
-# Automated ultrasound segmentation
+---
+sidebar_position: 6
+---
 
-In this article we will learn how to programm a deep learning model for breast ultrasound image segmentation. More concretely, we will use the U-Net architecture, which is state of the art for image segmentation.
+# Automated Segmentation of 2D Ultrasound Images
+
+In this article, we will learn how to program a deep learning model for breast ultrasound image segmentation. More concretely, we will use the U-Net architecture, which is state of the art for image segmentation.
 In the following, we will use the model definition of [Pytorch-UNet](https://github.com/milesial/Pytorch-UNet/tree/master), published under the GPL-3.0 license. You can find the license agreement [here](https://github.com/milesial/Pytorch-UNet/tree/master?tab=GPL-3.0-1-ov-file#readme).
 
 ## Dataset
@@ -45,6 +49,7 @@ from PIL import Image
 import matplotlib.pyplot as plt
 import numpy as np
 from tqdm import tqdm
+import pandas as pd
 ```
 
 ## Data preparation
@@ -351,6 +356,8 @@ for epoch in tqdm(range(EPOCHS)): # tqdm() plots a progress bar
         loss += 1 - (2.*(output * mask).sum() + 1)/(output.view(-1).sum() + mask.view(-1).sum() + 1)
         epoch_test_loss += loss.item()
 
+    epoch_train_loss /= len(train_dataset)
+    epoch_test_loss /= len(test_dataset)
     total_train_loss.append(epoch_train_loss)
     total_test_loss.append(epoch_test_loss)
 
@@ -367,6 +374,13 @@ After the training process is finished, we have to save the parameters of our mo
 torch.save(model.state_dict(), f"/content/drive/MyDrive/Colab Notebooks/eps{EPOCHS}_bs{BATCH_SIZE}_unet.pth")
 ```
 
+If you want to plot the train and test loss later on, save the values into a `.csv` file with the following code. Be aware to insert the right path.
+
+```python
+df = pd.DataFrame({'train_loss': total_train_loss, 'test_loss': total_test_loss})
+df.to_csv(DATA_PATH + f'{EPOCHS}eps_loss.csv')
+```
+
 If the training wasn't finished or you want to train for more epochs, you can load the saved model and continue the training afterwards by executing the training and testing loops. For loading a model, use the following code and chose the right `EPOCHS` and `BATCH_SIZE`, which are included in the file name.
 
 ```python
@@ -377,7 +391,7 @@ When starting a new runtime, don't forget to run the other required cells as wel
 
 ## Test model
 
-To test the model and visualize, how well masks are predicted compared to the real masks, we can plot the masks with the Python package matplotlib. 
+To test the model and visualize, how well masks are predicted compared to the real masks, we can plot the masks with the Python package matplotlib.
 
 ```python
 def plot_image_prediction_mask(model, sample):
@@ -415,17 +429,21 @@ for i in range(90, 100):
     fig.savefig(f"/content/drive/MyDrive/Colab Notebooks/in_out_pred_sample_{i}.png")
 ```
 
-We trained the model for 40 epochs.  Here are some of our output images:
+Here are some of the output images of our model, which was trained for 40 epochs:
 
 ![](./Images/in_out_pred_sample_94.png "Image 1")
 ![](./Images/in_out_pred_sample_98.png "Image 2")
 ![](./Images/in_out_pred_sample_93.png "Image 3")
 ![](./Images/in_out_pred_sample_97.png "Image 4")
 
-Your results may look different because of the random assignment of the images to the train and test dataset. As you can see, some predicted masks turned out well, others didn't. This could for example be improved by training longer.
-In the following graphic, you can see how the results improve by training for more epochs. The form of the segmented tumor gets better, but on the other hand, the background gets noisier, what could have happened due to overfitting. For every case, an optimal amount of epochs has to be found to achieve the best results without risking the model to overfit.
+Your results may look different because of the random assignment of the images to the train and test dataset. As you can see, some predicted masks turned out well, others didn't. This can sometimes be improved by training longer, but it will not work in every case.
+In the following graphic, you can see how the results change by increasing the number of epochs. The form of the segmented tumor improves, but on the other hand, the background gets noisier, what could have happened due to overfitting.
 
 ![](./Images/unet_training_comparison.png "Training for more epochs")
+
+The train and test loss of a model trained for 200 epochs is shown below. As you can see, at approximately 30 epochs, the two curves start to diverge, which means, the model is overfitting from that point on. For every case, an optimal amount of epochs has to be found to achieve the best results without risking the model to overfit.
+
+![](./Images/loss.png "Train and test loss")
 
 ## References
 
