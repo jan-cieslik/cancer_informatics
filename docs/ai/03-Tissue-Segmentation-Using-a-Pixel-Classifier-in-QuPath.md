@@ -14,7 +14,11 @@ The pixel classifier in QuPath is a machine learning-based tool for automatic ti
 ## Importing the Ki67-Stained Whole Slide Image
 We'll be working with a Ki67-stained whole-slide image (WSI) from the ACROBAT dataset. For demonstration purposes, we'll use the image “0_KI67_val.tif” from the validation dataset “valid.zip”. You can import this image by following the steps outlined in our first article, “Introduction to QuPath.”
 
+<<<<<<<< HEAD:docs/ai/03-Tissue-Segmentation-Using-a-Pixel-Classifier-in-QuPath.md
 ![](./Images/qupath_03_import_image.png "Import image")
+========
+![]("./Images/03 import image.png" "Import image")
+>>>>>>>> db6105e0a4bfa3cc5aa2b654e6e9836c1178404a:docs/ai/03 Tissue Segmentation Using a Pixel Classifier in QuPath.md
 
 ## Identifying and Selecting Regions of Interest (ROIs)
 
