@@ -1,7 +1,7 @@
 ---
-sidebar_position: 6
+sidebar_position: 7
 ---
-# Introduction to QuPath
+# QuPath: Introduction
 
 QuPath is an open-source software designed for bioimage analysis, particularly in digital pathology. It facilitates the visualization, annotation, and analysis of large whole-slide images. QuPath is widely used for tasks such as cell detection, tissue classification, and fluorescence quantification, making it an essential tool for research in cancer, neuroscience, and other fields of biomedical science.
 

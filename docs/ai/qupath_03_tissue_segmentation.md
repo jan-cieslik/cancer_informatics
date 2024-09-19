@@ -1,24 +1,20 @@
 ---
-sidebar_position: 8
+sidebar_position: 9
 ---
-# Tissue Segmentation Using a Pixel Classifier in QuPath
+# QuPath: Tissue Segmentation Using a Pixel Classifier
 
 ## Introduction
 
-In this tutorial, we will learn how to use QuPath’s pixel classifier to distinguish between different regions of an image, specifically focusing on separating tumor/epithelial and stroma components in breast cancer tissue. The pixel classifier is a machine learning tool that segments tissue automatically based on pixel-level features such as color, texture, and intensity. Knowing this tool is necessary because tissue classification is often required for further image analyses, such as quantifying the Ki67 index, which we will cover in a subsequent article.
+In this tutorial, we will learn how to use QuPath’s pixel classifier to distinguish between different regions of an image, specifically focusing on separating tumor/epithelial and stroma components in breast cancer tissue. The pixel classifier is a machine learning tool that segments tissue automatically based on pixel-level features such as color, texture, and intensity. Knowing this tool is necessary because tissue classification is often required for further image analyses, such as quantifying the Ki-67 index, which we will cover in a subsequent article.
 
 ## Understanding the Pixel Classifier 
 
 The pixel classifier in QuPath is a machine learning-based tool for automatic tissue classification by analyzing individual pixel characteristics like color, texture, and intensity. It learns to differentiate tissue types based on predefined annotations and then applies this knowledge across the entire image. For instance, in breast cancer tissues, the classifier can learn to automatically distinguish between tumor/epithelial and stroma regions after training on representative samples.
 
-## Importing the Ki67-Stained Whole Slide Image
-We'll be working with a Ki67-stained whole-slide image (WSI) from the ACROBAT dataset. For demonstration purposes, we'll use the image “0_KI67_val.tif” from the validation dataset “valid.zip”. You can import this image by following the steps outlined in our first article, “Introduction to QuPath.”
+## Importing the Ki-67-Stained Whole Slide Image
+We'll be working with a Ki-67-stained whole-slide image (WSI) from the ACROBAT dataset. For demonstration purposes, we'll use the image "0_KI67_val.tif" from the validation dataset "valid.zip". You can import this image by following the steps outlined in our first article,["QuPath: Introduction"](./qupath_01_Introduction.md).
 
-<<<<<<<< HEAD:docs/ai/03-Tissue-Segmentation-Using-a-Pixel-Classifier-in-QuPath.md
 ![](./Images/qupath_03_import_image.png "Import image")
-========
-![]("./Images/03 import image.png" "Import image")
->>>>>>>> db6105e0a4bfa3cc5aa2b654e6e9836c1178404a:docs/ai/03 Tissue Segmentation Using a Pixel Classifier in QuPath.md
 
 ## Identifying and Selecting Regions of Interest (ROIs)
 
@@ -40,10 +36,10 @@ Let’s create these training annotations:
 2. **Create Classes:** In the annotation tab, QuPath provides pre-defined classes. If none of these match your needs, you can create custom classes by clicking the three-dot menu at the bottom of the panel and adding new classes. These are the classes I used:
 - Stroma (pre-existing)
 - Tumor/Epithelial (new class)
-3. **Classify Annotations:** You will now see all of your annotations in the annotation tab on the image on the left. Now classify each annotation by left-clicking on it to Classify or by clicking on each annotation first, then on the according class on the right and “Set Selected”.
+3. **Classify Annotations:** You will now see all of your annotations in the annotation tab on the image on the left. Now classify each annotation by left-clicking on it to classify or by clicking on each annotation first, then on the according class on the right and "Set Selected".
 - Select Annotation > Select Class
 
-![](./Images/qupath_03_draw training annotations.png "Draw training annotations")
+![](./Images/qupath_03_draw_training_annotations.png "Draw training annotations")
 
 ![](./Images/qupath_03_create_class_1.png "Create class Step 1")
 
@@ -57,14 +53,14 @@ Now that we have our training annotations, we can proceed with training the pixe
 
 1. **Classify > Pixel Classification > Train Pixel Classifier:** This will open the pixel classifier configuration panel.
 2. **Set Parameters**: 
-- **Classifier > Random Trees (RTrees):** Choose “Random Trees (RTrees)” as the learning algorithm, as it is commonly used. 
+- **Classifier > Random Trees (RTrees):** Choose "Random Trees (RTrees)" as the learning algorithm, as it is commonly used. 
 - **Resolution:** Set the resolution to determine the level of detail. Higher resolution captures finer details for distinguishing between closely related tissue types. However, using higher resolution increases processing time. Conversely, lower resolution speeds up processing but may lose some precision. Low to mid-level resolution is often a good starting point. 
-- **Region > Any Annotation ROI:** Select “Any Annotation ROI” to ensure that the classifier only runs within the annotated tissue region, rather than on the entire image.
+- **Region > Any Annotation ROI:** Select "Any Annotation ROI" to ensure that the classifier only runs within the annotated tissue region, rather than on the entire image.
 - **Other Parameters:** QuPath provides many options for adjusting parameters. In this tutorial, we’ll stick to the basic settings, but if the standard parameters don't work for your specific image, you can explore the other options and parameters. 
-3. **Live Predicition:** Click “Live Prediction” to preview how the classifier distinguishes between tumor and stroma regions based on your training annotations. The preview automatically updates as you modify or add training annotations.
+3. **Live Predicition:** Click "Live Prediction" to preview how the classifier distinguishes between tumor and stroma regions based on your training annotations. The preview automatically updates as you modify or add training annotations.
 4. **Review Results:** If the classifier doesn’t perform well enough yet, refine it by adding, modifying, or deleting annotations. Keep the configuration panel open to observe the results as you fine-tune the training annotations. For better visibility, you can show/hide the pixel overlay by clicking the C symbol in the toolbar.
 5. **Save the Classifier:** Once you’re happy with the classifier’s performance, name and save it.
-6. **Create Objects > Current Selection:** After training, use the “Create Objects” function to segment the image based on your annotations. Make sure to select the current selection as the parent object. The segmented regions will appear as objects in the annotation tab. It is usually recommended to adjust the minimum object size and hole size, as pixel classification at high resolution can otherwise generate hundreds or even thousands of tiny objects. You can fine-tune these parameters either through trial and error or by estimating the minimum area based on your image’s characteristics and the desired object size.
+6. **Create Objects > Current Selection:** After training, use the "Create Objects" function to segment the image based on your annotations. Make sure to select the current selection as the parent object. The segmented regions will appear as objects in the annotation tab. It is usually recommended to adjust the minimum object size and hole size, as pixel classification at high resolution can otherwise generate hundreds or even thousands of tiny objects. You can fine-tune these parameters either through trial and error or by estimating the minimum area based on your image’s characteristics and the desired object size.
 
 ![](./Images/qupath_03_open_pixel_classifier.png "Open pixel classifier")
 
@@ -88,7 +84,7 @@ As shown in my results, QuPath detected 19.89 % tumor/epithelial area and 80.10 
 
 ## Conclusion
 
-QuPath’s pixel classifier is an essential tool, as many subsequent analyses rely on properly classifying tissue regions first. Learning to use the pixel classifier serves as a foundation for more further analyses, such as calculating the Ki67 index, which we will cover in the next tutorial. Not only does the pixel classifier reduce manual effort, but it also ensures consistent results across large datasets.
+QuPath’s pixel classifier is an essential tool, as many subsequent analyses rely on properly classifying tissue regions first. Learning to use the pixel classifier serves as a foundation for more further analyses, such as calculating the Ki-67 index, which we will cover in the next tutorial. Not only does the pixel classifier reduce manual effort, but it also ensures consistent results across large datasets.
 
 ## References
 

@@ -1,7 +1,7 @@
 ---
-sidebar_position: 7
+sidebar_position: 8
 ---
-# Cell Counting in QuPath
+# QuPath: Cell Counting
 
 In this article, we dive deeper into QuPath's cell counting functions, exploring both manual and automated approaches. We'll continue working with the ACROBAT breast cancer dataset, using the “0_HE_val.tif” image from the validation dataset “valid.zip” as our demonstration image.
 
@@ -73,7 +73,7 @@ Combining automatic cell detection with manual editing often provides the best b
 
 ## Next Steps: Classifying Detected Cells
 
-After cell detection, QuPath allows you to classify detected cells based on additional criteria such as staining intensity, size, or texture. This is especially useful for distinguishing between different cell types. In the next article, we will learn how to perform this classification using a KI67 staining, which is commonly used to assess the proliferation rate of breast cancer tissues.
+After cell detection, QuPath allows you to classify detected cells based on additional criteria such as staining intensity, size, or texture. This is especially useful for distinguishing between different cell types. In the next article, we will learn how to perform this classification using a Ki-67 staining, which is commonly used to assess the proliferation rate of breast cancer tissues.
 
 ## References
 
