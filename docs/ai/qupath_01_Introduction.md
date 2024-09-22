@@ -7,7 +7,7 @@ QuPath is an open-source software designed for bioimage analysis, particularly i
 
 ## Using the ACROBAT Dataset for QuPath Analysis
 
-For this tutorial series, we'll utilize the publicly available ACROBAT study dataset, which provides whole-slide images (WSIs) from 1,153 primary breast cancer patients, scanned at 10x magnification. It includes images stained with Hematoxylin and Eosin (H&E) as well as immunohistochemistry (IHC) markers such as ER (Estrogen Receptor), PR (Progesterone Receptor), HER2, and Ki67. This dataset will enable us to explore various functionalities in QuPath, from project creation to image analysis. You can download the dataset [here](https://snd.se/en/catalogue/dataset/2022-190-1). The demonstration image for this article is “0_HE_val.tif” from the validation dataset “valid.zip”.
+For this tutorial series, we'll utilize the publicly available ACROBAT study dataset, which provides whole-slide images (WSIs) from 1,153 primary breast cancer patients, scanned at 10x magnification. It includes images stained with Hematoxylin and Eosin (H&E) as well as immunohistochemistry (IHC) markers such as ER (Estrogen Receptor), PR (Progesterone Receptor), HER2, and Ki67. This dataset will enable us to explore various functionalities in QuPath, from project creation to image analysis. You can download the dataset [here](https://snd.se/en/catalogue/dataset/2022-190-1). The demonstration image for this article is "0_HE_val.tif" from the validation dataset "valid.zip".
 
 ## Introduction to Working with QuPath
 

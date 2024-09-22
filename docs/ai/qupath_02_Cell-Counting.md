@@ -3,7 +3,7 @@ sidebar_position: 8
 ---
 # QuPath: Cell Counting
 
-In this article, we dive deeper into QuPath's cell counting functions, exploring both manual and automated approaches. We'll continue working with the ACROBAT breast cancer dataset, using the “0_HE_val.tif” image from the validation dataset “valid.zip” as our demonstration image.
+In this article, we dive deeper into QuPath's cell counting functions, exploring both manual and automated approaches. We'll continue working with the ACROBAT breast cancer dataset, using the "0_HE_val.tif" image from the validation dataset "valid.zip" as our demonstration image.
 
 ## Manual Cell Counting 
 
@@ -14,7 +14,7 @@ Manual cell counting is a straightforward method where users manually annotate c
 2. **Select the Point Tool > Add Annotations > Place Markers**:
 - In the toolbar, select the Point Tool.
 - In the configuration panel, click Add to create an annotation for the cell class you wish to count.
-- If desired, double-click on the annotation to rename it (e.g., "tumor cells," "nuclei," etc.) or to change the marker color.
+- If desired, double-click on the annotation to rename it (e.g., "tumor", "nuclei", etc.) or to change the marker color.
 - Adjust the point size based on the size of the cells.
 - You can also create multiple annotations to categorize and count different types of cells simultaneously. For better visibility, assign a different color to each cell class.
 3. **Place Markers**: Click on each cell within the image to place a marker. Each click represents one counted cell.
