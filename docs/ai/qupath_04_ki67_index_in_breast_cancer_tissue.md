@@ -37,8 +37,8 @@ To accurately measure the Ki67 index, we must later focus on regions with identi
 
 The standard approach involves counting at least 500 to 1,000 tumor cells in areas of high magnification, focusing on those with the highest proliferation. The Ki67 index is calculated as the percentage of Ki67-positive nuclei out of the total number of nuclei in the tumor region, using the formula:
 
-Ki-67 index= (total number of tumor cells/number of Ki-67 positive cells)×100
- 
+![](./Images/qupath_04_ki67_formula.png "Ki-67 index")
+
 For this tutorial:
 
 - Focus on Tumor Regions with high concentration of brown-stained nuclei (= KI67 positive nuclei)
@@ -93,8 +93,6 @@ In this case, QuPath detected 5.37 % Ki67-positive cells out of the previously d
 ## Selecting a Hotspot for Ki67 Analysis
 
 After completing both cell detection and positive cell detection across the entire tumor/epithelial region, you can now focus on identifying a hotspot to calculate the Ki67 index more precisely. While QuPath does not automatically highlight hotspots, you can visually select an area that appears to have the highest concentration of Ki67-positive cells. Hotspots are typically identified either through manual inspection or semi-automated methods like heatmaps.
-
-For this tutorial, we will manually select a hotspot, but in the next article, we will explore heatmaps, demonstrating their application in HER2 analysis.
 
 It’s important to note that this annotation should be placed within the larger annotation of the tumor/epithelial tissue. Once the annotation is created, QuPath will automatically calculate and display the number of detected cells along with the percentage of Ki67-positive cells within the selected region.
 
