@@ -100,7 +100,7 @@ It’s important to note that this annotation should be placed within the larger
 
 ![](./Images/qupath_04_selecting_a_hotspot.png "Selecting a hotspot")
 
-![](./Images/qupath_04_measuring_Ki67_index_within_the_hotspot.png "Ki-67 Index within the hotspot")
+![](./Images/qupath_04_measuring_ki67_index_within_the_hotspot.png "Ki-67 Index within the hotspot")
 
 In this example, QuPath detected 1807 cells within my annotated hotspot, with 14.1% classified as Ki-67-positive.
 
