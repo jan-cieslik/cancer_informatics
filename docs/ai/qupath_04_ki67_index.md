@@ -37,7 +37,7 @@ To accurately measure the Ki-67 index, we must later focus on regions with ident
 
 The standard approach involves counting at least 500 to 1,000 tumor cells in areas of high magnification, focusing on those with the highest proliferation. The Ki-67 index is calculated as the percentage of Ki-67-positive nuclei out of the total number of nuclei in the tumor region, using the formula:
 
-![](./Images/qupath_04_Ki67_formula.png "Ki-67 index")
+![](./Images/qupath_04_ki67_formula.png "Ki-67 index")
 
 For this tutorial:
 
