@@ -96,8 +96,6 @@ chr6	152011739	.	C	A	0.0	.	AS_SB_TABLE=34,31|19,35;DP=120;ECNT=9;MBQ=38,39;MFRL=
 
 ## Processing Steps
 
-![NGS Overview](./Images/NGS_Overview.png)
-
 Our analysis journey begins with raw NGS reads in the FASTQ file format.
 At first, we need to align the reads with a reference genome (e.g., hg38) to understand where the raw reads may be positioned inside the human genome.
 After mapping we receive a SAM or BAM file, which stores our original reads together with a position information.

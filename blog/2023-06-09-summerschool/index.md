@@ -8,7 +8,7 @@ Are you eager to explore the cutting-edge field of _Cancer Informatics_?
 Do you want to enhance your understanding of data analysis, bioinformatics, and computational techniques in cancer research?
 Look no further!
 We are thrilled to announce the launch of the Cancer Informatics Summer School, an immersive and transformative educational experience designed for students like you.
-
+<!-- truncate -->
 
 Duration: 5 days  
 Location: Heinrich-Heine-University Düsseldorf, Germany
