@@ -28,7 +28,7 @@ In HER2 staining, DAB highlights HER2-positive membranes with a brown color, ind
 
 HER2 scoring is a critical component in the evaluation of breast cancer, particularly for determining the suitability of targeted therapies. The scoring system is generally based on the intensity of HER2 membrane staining and the percentage of tumor cells showing this staining. According to guidelines developed by the American Society of Clinical Oncology (ASCO) and the College of American Pathologists (CAP), HER2 scoring is categorized as follows:
 
-- **Score 0:** No staining or membrane staining in <10% of tumor cells.
+- **Score 0:** No staining or membrane staining in &lt;10% of tumor cells.
 - **Score 1+ (Negative):** Faint membrane staining in ≥10% of tumor cells with incomplete membrane staining. The cells exhibit incomplete membrane staining.
 - **Score 2+ (Equivocal):** Weak to moderate complete membrane staining in ≥10% of tumor cells.
 - **Score 3+ (Positive):** Strong complete membrane staining in ≥10% of tumor cells.
@@ -208,7 +208,7 @@ This tutorial is intended for learning and technical understanding of HER2 analy
 
 ## References
 
-- https://qupath.readthedocs.io/en/0.5/docs/intro/about.html2
+- https://qupath.readthedocs.io/en/latest/docs/intro/about.html
 - https://forum.image.sc/t/implementing-h-score/75041
 - https://github.com/saramcardle/Image-Analysis-Scripts/blob/master/QuPath%20Groovy%20Scripts/QuPath%200.4.x/PixelwiseHScore.groovy
 - Bankhead, P. et al. QuPath: Open source software for digital pathology image analysis. Scientific Reports (2017). https://doi.org/10.1038/s41598-017-17204-5

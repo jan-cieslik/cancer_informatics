@@ -79,9 +79,9 @@ To further enhance efficiency, QuPath supports scripting with Groovy or Python t
 
 ## Further Information
 
-For more instructions and information, have a look at QuPath documentation [here](https://qupath.readthedocs.io/en/0.5/).
+For more instructions and information, have a look at QuPath documentation [here](https://qupath.readthedocs.io/en/latest/).
 
 ## References
 
-- https://qupath.readthedocs.io/en/0.5/
+- https://qupath.readthedocs.io/en/latest/
 - Bankhead, P. et al. QuPath: Open source software for digital pathology image analysis. Scientific Reports (2017). https://doi.org/10.1038/s41598-017-17204-5
