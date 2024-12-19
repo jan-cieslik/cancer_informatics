@@ -10,14 +10,14 @@ In the following, we will use the model definition of [Pytorch-UNet](https://git
 ## Dataset
 
 We will use [this ultrasound image dataset](https://www.sciencedirect.com/science/article/pii/S2352340919312181?via%3Dihub), which you can also download [here](https://www.kaggle.com/datasets/aryashah2k/breast-ultrasound-images-dataset/).
-After downloading the images, you can see that the dataset contains the directories "benign", "malignant" and "normal". For this example, we copy all of the images into one directory. The different labels are still distinguishable through the file names. To each ultrasound image one or multiple masks are included, which show where tumors are located. Our goal will be to let our model predict masks as similar as possible to the true ones.
+After downloading the images, you can see that the dataset contains the directories "benign", "malignant" and "normal". For this example, we copy all of the images into one directory. The different labels are still distinguishable through the file names. For each ultrasound image one or multiple masks are included, which show where tumors are located. Our goal will be to let our model predict masks as similar as possible to the true ones.
 
 ## Working with Google Colab
 
 The training of deep learning models requires more computing power than our private computers can provide. Google Colab offers GPUs we can use for free for a certain amount of time.
 We start by uploading the dataset to Google drive. To set up a new project in Colab, follow the steps described [here](https://cancer-informatics.org/docs/ai/automated_mri_segmentation#working-with-google-colab)
 
-After starting a new project, you have to mount drive by using the following code:
+After starting a new project, you have to mount (Google) drive by using the following code:
 
 ```python
 from google.colab import drive
@@ -391,7 +391,7 @@ When starting a new runtime, don't forget to run the other required cells as wel
 
 ## Test model
 
-To test the model and visualize, how well masks are predicted compared to the real masks, we can plot the masks with the Python package matplotlib.
+To test the model and visualize how well masks are predicted compared to the real masks, we can plot the masks with the Python package matplotlib.
 
 ```python
 def plot_image_prediction_mask(model, sample):
@@ -451,12 +451,12 @@ The train and test loss of a model trained for 200 epochs is shown below. As you
 
 - Al-Dhabyani, W., Gomaa, M., Khaled, H., & Fahmy, A. (2020). Dataset of breast ultrasound images. *Data in Brief*, 28. https://doi.org/10.1016/j.dib.2019.104863
 
-- <https://github.com/milesial/Pytorch-UNet/tree/master>
+- https://github.com/milesial/Pytorch-UNet/tree/master
 
-- <https://github.com/milesial/Pytorch-UNet/tree/master?tab=GPL-3.0-1-ov-file#readme>
+- https://github.com/milesial/Pytorch-UNet/tree/master?tab=GPL-3.0-1-ov-file#readme
 
-- <https://colab.research.google.com>
+- https://colab.research.google.com
 
-- <https://pytorch.org/>
+- https://pytorch.org
 
-- <https://pytorch.org/tutorials/beginner/data_loading_tutorial.html>
+- https://pytorch.org/tutorials/beginner/data_loading_tutorial.html
