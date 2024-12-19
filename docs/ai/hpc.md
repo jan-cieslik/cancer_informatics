@@ -190,8 +190,8 @@ After being automatically connected to a computing node, you can start running y
 
 ## References
 
-- <https://www.altair.de/pbs-professional/>
+- https://www.altair.de/pbs-professional/
 
-- <https://wiki.hhu.de/display/HPC/Wissenschaftliches+Hochleistungs-Rechnen+am+ZIM>
+- https://wiki.hhu.de/display/HPC/Wissenschaftliches+Hochleistungs-Rechnen+am+ZIM
 
-- <https://myjam3.hhu.de/>
+- https://myjam3.hhu.de/
