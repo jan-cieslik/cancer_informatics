@@ -13,6 +13,7 @@ We are thrilled to announce the launch of the Cancer Informatics Summer School, 
 Duration: 5 days  
 Location: Heinrich-Heine-University Düsseldorf, Germany
 ## Dates
+- 24 - 08 February 2025
 - 23 - 27 September 2024
 - 18 - 22 March 2024
 - 7 - 11 August 2023  
