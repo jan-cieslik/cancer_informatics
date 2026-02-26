@@ -105,6 +105,150 @@ html[data-theme="dark"] .logo {
   }
 }
 
+/* Course Announcement Section */
+.courseAnnouncementSection {
+  padding: 3rem 2rem;
+  background: #d0e8dc;
+  position: relative;
+  overflow: hidden;
+}
+
+html[data-theme="dark"] .courseAnnouncementSection {
+  background: #1a1a2e;
+}
+
+.courseAnnouncementSection::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -10%;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: pulse 4s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+}
+
+.announcementBox {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  padding: 3rem;
+  border: 3px solid rgba(255, 255, 255, 0.5);
+  position: relative;
+  z-index: 1;
+  animation: slideDown 0.6s ease-out;
+}
+
+html[data-theme="dark"] .announcementBox {
+  background: #252d42;
+  border-color: #2a4a3a;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.announcementContent {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.announcementLabel {
+  display: inline-block;
+  background: linear-gradient(135deg, #2e8555 0%, #4cd964 100%);
+  color: white;
+  padding: 0.5rem 1.5rem;
+  border-radius: 50px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+  margin-bottom: 1.5rem;
+}
+
+html[data-theme="dark"] .announcementLabel {
+  background: linear-gradient(135deg, #4cd964 0%, #64c8ff 100%);
+}
+
+.announcementTitle {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+
+html[data-theme="dark"] .announcementTitle {
+  color: #f0f5f9;
+}
+
+.announcementText {
+  font-size: 1.25rem;
+  color: #333333;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+html[data-theme="dark"] .announcementText {
+  color: #b0bcc4;
+}
+
+.announcementButton {
+  background: linear-gradient(135deg, #2e8555 0%, #4cd964 100%);
+  border: none;
+  color: white;
+  font-weight: 700;
+  font-size: 1.1rem;
+  padding: 1rem 2.5rem;
+  border-radius: 12px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.announcementButton:hover {
+  transform: translateY(-3px);
+  background: linear-gradient(135deg, #1a5d3a 0%, #2e8555 100%);
+}
+
+html[data-theme="dark"] .announcementButton {
+  background: linear-gradient(135deg, #4cd964 0%, #64c8ff 100%);
+}
+
+html[data-theme="dark"] .announcementButton:hover {
+  background: linear-gradient(135deg, #2e8555 0%, #4cd964 100%);
+}
+
+@media screen and (max-width: 768px) {
+  .announcementTitle {
+    font-size: 1.8rem;
+  }
+  
+  .announcementText {
+    font-size: 1rem;
+  }
+  
+  .announcementBox {
+    padding: 2rem 1.5rem;
+  }
+}
+
 /* Learning Paths Section */
 .learningPaths {
   padding: 5rem 2rem;

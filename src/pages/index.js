@@ -17,6 +17,25 @@ function HeroLogo() {
   );
 }
 
+function CourseAnnouncement() {
+  return (
+    <section className={styles.courseAnnouncementSection}>
+      <div className="container">
+        <div className={styles.announcementBox}>
+          <div className={styles.announcementContent}>
+            <div className={styles.announcementLabel}>📅 UPCOMING COURSE</div>
+            <h2 className={styles.announcementTitle}>Next Course: 23 - 27 March 2026</h2>
+            <p className={styles.announcementText}>Join us for an intensive hands-on workshop in cancer informatics</p>
+            <Link className={clsx('button button--primary button--lg', styles.announcementButton)} to="/blog/summerschool">
+              Register Now →
+            </Link>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function LearningPathCard({ icon, title, description, link }) {
   return (
     <div className={styles.pathCard}>
@@ -172,6 +191,7 @@ export default function Home() {
       title={`${siteConfig.title} - Learn Modern Cancer Research`}
       description="Comprehensive guide to cancer informatics, including R programming, machine learning, and bioinformatics analysis">
       <HeroLogo />
+      <CourseAnnouncement />
       <LearningPaths />
       <Features />
       <TopicHighlights />
